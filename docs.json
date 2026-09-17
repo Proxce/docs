@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "theme": "luma",
+  "name": "Oloid Docs",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -9,64 +9,81 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "pages": [
+    "tabs": [
       {
-        "group": "Getting Started",
+        "tab": "Get Started",
         "pages": [
-          "index",
-          "quickstart"
-        ]
+          {
+            "group": "Getting Started",
+            "pages": [
+              "index",
+              "quickstart"
+            ]
+          }
+        ],
+        "icon": "rocket"
+      },
+      {
+        "tab": "Passwordless",
+        "menu": [
+          {
+            "item": "Web - Chrome Vault",
+            "groups": [
+              {
+                "group": "Admin Guides",
+                "pages": [
+                  "passwordless/web-chrome-vault/admin-guides/oloid-vault-chrome-chromium-how-to-create-and-configure-oloid-vault"
+                ],
+                "icon": "user-shield"
+              }
+            ],
+            "icon": {
+              "name": "chrome",
+              "library": "fontawesome",
+              "style": "brands"
+            }
+          }
+        ],
+        "icon": "fingerprint"
+      },
+      {
+        "tab": "Administration",
+        "menu": [
+          {
+            "item": "Windows Login",
+            "groups": [
+              {
+                "group": "Admin Guides",
+                "pages": [
+                  "administration/windows-login/admin-guides/how-to-configure-okta-multi-factor-authentication-mfa-for-the-windows"
+                ],
+                "icon": "user-shield"
+              }
+            ],
+            "icon": {
+              "name": "windows",
+              "library": "fontawesome",
+              "style": "brands"
+            }
+          }
+        ],
+        "icon": "gear"
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
-    }
-  },
   "contextual": {
     "options": [
       "copy",
       "view",
-      "chatgpt",
       "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+      "chatgpt"
     ]
   },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+  "styling": {
+    "eyebrows": "breadcrumbs"
   }
 }
