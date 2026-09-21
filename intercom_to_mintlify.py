@@ -53,7 +53,9 @@ EXISTING_PAGES_TAB = "Get Started"
 #  3. THEME AND PRESENTATION
 #  ---------------------------------------------------------------------
 #  THEME    - one of: mint, maple, palm, willow, linden, almond, aspen,
-#             sequoia, luma
+#             sequoia, luma. Set to `luma`.
+#             reference config; the prose measure is capped in
+#             style.css, so the theme is a styling choice only.
 #  EYEBROWS - "breadcrumbs" shows the full path above each page title,
 #             "section" (Mintlify's default) shows only the section name.
 # ===========================================================================
@@ -108,7 +110,16 @@ STYLE_CSS = STYLE_MARKER + """
 
   --oloid-body-size: 15px;
   --oloid-leading: 1.6;
-  --oloid-measure: 76ch;
+  /* Column split. Only the two sidebars are sized; the article slot is the
+     flex-1 remainder, so it lands on 2/3 without being set anywhere. The two
+     values are the SAME width stated against different parents, so they must
+     be changed together: --oloid-rail against the viewport, and
+     --oloid-rail-of-main against <main> (the 83.3333% the fixed nav leaves,
+     hence 16.6667 / 83.3333 = 20%). */
+  --oloid-rail: 16.6667%;             /* each sidebar, of the viewport  = 1/6 */
+  --oloid-rail-of-main: 20%;          /* the same 1/6, measured in <main>     */
+  /* Width of the text column itself, centred inside that 2/3 slot. */
+  --oloid-article-measure: min(100%, 100ch);
 
   --oloid-h1: 27px;
   --oloid-h2: 19px;
@@ -136,16 +147,64 @@ STYLE_CSS = STYLE_MARKER + """
 .mdx-content p,
 .mdx-content li { text-wrap: pretty; }
 
-/* A comfortable measure for prose only. Screenshots, tables and code blocks
-   deliberately keep the theme's full width. */
-.mdx-content > p,
-.mdx-content > ul,
-.mdx-content > ol,
-.mdx-content > blockquote,
-.mdx-content > h1,
-.mdx-content > h2,
-.mdx-content > h3,
-.mdx-content > h4 { max-width: var(--oloid-measure); }
+/* --- layout: 2/3 article, 1/6 + 1/6 sidebars --------------------------
+   luma pins the nav with `position: fixed; width: 14rem` and clears it by
+   giving #body-content `lg:pl-56`. On top of that correct offset it also
+   gives #content-area `lg:ml-[max(0px, calc(50vw - 348px - 14rem))]`, purely
+   to centre the column - 388px of left margin at 1920px. That extra margin
+   was the empty band on the left, and it is removed here.
+
+   The DOM inside <main> is:
+
+       main#content-container            flex
+         div.flex-1.min-w-0              <- the article slot
+           #content-area                 <- title + body + footer
+         #content-side-layout            <- the rail, xl and up only
+
+   The rail is a sibling of the SLOT, not of #content-area, so the slot is
+   already "everything main has minus the rail". Sizing the article as a
+   fraction of the slot would subtract the rail twice. The slot is therefore
+   left at its natural flex-1 width, which works out as:
+
+       left nav    1/6   16.6667vw   (fixed, plus the matching pl on wrapper)
+       slot        2/3   66.6667vw   (flex-1: whatever is left)
+       rail        1/6   16.6667vw   (20% of <main>)
+
+   justify-items centres the article inside that slot. It is a grid property,
+   so the slot is switched from flex to a single-column grid for it to apply.
+   ------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  /* left nav, and the padding that reserves room for it, move together */
+  #sidebar-content { width: var(--oloid-rail); }
+  #body-content    { padding-left: var(--oloid-rail); }
+
+  #content-container > div.flex-1.min-w-0 {
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+  }
+
+  /* the article fills the slot up to a line length, then stops and centres,
+     so the gutters grow on a wide screen instead of the text running on */
+  #content-area {
+    width: 100%;
+    max-width: var(--oloid-article-measure);
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* xl and up the rail appears. #content-side-layout is its wrapper and a
+   direct child of <main>; it carries w-[18rem] and max-w-[28rem], both of
+   which are replaced so the rail scales with the window. */
+@media (min-width: 1280px) {
+  #content-side-layout {
+    width: var(--oloid-rail-of-main);
+    max-width: none;
+  }
+}
 
 /* --- heading scale ------------------------------------------------------ */
 /* Pages never contain an H1: the frontmatter `title` is the only one, so the
@@ -155,19 +214,16 @@ STYLE_CSS = STYLE_MARKER + """
   font-family: var(--oloid-font);
   font-size: var(--oloid-h1); line-height: 1.22; font-weight: 700;
   letter-spacing: -0.018em; margin-bottom: 0.45em;
-  text-wrap: balance;
 }
 .mdx-content h2 {
   font-family: var(--oloid-font);
   font-size: var(--oloid-h2); line-height: 1.25; font-weight: 600;
   letter-spacing: -0.011em; margin-top: 1.9em; margin-bottom: 0.6em;
-  text-wrap: balance;
 }
 .mdx-content h3 {
   font-family: var(--oloid-font);
   font-size: var(--oloid-h3); line-height: 1.32; font-weight: 600;
   letter-spacing: -0.007em; margin-top: 1.65em; margin-bottom: 0.5em;
-  text-wrap: balance;
 }
 .mdx-content h4 {
   font-family: var(--oloid-font);
@@ -241,6 +297,61 @@ STYLE_CSS = STYLE_MARKER + """
 #navigation-items { font-family: var(--oloid-font); }
 #navigation-items a { line-height: 1.4; font-size: var(--oloid-nav); }
 
+/* --- sidebar inner padding ---------------------------------------------
+   Two paddings push the sidebars away from the article for no good reason
+   once the columns are a third of the screen:
+
+     left nav   the scroll viewport carries `pl-5 pr-5`; the pr-5 is dropped
+                so entries run to the nav's own right edge. Its id is
+                generated per render (base-ui-_R_..._-viewport), so it is
+                matched on its two padding classes instead.
+     right rail #content-side-layout carries `pl-8 pr-5 pt-4`; the pl-8 is
+                dropped so the rail sits closer to the article.
+
+   Only the one side is zeroed in each case - the outer padding stays, or
+   the text would touch the window edge.
+   ----------------------------------------------------------------------- */
+#sidebar-content .pl-5.pr-5 { padding-right: 0; }
+#content-side-layout { padding-left: 0; }
+
+/* --- print / PDF --------------------------------------------------------
+   The "Download PDF" item in the contextual menu produces a PDF of the
+   rendered page, so the screen layout above would otherwise carry the nav,
+   the rail and the sticky bar into the file. Print gets a single
+   full-bleed column instead.
+   ----------------------------------------------------------------------- */
+@media print {
+  /* chrome that means nothing on paper */
+  #sidebar-content,
+  #content-side-layout,
+  #navigation-items,
+  #footer,
+  [class*="breadcrumb"] { display: none !important; }
+
+  /* undo the three-column layout: one column, full width */
+  #body-content { padding-left: 0 !important; }
+  #content-container > div.flex-1.min-w-0 { display: block !important; }
+  #content-area {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* keep a step and its screenshot on the same sheet where possible */
+  .mdx-content li,
+  .mdx-content .callout,
+  .mdx-content img { break-inside: avoid; page-break-inside: avoid; }
+  .mdx-content h2,
+  .mdx-content h3,
+  .mdx-content h4 { break-after: avoid; page-break-after: avoid; }
+
+  .mdx-content img { max-width: 100%; height: auto; }
+
+  /* ink-friendly body text */
+  #content-area, .mdx-content { font-size: 11pt; line-height: 1.45; }
+}
+
 /* --- breadcrumbs -------------------------------------------------------- */
 [class*="breadcrumb"] { font-size: var(--oloid-eyebrow); letter-spacing: 0.01em; }
 """
@@ -257,13 +368,15 @@ STYLE_CSS = STYLE_MARKER + """
 #  Anything pointing at a real Oloid URL is left alone, so once you fill these
 #  in the script stops touching them.
 # ---------------------------------------------------------------------------
-SITE_NAME = "Oloid Docs"                   # only used if the name is still the starter default
+SITE_NAME = "Oloid"                        # only used if the name is still the starter default
 PLACEHOLDER_HOSTS = ("mintlify.com", "mintlify.dev", "@mintlify.com")
 
 # The per-page "open in..." toolbar. Eight entries make a crowded strip above
-# every article; these four cover copying, viewing source and the two
-# assistants people actually use.
-CONTEXTUAL_OPTIONS = ["copy", "view", "claude", "chatgpt"]
+# every article; these cover copying, viewing source, the PDF download and
+# the two assistants people actually use. `download-pdf` is Mintlify's own
+# option - it renders a "Download PDF" item that prints the current page, so
+# no custom button or script is needed.
+CONTEXTUAL_OPTIONS = ["copy", "view", "download-pdf", "claude", "chatgpt"]
 
 # Icons by navigation label. A value is either a Font Awesome name ("gear") or
 # the full form {"name": ..., "library": "fontawesome"|"lucide"|"tabler",
@@ -798,6 +911,20 @@ CALLOUT_FOR = {
     "important": "Warning", "caution": "Warning", "warning": "Warning",
 }
 
+# The visible label kept inside the callout. Mintlify draws an icon but no
+# word, and oloid.help writes the word out, so it is preserved here: "Note:"
+# for information, and each other kind keeps the term the author used, which
+# says more than the component name does ("Important:" over "Warning:").
+CALLOUT_LABEL = {
+    "note": "Note", "notes": "Note", "remember": "Remember",
+    "tip": "Tip", "recommended": "Recommended",
+    "important": "Important", "caution": "Caution", "warning": "Warning",
+}
+
+# An already-converted callout must not be wrapped again on a second run.
+CALLOUT_OPEN_RE = re.compile(r"^[ \t]*<(Note|Warning|Tip|Info|Check|Danger)\b")
+CALLOUT_CLOSE_RE = re.compile(r"^[ \t]*</(Note|Warning|Tip|Info|Check|Danger)>")
+
 KEYWORDS_TAIL_RE = re.compile(
     r"\n+(?:-{3,}[ \t]*\n+)?#{1,6}[ \t]*\*{0,2}[ \t]*Keywords?[ \t]*\*{0,2}[ \t]*:?[ \t]*\n"
     r"(?P<tail>.*)\Z",
@@ -1002,14 +1129,24 @@ def reindent_lists(body):
 def notes_to_callouts(body):
     """Turn '**Note:** ...' into <Note>/<Warning>/<Tip>, at the right indent.
 
+    The label is kept as the first thing inside the callout ("**Note:**",
+    "**Important:**"), because Mintlify draws an icon but never the word.
+
     A note inside a numbered step is indented to that step's content column, so
     the callout lines up with the step text instead of resetting to the margin.
     """
     lines = list(split_fences(body))
-    out, i = [], 0
+    out, i, in_callout = [], 0, 0
     while i < len(lines):
         line, fenced = lines[i]
-        m = NOTE_RE.match(line) if not fenced else None
+
+        # never re-wrap a callout this function produced on an earlier run
+        if not fenced and CALLOUT_OPEN_RE.match(line):
+            in_callout += 1
+        elif not fenced and CALLOUT_CLOSE_RE.match(line):
+            in_callout = max(0, in_callout - 1)
+
+        m = NOTE_RE.match(line) if (not fenced and not in_callout) else None
         if not m:
             out.append(line)
             i += 1
@@ -1037,6 +1174,16 @@ def notes_to_callouts(body):
             continue
 
         component = CALLOUT_FOR.get(label, "Note")
+        tag = "**%s:**" % CALLOUT_LABEL.get(label, label.title())
+
+        # A single sentence reads best with the label inline; a bullet list
+        # needs the label on its own line or the first bullet swallows it.
+        first = content[0].lstrip()
+        if len(content) == 1 and not first.startswith(("-", "*", "+")):
+            content = ["%s %s" % (tag, first)]
+        else:
+            content = [tag, ""] + content
+
         if out and out[-1].strip():
             out.append("")
         out.append(indent + "<" + component + ">")
@@ -1044,6 +1191,56 @@ def notes_to_callouts(body):
         out.append(indent + "</" + component + ">")
         if i < len(lines) and lines[i][0].strip():
             out.append("")
+    return "\n".join(out)
+
+
+COMPONENT_LABEL = {"Note": "Note", "Info": "Note", "Tip": "Tip",
+                   "Warning": "Warning", "Check": "Check", "Danger": "Danger"}
+LABELLED_RE = re.compile(r"^[ \t]*\*\*[A-Za-z][A-Za-z ]*:\*\*")
+
+
+def label_existing_callouts(body):
+    """Backfill the label on callouts written before labels were kept.
+
+    Only the component name is available for those, so <Note> becomes
+    "**Note:**". Idempotent: a callout whose first line is already a bold
+    label is left untouched.
+    """
+    lines = body.splitlines()
+    out, i = [], 0
+    while i < len(lines):
+        line = lines[i]
+        out.append(line)
+        m = CALLOUT_OPEN_RE.match(line)
+        if not m or line.rstrip().endswith("/>"):
+            i += 1
+            continue
+
+        i += 1
+        # find the first line with content inside this callout
+        blanks = []
+        while i < len(lines) and not lines[i].strip():
+            blanks.append(lines[i])
+            i += 1
+        if i >= len(lines) or CALLOUT_CLOSE_RE.match(lines[i]):
+            out.extend(blanks)
+            continue
+
+        out.extend(blanks)
+        first = lines[i]
+        if LABELLED_RE.match(first):
+            out.append(first)
+            i += 1
+            continue
+
+        tag = "**%s:**" % COMPONENT_LABEL.get(m.group(1), m.group(1))
+        indent = first[:len(first) - len(first.lstrip())]
+        stripped = first.strip()
+        if stripped.startswith(("-", "*", "+")):
+            out += [indent + tag, "", first]
+        else:
+            out.append(indent + tag + " " + stripped)
+        i += 1
     return "\n".join(out)
 
 
@@ -1146,6 +1343,7 @@ def apply_template(body):
     # indented to the column of the step it belongs to
     body = reindent_lists(body)
     body = notes_to_callouts(body)
+    body = label_existing_callouts(body)
     body = fix_anchor_links(body)
     body = tidy_blank_lines(body)
     return body, keywords, audit_sections(body)

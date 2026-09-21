@@ -1,11 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "luma",
-  "name": "Oloid Docs",
+  "name": "Oloid",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0D9373"
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -71,14 +73,24 @@
       }
     ]
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@oloid.help"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/proxce"
+    }
   },
   "contextual": {
     "options": [
       "copy",
       "view",
+      "download-pdf",
       "claude",
       "chatgpt"
     ]
