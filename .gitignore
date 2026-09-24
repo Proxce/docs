@@ -1,0 +1,9 @@
+# secrets
+.intercom_token
+
+# python
+__pycache__/
+*.pyc
+
+# migration artefacts
+intercom_export/

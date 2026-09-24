@@ -13,30 +13,371 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Get Started",
-        "pages": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "index",
-              "quickstart"
-            ]
-          }
-        ],
-        "icon": "rocket"
-      },
-      {
-        "tab": "Passwordless",
+        "tab": "Windows",
         "menu": [
           {
-            "item": "Web - Chrome Vault",
+            "item": "Getting started",
             "groups": [
               {
-                "group": "Admin Guides",
+                "group": "Platform configuration",
                 "pages": [
-                  "passwordless/web-chrome-vault/admin-guides/oloid-vault-chrome-chromium-how-to-create-and-configure-oloid-vault"
+                  "windows/getting-started/platform-configuration/devicelock-app-hardware-and-software-requirements"
+                ]
+              }
+            ],
+            "icon": "flag-checkered"
+          },
+          {
+            "item": "Version 1",
+            "groups": [
+              {
+                "group": "Guides",
+                "pages": [
+                  "windows/version-1/guides/windows-login-v1-0-how-to-deploy-windows-login-v1-0-using-microsoft"
+                ]
+              },
+              {
+                "group": "Supervisor App",
+                "pages": [
+                  "windows/version-1/supervisor-app/windows-login-how-to-enroll-badge",
+                  "windows/version-1/supervisor-app/windows-login-how-to-pair-supervisor-app-using-auto-pair-config-file"
+                ],
+                "icon": "user-tie"
+              }
+            ],
+            "icon": "1"
+          },
+          {
+            "item": "Version 2",
+            "groups": [
+              {
+                "group": "Guides",
+                "pages": [
+                  "windows/version-2/guides/windows-login-v2-0-how-to-install-and-auto-pair-windows-login-v2-0-app"
+                ]
+              },
+              {
+                "group": "Videos",
+                "pages": [
+                  "windows/version-2/videos/windows-login-v2-0-how-to-add-supervisor-note-in-windows-alerts-video",
+                  "windows/version-2/videos/windows-login-v2-0-how-to-enable-windows-post-login-module-video"
+                ],
+                "icon": "circle-play"
+              }
+            ],
+            "icon": "2"
+          },
+          {
+            "item": "General guides",
+            "groups": [
+              {
+                "group": "Admin guides",
+                "pages": [
+                  "windows/general-guides/admin-guides/how-to-configure-card-reader-using-rf-ideas-configuration-utility-for",
+                  "windows/general-guides/admin-guides/windows-login-how-to-configure-login-options-for-oloid-apps",
+                  "windows/general-guides/admin-guides/windows-login-how-to-configure-rf-ideas-readers-for-badge-card"
                 ],
                 "icon": "user-shield"
+              },
+              {
+                "group": "User guides",
+                "pages": [
+                  "windows/general-guides/user-guides/how-to-update-expired-windows-credential",
+                  "windows/general-guides/user-guides/windows-login-how-to-enroll-face-and-pin-credential",
+                  "windows/general-guides/user-guides/windows-login-how-to-enroll-face",
+                  "windows/general-guides/user-guides/windows-login-how-to-enroll-nfc",
+                  "windows/general-guides/user-guides/windows-login-how-to-log-in-to-supervisor-app-with-okta-sso",
+                  "windows/general-guides/user-guides/windows-login-how-to-log-in-to-windows-device-using-badge-and-password",
+                  "windows/general-guides/user-guides/windows-login-how-to-log-in-to-windows-device-using-badge-id-and-duo",
+                  "windows/general-guides/user-guides/windows-login-how-to-log-in-to-windows-device-using-nfc-and-pin",
+                  "windows/general-guides/user-guides/windows-login-how-to-log-in-to-windows-device-using-nfc",
+                  "windows/general-guides/user-guides/windows-login-how-to-log-in-to-windows-device-using-qr-code-and-duo",
+                  "windows/general-guides/user-guides/windows-login-how-to-log-out-of-windows-system-using-badge",
+                  "windows/general-guides/user-guides/windows-login-how-to-login-to-supervisor-app-with-google-sso",
+                  "windows/general-guides/user-guides/windows-login-how-to-login-to-supervisor-app-with-microsoft",
+                  "windows/general-guides/user-guides/windows-login-how-to-login-to-windows-device-using-face-and-duo",
+                  "windows/general-guides/user-guides/windows-login-how-to-login-to-windows-device-using-nfc-id-and-duo"
+                ],
+                "icon": "user"
+              }
+            ],
+            "icon": "book"
+          }
+        ],
+        "icon": {
+          "name": "windows",
+          "library": "fontawesome",
+          "style": "brands"
+        }
+      },
+      {
+        "tab": "Device",
+        "menu": [
+          {
+            "item": "Android",
+            "groups": [
+              {
+                "group": "Videos",
+                "pages": [
+                  "device/android/videos/device-lock-app-how-to-install-oloid-device-lock-app-video-tutorial"
+                ],
+                "icon": "circle-play"
+              }
+            ],
+            "icon": {
+              "name": "android",
+              "library": "fontawesome",
+              "style": "brands"
+            }
+          },
+          {
+            "item": "iOS",
+            "groups": [
+              {
+                "group": "Oloid Verify",
+                "pages": [
+                  "device/ios/oloid-verify/oloid-verify-how-to-create-and-configure-application-in-tenant-admin"
+                ]
+              },
+              {
+                "group": "Videos",
+                "pages": [
+                  "device/ios/videos/how-to-configure-multi-button-intent-screen-in-oloid-connect-video",
+                  "device/ios/videos/oloid-connect-how-to-configure-offline-intent-screen-in-tenant-admin",
+                  "device/ios/videos/oloid-connect-how-to-deactivate-endpoint-in-tenant-admin-portal-video",
+                  "device/ios/videos/oloid-connect-how-to-test-network-connectivity-on-oloid-connect",
+                  "device/ios/videos/oloid-connect-how-to-unpair-endpoint-video-tutorial",
+                  "device/ios/videos/oloid-connect-iphone-how-to-check-hardware-compatibility-video",
+                  "device/ios/videos/oloid-connect-video-tutorial",
+                  "device/ios/videos/oloid-verify-how-to-unpair-endpoint-video-tutorial",
+                  "device/ios/videos/oloid-verify-how-to-view-punch-details-video-tutorial"
+                ],
+                "icon": "circle-play"
+              }
+            ],
+            "icon": {
+              "name": "apple",
+              "library": "fontawesome",
+              "style": "brands"
+            }
+          }
+        ],
+        "icon": "mobile-screen"
+      },
+      {
+        "tab": "Administration",
+        "menu": [
+          {
+            "item": "User Portal",
+            "groups": [
+              {
+                "group": "Accounts and settings",
+                "pages": [
+                  "administration/user-portal/accounts-and-settings/how-to-login-oloid-user-portal-with-google-sso",
+                  "administration/user-portal/accounts-and-settings/oloid-user-portal-how-to-configure-custom-post-login-landing-page",
+                  "administration/user-portal/accounts-and-settings/oloid-user-portal-how-to-login-with-email"
+                ]
+              },
+              {
+                "group": "Credential management",
+                "pages": [
+                  "administration/user-portal/credential-management/oloid-user-portal-how-to-generate-oloid-passkey-in-the-user-portal"
+                ]
+              },
+              {
+                "group": "Face and PIN",
+                "pages": [
+                  "administration/user-portal/face-and-pin/how-to-edit-pin-in-oloid-user-portal",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-add-a-face-using-invite-link",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-add-face",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-create-pin-using-invite-link",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-create-pin",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-login-through-hr-picture-verification",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-login-with-face",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-reset-pin-using-invite-link",
+                  "administration/user-portal/face-and-pin/oloid-user-portal-how-to-revoke-consent"
+                ]
+              },
+              {
+                "group": "Badge, NFC and QR",
+                "pages": [
+                  "administration/user-portal/badge-nfc-qr/how-to-deactivate-badge-in-oloid-user-portal",
+                  "administration/user-portal/badge-nfc-qr/oloid-user-portal-how-to-enroll-for-badge-login",
+                  "administration/user-portal/badge-nfc-qr/oloid-user-portal-how-to-enroll-for-nfc-login",
+                  "administration/user-portal/badge-nfc-qr/oloid-user-portal-how-to-replace-and-assign-nfc"
+                ]
+              }
+            ],
+            "icon": "user"
+          },
+          {
+            "item": "Supervisor Portal",
+            "groups": [
+              {
+                "group": "Videos",
+                "pages": [
+                  "administration/supervisor-portal/videos/how-to-invite-to-add-face-in-the-supervisor-portal-video-tutorial"
+                ],
+                "icon": "circle-play"
+              }
+            ],
+            "icon": "display"
+          },
+          {
+            "item": "Platform",
+            "groups": [
+              {
+                "group": "Getting started",
+                "pages": [
+                  "administration/platform/getting-started/how-to-find-the-card-type-and-card-format-using-the-rf-ideas",
+                  "administration/platform/getting-started/tenant-admin-portal-how-to-log-in-to-the-tenant-admin-portal",
+                  "administration/platform/getting-started/tenant-admin-portal-how-to-set-a-password-during-first-time-login"
+                ]
+              },
+              {
+                "group": "Accounts and settings",
+                "pages": [
+                  "administration/platform/accounts-and-settings/tenant-admin-portal-how-to-customize-email-invite-template-to-add",
+                  "administration/platform/accounts-and-settings/tenant-admin-portal-how-to-customize-sms-invite-template-to-add-face",
+                  "administration/platform/accounts-and-settings/windows-login-how-to-generate-and-download-auto-pair-config-file-for"
+                ]
+              },
+              {
+                "group": "Users and groups",
+                "pages": [
+                  "administration/platform/users-and-groups/how-to-assign-temporary-badge-to-a-user-in-the-tenant-admin-portal",
+                  "administration/platform/users-and-groups/how-to-assign-windows-shared-passkey-for-a-user-in-the-tenant-admin",
+                  "administration/platform/users-and-groups/how-to-invite-to-add-face-in-bulk",
+                  "administration/platform/users-and-groups/how-to-reset-pin-for-user-in-the-tenant-admin-portal",
+                  "administration/platform/users-and-groups/oloid-platform-how-to-create-windows-passkey-as-credential-for-users",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-add-pin-credential-for-user",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-configure-user-details",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-create-advanced-user-sync-for-paychex",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-create-and-share-qr-code-credential-with",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-create-user",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-delete-qr-code-in-bulk",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-extend-qr-code-expiry-date-in-bulk",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-extend-qr-code-expiry-date-of-users-in-a",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-generate-qr-code-for-users-in-a-connection",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-generate-qr-code-in-bulk",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-invite-to-add-face",
+                  "administration/platform/users-and-groups/tenant-admin-portal-how-to-onboard-faces-in-bulk"
+                ]
+              },
+              {
+                "group": "Credentials",
+                "pages": [
+                  "administration/platform/credentials/tenant-admin-portal-how-to-configure-wiegand",
+                  "administration/platform/credentials/tenant-admin-portal-how-to-create-wiegand"
+                ]
+              },
+              {
+                "group": "Endpoints and locations",
+                "pages": [
+                  "administration/platform/endpoints-and-locations/how-to-configure-endpoint-for-windows-login"
+                ]
+              },
+              {
+                "group": "Consent documents",
+                "pages": [
+                  "administration/platform/consent-documents/tenant-admin-portal-how-to-add-a-consent-template-to-a-connection-in",
+                  "administration/platform/consent-documents/tenant-admin-portal-how-to-create-and-configure-consent-template",
+                  "administration/platform/consent-documents/tenant-admin-portal-how-to-create-and-configure-language-version-for",
+                  "administration/platform/consent-documents/tenant-admin-portal-how-to-create-legal-document",
+                  "administration/platform/consent-documents/tenant-admin-portal-how-to-view-and-download-active-consent-of-a-user"
+                ]
+              },
+              {
+                "group": "Reports and insights",
+                "pages": [
+                  "administration/platform/reports-and-insights/how-to-create-data-mapper-table-for-adp-etime-inbound-in-the-tenant",
+                  "administration/platform/reports-and-insights/oloid-platform-insights-dashboard-credentials",
+                  "administration/platform/reports-and-insights/oloid-platform-insights-dashboard-endpoint-activity",
+                  "administration/platform/reports-and-insights/oloid-platform-insights-dashboard-endpoints-report",
+                  "administration/platform/reports-and-insights/oloid-platform-insights-dashboard-reports-users-shared-cred-report",
+                  "administration/platform/reports-and-insights/tenant-admin-portal-how-to-configure-data-mapper-table-for-adp",
+                  "administration/platform/reports-and-insights/tenant-admin-portal-how-to-create-data-mapper-table-for-adp-workforce",
+                  "administration/platform/reports-and-insights/tenant-admin-portal-how-to-create-data-mapper-table-for-data-filter",
+                  "administration/platform/reports-and-insights/tenant-admin-portal-how-to-create-data-mapper-table-for-paychex",
+                  "administration/platform/reports-and-insights/tenant-admin-portal-insights-dashboard-windows-shared-passwords-report",
+                  "administration/platform/reports-and-insights/tenant-admin-portal-what-is-oloid-s-insights-dashboard"
+                ]
+              },
+              {
+                "group": "Identity providers",
+                "pages": [
+                  "administration/platform/identity-providers/how-to-create-and-configure-okta-oidc-as-an-identity-provider-in-okta",
+                  "administration/platform/identity-providers/tenant-admin-portal-how-to-configure-oidc-okta-idp-profile"
+                ]
+              },
+              {
+                "group": "Videos",
+                "pages": [
+                  "administration/platform/videos/how-to-create-data-mapper-table-for-entra-id-inbound-in-the-tenant",
+                  "administration/platform/videos/tenant-admin-portal-how-to-enable-wallet-pass-video-tutorial",
+                  "administration/platform/videos/tenant-admin-portal-how-to-log-into-tenant-admin-portal-using",
+                  "administration/platform/videos/tenant-admin-portal-how-to-view-and-edit-vault-passkey-fido2",
+                  "administration/platform/videos/windows-login-how-to-add-qr-code-using-supervisor-app-video-tutorial"
+                ],
+                "icon": "circle-play"
+              }
+            ],
+            "icon": "building"
+          }
+        ],
+        "icon": "gear"
+      },
+      {
+        "tab": "Oloid Vault",
+        "menu": [
+          {
+            "item": "Chrome Vault",
+            "groups": [
+              {
+                "group": "Getting started",
+                "pages": [
+                  "oloid-vault/chrome-vault/getting-started/oloid-vault-chrome-chromium-how-to-deploy-oloid-vault-using"
+                ]
+              },
+              {
+                "group": "Installation and configuration",
+                "pages": [
+                  "oloid-vault/chrome-vault/installation/oloid-vault-chrome-chromium-how-to-manually-pair-an-endpoint"
+                ]
+              },
+              {
+                "group": "Platform configuration",
+                "pages": [
+                  "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-configure-browser-inactivity-timer",
+                  "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-create-and-configure-endpoint",
+                  "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-create-and-configure-oloid-vault",
+                  "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-enable-and-configure-enable",
+                  "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-enable-saving-passkeys"
+                ]
+              },
+              {
+                "group": "Accounts and settings",
+                "pages": [
+                  "oloid-vault/chrome-vault/accounts-and-settings/oloid-vault-chrome-chromium-how-to-log-in-to-admin-mode",
+                  "oloid-vault/chrome-vault/accounts-and-settings/oloid-vault-chrome-chromium-how-to-reset-tenant",
+                  "oloid-vault/chrome-vault/accounts-and-settings/oloid-vault-chrome-chromium-how-to-sync-configuration",
+                  "oloid-vault/chrome-vault/accounts-and-settings/oloid-vault-chrome-chromium-how-to-unpair-an-endpoint"
+                ]
+              },
+              {
+                "group": "Videos",
+                "pages": [
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-configure-browser-inactivity-timer",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-configure-endpoint-template-in-the",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-configure-oloid-vault-application",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-create-application-in-the-tenant",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-create-endpoint-template-in-the",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-enable-and-configure-enable",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-enable-saving-passkeys-video",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-manually-pair-an-endpoint-video",
+                  "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-sync-configuration-video-tutorial"
+                ],
+                "icon": "circle-play"
               }
             ],
             "icon": {
@@ -46,38 +387,114 @@
             }
           }
         ],
-        "icon": "fingerprint"
+        "icon": "vault"
       },
       {
-        "tab": "Administration",
+        "tab": "WebKey",
         "menu": [
           {
-            "item": "Windows Login",
+            "item": "WebKey",
             "groups": [
               {
-                "group": "Admin Guides",
+                "group": "Using WebKey",
                 "pages": [
-                  "administration/windows-login/admin-guides/how-to-configure-okta-multi-factor-authentication-mfa-for-the-windows"
+                  "webkey/webkey/using-webkey/webkey-how-to-login-to-workforce-hrms-using-personal-passkey"
+                ]
+              },
+              {
+                "group": "Videos",
+                "pages": [
+                  "webkey/webkey/videos/webkey-how-to-configure-browser-fingerprint-from-failed-transactions",
+                  "webkey/webkey/videos/webkey-how-to-re-submit-consent-while-authenticating-your-face-video",
+                  "webkey/webkey/videos/webkey-how-to-re-submit-consent-while-enrolling-your-face-video"
                 ],
-                "icon": "user-shield"
+                "icon": "circle-play"
               }
             ],
-            "icon": {
-              "name": "windows",
-              "library": "fontawesome",
-              "style": "brands"
-            }
+            "icon": "key"
           }
         ],
-        "icon": "gear"
-      }
-    ]
-  },
-  "navbar": {
-    "links": [
+        "icon": "key"
+      },
       {
-        "label": "Support",
-        "href": "mailto:support@oloid.help"
+        "tab": "Resources",
+        "menu": [
+          {
+            "item": "Integrations",
+            "groups": [
+              {
+                "group": "Single sign-on",
+                "pages": [
+                  "resources/integrations/sso/how-to-configure-okta-sso-in-tenant-admin-portal",
+                  "resources/integrations/sso/how-to-configure-pingone-single-sign-on-sso-for-the-oloid-portal-in",
+                  "resources/integrations/sso/microsoft-entra-id-how-to-configure-cross-domain-identity-management",
+                  "resources/integrations/sso/okta-settings-for-oloid-sso",
+                  "resources/integrations/sso/oloid-user-portal-how-to-login-to-oloid-user-portal-with-pingone",
+                  "resources/integrations/sso/tenant-admin-portal-how-to-configure-pingone-single-sign-on-sso-for",
+                  "resources/integrations/sso/tenant-admin-portal-how-to-enable-gsuite-sso-in-tenant-admin-portal",
+                  "resources/integrations/sso/tenant-admin-portal-how-to-login-to-the-tenant-admin-portal-with-okta",
+                  "resources/integrations/sso/tenant-admin-portal-how-to-login-to-the-tenant-admin-portal-with"
+                ],
+                "icon": "right-to-bracket"
+              }
+            ],
+            "icon": "plug"
+          },
+          {
+            "item": "Supporting Documents",
+            "groups": [
+              {
+                "group": "Supporting documents",
+                "pages": [
+                  "resources/supporting-documents/documents/oloid-connect-how-to-configure-card-reader-using-rf-ideas",
+                  "resources/supporting-documents/documents/oloid-sub-processors-list"
+                ]
+              }
+            ],
+            "icon": "file-lines"
+          },
+          {
+            "item": "Unassigned",
+            "groups": [
+              {
+                "group": "Unassigned in Intercom",
+                "pages": [
+                  "resources/unassigned/intercom/adoption-metrics",
+                  "resources/unassigned/intercom/devicelock-app-how-to-configure-pingone-sso-in-tenant-admin-portal",
+                  "resources/unassigned/intercom/how-to-configure-card-reader-using-rf-ideas-configuration-utility-for",
+                  "resources/unassigned/intercom/how-to-configure-pingone-single-sign-on-sso-for-the-oloid-connect-in",
+                  "resources/unassigned/intercom/how-to-configure-pingone-sso-for-devicelock-app-in-the-pingone-admin",
+                  "resources/unassigned/intercom/oloid-connect-how-to-configure-pingone-single-sign-on-sso-in-tenant",
+                  "resources/unassigned/intercom/oloid-vault-chrome-chromium-how-to-deploy-oloid-vault-using-group",
+                  "resources/unassigned/intercom/release-updates",
+                  "resources/unassigned/intercom/tenant-admin-portal-how-to-configure-and-test-biometric-policy-to-add",
+                  "resources/unassigned/intercom/tenant-admin-portal-how-to-configure-data-mapper-table-for-data",
+                  "resources/unassigned/intercom/tenant-admin-portal-how-to-configure-data-mapper-table-for-paychex",
+                  "resources/unassigned/intercom/tenant-admin-portal-how-to-create-data-mapper-table-for-adp-vantage",
+                  "resources/unassigned/intercom/tenant-admin-portal-how-to-enable-temporary-badge-in-the-tenant-admin",
+                  "resources/unassigned/intercom/tenant-admin-portal-insights-dashboard-how-to-download-adoption",
+                  "resources/unassigned/intercom/test-141",
+                  "resources/unassigned/intercom/windows-login-2-0-how-to-login-to-supervisor-app-using-badge",
+                  "resources/unassigned/intercom/windows-login-2-0-how-to-login-to-supervisor-app-using-face",
+                  "resources/unassigned/intercom/windows-login-adaptive-windows-password-login-with-local-only",
+                  "resources/unassigned/intercom/windows-login-how-to-enroll-face-using-user-login",
+                  "resources/unassigned/intercom/windows-login-how-to-pair-windows-login-app-in-lock-screen-using-auto",
+                  "resources/unassigned/intercom/windows-login-screen-block-on-check-emotions",
+                  "resources/unassigned/intercom/windows-login-screen-block-on-focus-monitor-violation",
+                  "resources/unassigned/intercom/windows-login-v2-0-how-to-enable-passwordless-session-token-for-an"
+                ]
+              },
+              {
+                "group": "Passwordless Authenticator (unqualified)",
+                "pages": [
+                  "resources/unassigned/passwordless-authenticator/tenant-admin-portal-how-to-enable-sso-using-personal-passkey-in-the"
+                ]
+              }
+            ],
+            "icon": "inbox"
+          }
+        ],
+        "icon": "folder-open"
       }
     ]
   },

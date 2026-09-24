@@ -17,11 +17,43 @@
 {/* Add product-specific terms and preferred usage */}
 {/* Example: Use "workspace" not "project", "member" not "user" */}
 
+## Migration
+
+`python intercom_to_mintlify.py --migrate` is the full run. It reads
+`navigation.json`, fetches every article, and writes each page into the
+directory of the group whose `collections` list claims it. `docs.json` is not
+written here - `build_nav.py` runs at the end and rebuilds it from disk.
+
+Only GET endpoints are used, and no write endpoint is ever called:
+
+```
+GET /help_center/collections   the Product / Section tree used for grouping
+GET /articles                  every article summary, 150 per page
+GET /articles/{id}             the full body
+```
+
+Per-article JSON is cached under `intercom_export/articles/` and reused when
+`updated_at` matches, so a re-run only fetches what changed. Useful flags:
+`--limit N` (smoke test), `--dry-run`, `--refresh`, `--no-nav`.
+
+Rules the run applies:
+
+- **Page shape mirrors oloid.help.** Headings keep their own text and their own
+  relative depth; nothing is renamed to a template section and nothing is
+  promoted. The one exception is the no-H1 rule below.
+- **Articles with an empty body are skipped** and listed in the report, rather
+  than written as blank pages.
+- **A group's `overview.mdx` placeholder is deleted** once real articles land in
+  it. Groups still empty keep theirs so the navigation renders.
+- **Unmapped collections are reported, never guessed.** If Intercom grows a
+  collection that no group claims, its articles are not written - add it to
+  `navigation.json` and re-run.
+
 ## Document template
 
-Every migrated help-centre page uses the same shape. `intercom_to_mintlify.py`
-enforces it; `python intercom_to_mintlify.py --reformat` re-applies it to the
-pages already on disk (no Intercom token needed) and is safe to re-run.
+The template below is the *older* enforced shape, still applied by
+`python intercom_to_mintlify.py --reformat` (no Intercom token needed). The
+`--migrate` run above does not use it: it mirrors oloid.help instead.
 
 ```
 ---
@@ -64,6 +96,29 @@ Rules the script applies, and that hand-edits must keep:
 
 Missing required sections are reported, never invented - add them by hand.
 
+## Navigation
+
+`docs.json` and `index.mdx` are **generated**. `navigation.json` is the source of
+truth: the tab / menu / group tree, plus the Intercom collections
+(`Product :: Collection`) whose articles belong in each group.
+
+```
+python build_nav.py --check     # report only: which collections nothing claims
+python build_nav.py             # write docs.json, index.mdx and placeholders
+```
+
+- A group's pages are whatever `.mdx` files sit in its directory, so migrated
+  content wires itself into the nav with no config. A group with no pages yet
+  gets an `overview.mdx` placeholder listing its source collections and counts.
+- `index.mdx` is a generated card index of every tab, with article counts. The
+  `Home` tab is `hidden: true`: it keeps `/` routing to `index.mdx` without
+  showing a tab. Edit the header text in `LANDING_HEADER` in `build_nav.py`.
+- The navbar lives in `navigation.json` too. The Support link is parked in
+  `navbar.hidden_links`; move it back into `links` to restore it.
+- Hand edits to `docs.json` or `index.mdx` are lost on the next run. Edit
+  `navigation.json`.
+
+
 ## Typography
 
 Page *structure* follows oloid.help exactly (verified: all 16 headings match
@@ -83,7 +138,8 @@ has a sidebar:
 
 `docs.json` cannot change any of this: `styling` carries only `eyebrows` and
 `codeblocks`, and `fonts` only takes family/weight - there is no size or
-density key. All sizes are CSS variables at the top of the `STYLE_CSS`
+density key. The topbar search/assistant width is one of them
+(`--oloid-search-width`). All sizes are CSS variables at the top of the `STYLE_CSS`
 constant in `intercom_to_mintlify.py`, so making it smaller again is one block
 to edit. Do not edit `style.css` directly; the script overwrites it.
 

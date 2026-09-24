@@ -128,7 +128,8 @@ STYLE_CSS = STYLE_MARKER + """
   --oloid-h5: 13.5px;
 
   --oloid-small: 13.5px;      /* callouts, tables */
-  --oloid-nav: 13px;          /* sidebar */
+  --oloid-nav: 12px;          /* sidebar entries, group headings, tab bar */
+  --oloid-toc: 12px;          /* the "On this page" rail */
   --oloid-eyebrow: 11px;      /* breadcrumbs */
 
   --oloid-hairline: rgb(0 0 0 / 0.10);
@@ -295,7 +296,42 @@ STYLE_CSS = STYLE_MARKER + """
 
 /* --- navigation: Intercom titles are long, let them wrap cleanly -------- */
 #navigation-items { font-family: var(--oloid-font); }
-#navigation-items a { line-height: 1.4; font-size: var(--oloid-nav); }
+
+/* Mintlify sizes the whole sidebar from one Tailwind utility on an inner
+   wrapper - <div class="text-sm ..."> - and the links, group headers and
+   dropdown buttons all inherit from it. Overriding that wrapper is what
+   actually changes the sidebar; the rest are listed so a future markup change
+   cannot quietly put one row back to 14px. !important because these compete
+   with utility classes, not with ordinary rules. */
+#navigation-items,
+#navigation-items .text-sm,
+#navigation-items a,
+#navigation-items button,
+#navigation-items h5,
+#navigation-items .sidebar-group-header {
+  font-size: var(--oloid-nav) !important;
+}
+
+#navigation-items a { line-height: 1.4; }
+
+/* --- table of contents (the right rail) ---------------------------------
+   Sized the same way and for the same reason as the left sidebar: Mintlify
+   puts a `text-sm` utility on the scroll wrapper and every entry inherits it,
+   so the wrapper is what has to be overridden. The links, the "On this page"
+   heading and the nested H3 entries are all named as well, so a markup change
+   cannot quietly restore one row to 14px. */
+#content-side-layout,
+#table-of-contents,
+#table-of-contents .text-sm,
+#table-of-contents a,
+#table-of-contents li,
+#table-of-contents p,
+#table-of-contents h5 {
+  font-size: var(--oloid-toc) !important;
+}
+
+#table-of-contents { font-family: var(--oloid-font); }
+#table-of-contents a { line-height: 1.4; }
 
 /* --- sidebar inner padding ---------------------------------------------
    Two paddings push the sidebars away from the article for no good reason
@@ -354,6 +390,40 @@ STYLE_CSS = STYLE_MARKER + """
 
 /* --- breadcrumbs -------------------------------------------------------- */
 [class*="breadcrumb"] { font-size: var(--oloid-eyebrow); letter-spacing: 0.01em; }
+
+/* --- topbar search and assistant ----------------------------------------
+   Mintlify stretches the search entry and the "Ask AI" input to fill the
+   topbar, which on a wide screen is a very long pill for a two-word query.
+   Both are capped here and pushed to the right of the bar.
+
+   The width is one variable. The selector list is deliberately broad because
+   Mintlify renders the pair differently per theme and version: `luma` uses
+   #search-bar-entry for the search trigger and #assistant-entry for Ask AI,
+   older builds wrap them in #topbar-search. Extra selectors that match
+   nothing cost nothing; the alternative is the bar silently going back to
+   full width on the next CLI upgrade.
+   ----------------------------------------------------------------------- */
+:root { --oloid-search-width: 260px; }
+
+#search-bar-entry,
+#assistant-entry,
+#topbar-search,
+[id^="search-bar"],
+[class*="search-bar"] {
+  max-width: var(--oloid-search-width) !important;
+  width: 100%;
+  margin-left: auto;          /* sit against the right-hand controls */
+}
+
+/* the flex parent otherwise re-expands the child it is sizing */
+#topbar :is(#search-bar-entry, #assistant-entry) { flex: 0 1 var(--oloid-search-width); }
+
+/* below lg the topbar collapses to an icon row - leave that alone */
+@media (max-width: 1023px) {
+  #search-bar-entry,
+  #assistant-entry,
+  #topbar-search { max-width: none !important; }
+}
 """
 
 # ---------------------------------------------------------------------------
@@ -510,6 +580,11 @@ class HtmlToMdx(HTMLParser):
         self.in_pre = False
         self.pre_lang = ""
         self.skip_depth = 0
+        # Intercom wraps a standalone image in its own
+        # `intercom-interblocks-image` div. Counting those is what tells a
+        # screenshot apart from an icon sitting inside a sentence.
+        self.image_block = 0
+        self.div_image = []
         self.heading = None
         self.blockquote = 0
         self.table = None
@@ -555,6 +630,12 @@ class HtmlToMdx(HTMLParser):
         if self.skip_depth:
             return
 
+        if tag == "div":
+            is_image_div = "intercom-interblocks-image" in (a.get("class") or "")
+            self.div_image.append(is_image_div)
+            if is_image_div:
+                self.image_block += 1
+
         if tag == "br":
             self.write("  \n")
         elif tag == "hr":
@@ -583,7 +664,18 @@ class HtmlToMdx(HTMLParser):
                 # Plain markdown everywhere, never <Frame>. A block component
                 # cannot share a step's left edge, and the rounded-border look
                 # is restored in style.css instead.
-                if self.li_stack:
+                #
+                # A screenshot stands on its own line; an icon sits inside a
+                # sentence ("click the [gear] Settings icon") and must stay
+                # there, or the sentence is cut in half. Two signals decide:
+                # Intercom wraps a standalone image in its own
+                # `intercom-interblocks-image` div, and anything else with text
+                # already written on the line is mid-sentence.
+                inline = self.image_block == 0 and bool(
+                    "".join(self.stack[-1]).rstrip("\n").strip())
+                if inline:
+                    self.write("![%s](%s)" % (self.alt_for(alt), src))
+                elif self.li_stack:
                     # own line, so emit_li indents it to the step's content column
                     if "".join(self.stack[-1]).strip():
                         self.write("\n")
@@ -696,6 +788,10 @@ class HtmlToMdx(HTMLParser):
             return
         if self.skip_depth:
             return
+
+        if tag == "div" and self.div_image:
+            if self.div_image.pop():
+                self.image_block = max(0, self.image_block - 1)
 
         if tag in ("strong", "b", "em", "i"):
             # "**Bold **next" never closes in Markdown. Keep the padding, but put
@@ -997,9 +1093,15 @@ def extract_keywords(body):
     return body[:m.start()].rstrip(), out
 
 
-def normalize_headings(body):
-    """Strip bold from headings, rename template sections, and shift the whole
-    document so its shallowest heading is H2 - never H1."""
+def normalize_headings(body, mirror=False):
+    """Strip bold from headings and shift the document so its shallowest
+    heading is H2 - never H1, which would render a second 32px title under the
+    frontmatter one.
+
+    `mirror=True` is the oloid.help-faithful mode: headings keep their own text
+    and their own relative depth. Nothing is renamed to a template section and
+    nothing is promoted, so the page reads exactly as the help centre does.
+    """
     levels = [len(m.group(1)) for line, fenced in split_fences(body)
               if not fenced for m in [HEADING_RE.match(line)] if m]
     shift = (2 - min(levels)) if levels else 0
@@ -1013,11 +1115,11 @@ def normalize_headings(body):
         level, text = len(m.group(1)), clean_heading_text(m.group(2))
         if not text:
             continue
-        canonical = SECTION_ALIASES.get(text.lower())
+        canonical = None if mirror else SECTION_ALIASES.get(text.lower())
         if canonical:
             # a template section is always top level, whatever Intercom used
             text, level = canonical, 2
-        elif re.match(r"^steps?\b|^how to\b|^procedure\b", text, re.I):
+        elif not mirror and re.match(r"^steps?\b|^how to\b|^procedure\b", text, re.I):
             level = 2
         else:
             level = min(6, max(2, level + shift))
@@ -1107,7 +1209,12 @@ def reindent_lists(body):
             elif indent >= stack[-1]["src"] + 2:
                 stack.append({"src": indent, "base": stack[-1]["content"], "content": 0})
             elif indent < stack[-1]["src"] - 1:
-                stack.pop()
+                # Only the outermost level is left and this item sits further
+                # left than the one that opened the list - Intercom does this
+                # when a list starts indented and later items do not. Re-base
+                # the level; popping it would empty the stack and the next
+                # line would crash on stack[-1].
+                stack[-1] = {"src": indent, "base": 0, "content": 0}
 
             level = stack[-1]
             marker = match.group("marker")
@@ -1272,12 +1379,43 @@ def fix_anchor_links(body):
     return re.sub(r"\[([^\]\n]+)\]\(#h_[0-9a-zA-Z_]+\)", resolve, body)
 
 
+def is_bogus_url(href):
+    """True when a link's target is prose that ended up in Intercom's URL box.
+
+    Authors sometimes type a description where the URL goes; Intercom stores it
+    verbatim with an https:// bolted on, producing hrefs like
+    "https://Landing page for the user-portal. Displays all the ...".
+
+    Only the authority is examined, never the rest of the URL. Percent-encoded
+    spaces are perfectly legal in a path or a fragment - Intercom's own deep
+    links use `#:~:text=Facility%20Code` - and treating those as broken would
+    destroy working links.
+    """
+    match = re.match(r"^https?://([^/?#]*)", href or "", re.I)
+    if not match:
+        return False
+    host = match.group(1)
+    if not host:
+        return True
+    if "%20" in host or " " in host:          # a hostname cannot contain a space
+        return True
+    host = host.split("@")[-1].split(":")[0]  # drop userinfo and port
+    if "." not in host.rstrip("."):           # no dot means no TLD
+        return True
+    return False
+
+
 def tidy_links(body):
-    """Intercom link text carries the help-centre name; the site already does."""
-    def strip_suffix(match):
-        text = re.sub(r"\s*\|\s*Oloid Help Cent(?:er|re)\s*$", "", match.group(1), flags=re.I)
-        return "[%s](%s)" % (text.strip() or match.group(1).strip(), match.group(2))
-    return re.sub(r"\[([^\]\n]+)\]\((https?://[^)\s]+)\)", strip_suffix, body)
+    """Drop the help-centre suffix from link text, and unlink bogus targets."""
+    def fix(match):
+        text, href = match.group(1), match.group(2)
+        text = re.sub(r"\s*\|\s*Oloid Help Cent(?:er|re)\s*$", "", text, flags=re.I)
+        text = text.strip() or match.group(1).strip()
+        if is_bogus_url(href):
+            # keep what the author wrote, lose the link that would 404
+            return text
+        return "[%s](%s)" % (text, href)
+    return re.sub(r"\[([^\]\n]+)\]\((https?://[^)\s]+)\)", fix, body)
 
 
 def tidy_entities(body):
@@ -1332,10 +1470,17 @@ def audit_sections(body):
     return {"found": [s for s in TEMPLATE_SECTIONS if s in found], "missing": missing}
 
 
-def apply_template(body):
-    """Normalise one converted article. Returns (body, keywords, audit)."""
+def apply_template(body, mirror=False):
+    """Normalise one converted article. Returns (body, keywords, audit).
+
+    Everything here is mechanical - entity cleanup, list columns, callouts,
+    dead anchors - and applies in both modes. Only heading rewriting differs:
+    with `mirror=True` the article keeps oloid.help's own section structure,
+    and the audit becomes a report of what is there rather than a checklist of
+    what a template demands.
+    """
     body, keywords = extract_keywords(body or "")
-    body = normalize_headings(body)
+    body = normalize_headings(body, mirror=mirror)
     body = frames_to_images(body)
     body = tidy_entities(body)
     body = tidy_links(body)
@@ -1789,14 +1934,216 @@ def download_image(url, root, article_id, dry_run, stats):
         return url
 
 
+# --------------------------------------------------------------------------
+# Navigation-driven migration
+# --------------------------------------------------------------------------
+#  navigation.json owns the tree: every group lists the Intercom collections
+#  ("Product :: Collection") whose articles belong in it. This mode fetches
+#  every article, resolves its collection, and writes the page into that
+#  group's directory. docs.json is not touched here - build_nav.py rebuilds it
+#  from whatever .mdx files end up on disk.
+#
+#  Three GET endpoints, and nothing else:
+#      GET /help_center/collections   the Product / Section tree
+#      GET /articles                  every article summary, 150 per page
+#      GET /articles/{id}             the full body
+#  This script never calls POST, PUT or DELETE against Intercom.
+# --------------------------------------------------------------------------
+
+NAV_FILE = "navigation.json"
+PLACEHOLDER_MARK = "This section is a placeholder."
+
+
+def _helpers():
+    """intercom_fetch.py owns the HTTP and pagination layer, build_nav.py owns
+    the tree walk. Import both rather than keeping a second copy of either."""
+    import build_nav
+    import intercom_fetch
+    return build_nav, intercom_fetch
+
+
+def nav_group_dirs(nav, build_nav):
+    """{normalised 'Product :: Collection': [group directory, ...]}
+
+    A collection can be listed in more than one group - Healthcare appears
+    under Windows > Version 1 and again under Resources > Industries. The first
+    directory owns the file on disk; the second group picks the same pages up
+    through its `pages_from` key, so the article exists once and is listed
+    twice.
+    """
+    mapping = {}
+    for grp, slug_parts, _crumbs in build_nav.iter_groups(nav):
+        directory = os.path.join(*slug_parts) if slug_parts else "."
+        for coll in grp.get("collections") or []:
+            mapping.setdefault(build_nav.norm(coll), []).append(directory)
+    return mapping
+
+
+def drop_repeated_title(body, title):
+    """Drop a leading heading that just restates the article title.
+
+    Intercom keeps the title out of `body`, but a few articles open with it
+    anyway. The frontmatter title already renders as the page's H1, and
+    oloid.help never shows it twice.
+    """
+    lines = (body or "").lstrip("\n").splitlines()
+    if not lines:
+        return body
+    m = HEADING_RE.match(lines[0])
+    if not m:
+        return body
+    squash = lambda s: re.sub(r"[^a-z0-9]+", "", (s or "").lower())
+    if squash(clean_heading_text(m.group(2))) != squash(title):
+        return body
+    return "\n".join(lines[1:]).lstrip("\n")
+
+
+def drop_placeholder(directory):
+    """Remove a group's generated overview once real articles have landed."""
+    path = os.path.join(directory, "overview.mdx")
+    if not os.path.exists(path):
+        return False
+    with open(path, "r", encoding="utf-8") as fh:
+        if PLACEHOLDER_MARK not in fh.read():
+            return False          # somebody wrote a real overview; keep it
+    os.remove(path)
+    return True
+
+
+def migrate(args, root):
+    """Fetch every article and file it under the navigation."""
+    build_nav, fetchlib = _helpers()
+
+    nav_path = os.path.join(root, NAV_FILE)
+    if not os.path.exists(nav_path):
+        sys.stderr.write("ERROR: no %s - run build_nav.py first\n" % nav_path)
+        return 2
+    with open(nav_path, "r", encoding="utf-8") as fh:
+        nav = json.load(fh)
+    mapping = nav_group_dirs(nav, build_nav)
+
+    sys.stderr.write("[1/3] GET /help_center/collections ...\n")
+    _raw, paths = fetchlib.fetch_collections(args.api_key)
+    sys.stderr.write("      %d collections\n" % len(paths))
+
+    sys.stderr.write("[2/3] GET /articles ...\n")
+    summaries = fetchlib.fetch_article_list(args.api_key, args.limit)
+    sys.stderr.write("      %d articles\n" % len(summaries))
+
+    sys.stderr.write("[3/3] GET /articles/{id} ...\n")
+    cache = os.path.join(root, args.cache_dir, "articles")
+    articles = fetchlib.fetch_article_bodies(args.api_key, summaries, cache,
+                                             refresh=args.refresh)
+
+    img_stats = {"saved": 0, "reused": 0, "bytes": 0,
+                 "large": [], "oversize": [], "failed": []}
+    written, skipped_empty, unmapped = [], [], {}
+    used_paths, touched = {}, set()
+
+    for art in articles:
+        article_id = str(art.get("id"))
+        product, collection, _full = fetchlib.resolve_placement(art, paths)
+        key = build_nav.norm("%s :: %s" % (product, collection))
+
+        dirs = mapping.get(key)
+        if not dirs:
+            unmapped.setdefault("%s :: %s" % (product, collection), []).append(article_id)
+            continue
+
+        title = html.unescape((art.get("title") or "Untitled").strip())
+        if not (art.get("body") or "").strip():
+            skipped_empty.append((article_id, title))
+            continue
+
+        on_image = None
+        if not args.no_download_images:
+            def on_image(u, _id=article_id):
+                return download_image(u, root, _id, args.dry_run, img_stats)
+
+        body_mdx, images, videos = html_to_mdx(
+            art.get("body") or "", on_image=on_image,
+            alt_prefix=short_title(title, 40))
+        body_mdx, keywords, audit = apply_template(body_mdx, mirror=True)
+        body_mdx = drop_repeated_title(body_mdx, title)
+
+        if not body_mdx.strip():
+            skipped_empty.append((article_id, title + "  (body did not convert)"))
+            continue
+
+        directory = dirs[0]
+        slug = page_slug(art)
+        rel = "%s/%s" % (directory.replace(os.sep, "/"), slug)
+        if rel in used_paths and used_paths[rel] != article_id:
+            slug = "%s-%s" % (slug, article_id)      # two articles, one slug
+            rel = "%s/%s" % (directory.replace(os.sep, "/"), slug)
+        used_paths[rel] = article_id
+
+        if not args.dry_run:
+            abs_path = os.path.join(root, directory, slug + ".mdx")
+            os.makedirs(os.path.dirname(abs_path), exist_ok=True)
+            with open(abs_path, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(build_mdx(art, body_mdx, icon=DEFAULT_PAGE_ICON,
+                                   keywords=keywords))
+        touched.add(directory)
+        written.append({"id": article_id, "title": title, "path": rel + ".mdx",
+                        "words": len(body_mdx.split()), "images": len(images),
+                        "videos": len(videos), "sections": audit.get("found", []),
+                        "collection": "%s :: %s" % (product, collection)})
+
+        if len(written) % 100 == 0:
+            sys.stderr.write("      wrote %d pages\n" % len(written))
+
+    dropped = 0
+    if not args.dry_run:
+        for directory in sorted(touched):
+            dropped += 1 if drop_placeholder(directory) else 0
+
+    write_style_css(root, args.dry_run)
+
+    print("")
+    print("=" * 72)
+    print("Intercom -> Mintlify%s" % ("  (DRY RUN - nothing written)" if args.dry_run else ""))
+    print("=" * 72)
+    print("Fetched      : %d articles in %d collections" % (len(articles), len(paths)))
+    print("Written      : %d pages across %d groups" % (len(written), len(touched)))
+    print("Skipped      : %d with an empty body" % len(skipped_empty))
+    print("Placeholders : %d removed (group now has real pages)" % dropped)
+    print("Images       : %d saved, %d reused, %d failed"
+          % (img_stats["saved"], img_stats["reused"], len(img_stats["failed"])))
+    if unmapped:
+        total = sum(len(v) for v in unmapped.values())
+        print("")
+        print("UNMAPPED - %d collection(s), %d article(s) not written:"
+              % (len(unmapped), total))
+        for coll, ids in sorted(unmapped.items(), key=lambda kv: -len(kv[1])):
+            print("   %4d  %s" % (len(ids), coll))
+        print("   Add these to navigation.json, then re-run.")
+    if skipped_empty:
+        print("")
+        print("EMPTY IN INTERCOM - %d:" % len(skipped_empty))
+        for article_id, title in skipped_empty[:25]:
+            print("   %-10s %s" % (article_id, title[:70]))
+        if len(skipped_empty) > 25:
+            print("   ... and %d more" % (len(skipped_empty) - 25))
+    print("")
+
+    if not args.dry_run and not args.no_nav:
+        print("Rebuilding docs.json ...")
+        import subprocess
+        subprocess.call([sys.executable, os.path.join(root, "build_nav.py")])
+    else:
+        print("Next: python build_nav.py     # rebuild docs.json from what is on disk")
+    return 0
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Fetch Intercom articles by ID and wire them into Mintlify docs.json."
     )
     parser.add_argument(
-        "--api-key",
-        default=os.environ.get("INTERCOM_API_KEY") or os.environ.get("INTERCOM_TOKEN") or API_KEY,
-        help="Intercom bearer token. Defaults to $INTERCOM_API_KEY, then API_KEY.",
+        "--api-key", default=None,
+        help="Intercom bearer token. Falls back to $INTERCOM_API_KEY, then "
+             "./.intercom_token, then the API_KEY constant.",
     )
     parser.add_argument("--root", default=".", help="Mintlify project root (default: .)")
     parser.add_argument("--docs-json", default=None, help="Path to docs.json (default: <root>/docs.json)")
@@ -1810,7 +2157,29 @@ def main():
     parser.add_argument("--reformat", action="store_true",
                         help="Re-apply the document template and style.css to the .mdx "
                              "pages already in the repo. Needs no Intercom token.")
+    parser.add_argument("--migrate", action="store_true",
+                        help="Fetch EVERY article and file it under navigation.json. "
+                             "Uses GET /help_center/collections, /articles and "
+                             "/articles/{id} - no write endpoints, ever.")
+    parser.add_argument("--limit", type=int, default=None,
+                        help="--migrate: stop after N articles (smoke test).")
+    parser.add_argument("--refresh", action="store_true",
+                        help="--migrate: ignore the cache and re-fetch every article.")
+    parser.add_argument("--cache-dir", default="intercom_export",
+                        help="--migrate: where per-article JSON is cached "
+                             "(default: intercom_export).")
+    parser.add_argument("--no-nav", action="store_true",
+                        help="--migrate: skip the build_nav.py run at the end.")
     args = parser.parse_args()
+
+    try:
+        import intercom_fetch
+        args.api_key = intercom_fetch.resolve_token(args.api_key)
+    except ImportError:
+        args.api_key = (args.api_key
+                        or os.environ.get("INTERCOM_API_KEY")
+                        or os.environ.get("INTERCOM_TOKEN")
+                        or API_KEY)
 
     if args.reformat:
         root = os.path.abspath(args.root)
@@ -1853,6 +2222,16 @@ def main():
         print("    mint dev          # http://localhost:3000")
         print("")
         return 0
+
+    if args.migrate:
+        if not args.api_key:
+            parser.error(
+                "--migrate needs a bearer token. Either:\n"
+                "  1. put it in ./.intercom_token   (gitignored, one line), or\n"
+                "  2. $env:INTERCOM_API_KEY = 'your_token'   (PowerShell), or\n"
+                "  3. python intercom_to_mintlify.py --migrate --api-key your_token"
+            )
+        return migrate(args, os.path.abspath(args.root))
 
     if not args.api_key and not args.config_only:
         parser.error(

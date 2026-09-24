@@ -49,7 +49,8 @@
   --oloid-h5: 13.5px;
 
   --oloid-small: 13.5px;      /* callouts, tables */
-  --oloid-nav: 13px;          /* sidebar */
+  --oloid-nav: 12px;          /* sidebar entries, group headings, tab bar */
+  --oloid-toc: 12px;          /* the "On this page" rail */
   --oloid-eyebrow: 11px;      /* breadcrumbs */
 
   --oloid-hairline: rgb(0 0 0 / 0.10);
@@ -185,7 +186,6 @@
 /* Images are plain markdown rather than <Frame> so that they align with the
    step they belong to; the frame look is restored here instead. */
 .mdx-content img {
-  border-radius: 8px;
   border: 1px solid var(--oloid-hairline);
   margin-top: 0.55em; margin-bottom: 0.55em;
 }
@@ -216,7 +216,42 @@
 
 /* --- navigation: Intercom titles are long, let them wrap cleanly -------- */
 #navigation-items { font-family: var(--oloid-font); }
-#navigation-items a { line-height: 1.4; font-size: var(--oloid-nav); }
+
+/* Mintlify sizes the whole sidebar from one Tailwind utility on an inner
+   wrapper - <div class="text-sm ..."> - and the links, group headers and
+   dropdown buttons all inherit from it. Overriding that wrapper is what
+   actually changes the sidebar; the rest are listed so a future markup change
+   cannot quietly put one row back to 14px. !important because these compete
+   with utility classes, not with ordinary rules. */
+#navigation-items,
+#navigation-items .text-sm,
+#navigation-items a,
+#navigation-items button,
+#navigation-items h5,
+#navigation-items .sidebar-group-header {
+  font-size: var(--oloid-nav) !important;
+}
+
+#navigation-items a { line-height: 1.4; }
+
+/* --- table of contents (the right rail) ---------------------------------
+   Sized the same way and for the same reason as the left sidebar: Mintlify
+   puts a `text-sm` utility on the scroll wrapper and every entry inherits it,
+   so the wrapper is what has to be overridden. The links, the "On this page"
+   heading and the nested H3 entries are all named as well, so a markup change
+   cannot quietly restore one row to 14px. */
+#content-side-layout,
+#table-of-contents,
+#table-of-contents .text-sm,
+#table-of-contents a,
+#table-of-contents li,
+#table-of-contents p,
+#table-of-contents h5 {
+  font-size: var(--oloid-toc) !important;
+}
+
+#table-of-contents { font-family: var(--oloid-font); }
+#table-of-contents a { line-height: 1.4; }
 
 /* --- sidebar inner padding ---------------------------------------------
    Two paddings push the sidebars away from the article for no good reason
@@ -275,3 +310,37 @@
 
 /* --- breadcrumbs -------------------------------------------------------- */
 [class*="breadcrumb"] { font-size: var(--oloid-eyebrow); letter-spacing: 0.01em; }
+
+/* --- topbar search and assistant ----------------------------------------
+   Mintlify stretches the search entry and the "Ask AI" input to fill the
+   topbar, which on a wide screen is a very long pill for a two-word query.
+   Both are capped here and pushed to the right of the bar.
+
+   The width is one variable. The selector list is deliberately broad because
+   Mintlify renders the pair differently per theme and version: `luma` uses
+   #search-bar-entry for the search trigger and #assistant-entry for Ask AI,
+   older builds wrap them in #topbar-search. Extra selectors that match
+   nothing cost nothing; the alternative is the bar silently going back to
+   full width on the next CLI upgrade.
+   ----------------------------------------------------------------------- */
+:root { --oloid-search-width: 260px; }
+
+#search-bar-entry,
+#assistant-entry,
+#topbar-search,
+[id^="search-bar"],
+[class*="search-bar"] {
+  max-width: var(--oloid-search-width) !important;
+  width: 100%;
+  margin-left: auto;          /* sit against the right-hand controls */
+}
+
+/* the flex parent otherwise re-expands the child it is sizing */
+#topbar :is(#search-bar-entry, #assistant-entry) { flex: 0 1 var(--oloid-search-width); }
+
+/* below lg the topbar collapses to an icon row - leave that alone */
+@media (max-width: 1023px) {
+  #search-bar-entry,
+  #assistant-entry,
+  #topbar-search { max-width: none !important; }
+}
