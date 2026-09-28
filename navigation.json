@@ -111,6 +111,8 @@
               "group": "Healthcare",
               "slug": "healthcare",
               "icon": "hospital",
+              "keep_videos": true,
+              "$comment": "keep_videos: video-only articles stay here instead of moving to Version 1 > Videos, so Resources > Industries > Healthcare keeps the full set.",
               "collections": [
                 "Windows Login (Healthcare ) :: Windows Login (Healthcare) - Overview and Setup",
                 "Windows Login (Healthcare ) :: Windows Login (Healthcare) - Tenant Admin Configuration",
@@ -126,6 +128,12 @@
                 "Passwordless Authenticator :: Windows Login- Presence Detection Guides",
                 "Passwordless Authenticator :: Videos- Windows Login (Presence Detection)"
               ]
+            },
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "$comment": "No collections of its own: --migrate moves every video-only article of this menu here (see AGENTS.md, Videos)."
             }
           ]
         },
@@ -932,12 +940,21 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "tab": "Drafts",
+      "icon": "pen-ruler",
+      "slug": "drafts",
+      "mirror_drafts": true,
+      "$comment": "Intercom drafts. build_nav.py mirrors every visible tab in here automatically - one menu per tab, its menus and groups nested inside - reading pages from drafts/<tab>/<menu>/<group>/. Hidden tabs (Excluded) keep their drafts to themselves. Only the menus below are declared by hand.",
+      "menu": [
         {
           "item": "Unassigned",
           "slug": "unassigned",
           "icon": "inbox",
-          "review": "Everything Intercom returns with no collection, plus the unqualified Passwordless Authenticator collections. Triage before launch, then delete this menu.",
+          "review": "Everything Intercom returns with no collection, plus the unqualified Passwordless Authenticator collections, published or not. Triage before launch, then delete this menu.",
           "groups": [
             {
               "group": "Unassigned in Intercom",

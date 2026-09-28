@@ -48,6 +48,16 @@ Rules the run applies:
 - **Unmapped collections are reported, never guessed.** If Intercom grows a
   collection that no group claims, its articles are not written - add it to
   `navigation.json` and re-run.
+- **Drafts go under `drafts/`.** An article with `state: draft` is written to
+  `drafts/<its group's path>` instead of the group itself, and appears in the
+  Drafts tab. Drafts of hidden tabs (Excluded) stay in their own directory.
+  Unassigned articles, published or not, live in `drafts/unassigned/`.
+- **Video-only articles go to their menu's Videos group.** A page that is a
+  video embed plus at most 40 words (`VIDEO_ONLY_WORDS`) is written to the
+  `videos` group of the same menu, e.g. Supervisor App -> Version 1 > Videos.
+  Articles that embed a video among real steps stay where they are. Menus
+  without a Videos group keep their videos, and a group with
+  `"keep_videos": true` (Healthcare) is never emptied of them.
 
 ## Document template
 
@@ -113,6 +123,12 @@ python build_nav.py             # write docs.json, index.mdx and placeholders
 - `index.mdx` is a generated card index of every tab, with article counts. The
   `Home` tab is `hidden: true`: it keeps `/` routing to `index.mdx` without
   showing a tab. Edit the header text in `LANDING_HEADER` in `build_nav.py`.
+- The **Drafts** tab carries `"mirror_drafts": true`. `build_nav.py` fills it
+  automatically with one menu per visible tab: that tab's menus become groups
+  and its groups nest inside, reading from `drafts/<tab>/<menu>/<group>/`.
+  Groups with no drafts are left out. Only its extra menus (Unassigned) are
+  declared by hand. `drafts/` must stay out of `.mintignore` - the starter kit
+  ignored it, which hid every draft page from the build.
 - The navbar lives in `navigation.json` too. The Support link is parked in
   `navbar.hidden_links`; move it back into `links` to restore it.
 - Hand edits to `docs.json` or `index.mdx` are lost on the next run. Edit

@@ -33,7 +33,11 @@ DOCS_FILE = "docs.json"
 
 # Directories that never hold documentation pages.
 SKIP_DIRS = {".git", "node_modules", "__pycache__", "images", "logo",
-             "output", "auth", "drafts", ".claude", ".github"}
+             "output", "auth", ".claude", ".github",
+             "intercom_export", "intercom_workspaces"}
+
+# The tab carrying this key is the Drafts tab: it mirrors every visible tab.
+MIRROR_KEY = "mirror_drafts"
 
 
 # ---------------------------------------------------------------------------
@@ -92,6 +96,60 @@ def iter_groups(nav):
                 yield grp, slugs(grp, item_slugs), item_crumbs + [grp.get("group")]
 
 
+def drafts_tab(nav):
+    for tab in nav.get("tabs") or []:
+        if tab.get(MIRROR_KEY):
+            return tab
+    return None
+
+
+def mirrored_tabs(nav):
+    """The tabs whose drafts the Drafts tab shows: every visible tab but itself.
+
+    Hidden tabs (Home, Excluded) are left out on purpose - their drafts stay
+    in their own directories, as hidden as the rest of them.
+    """
+    return [t for t in nav.get("tabs") or []
+            if not t.get("hidden") and not t.get(MIRROR_KEY)]
+
+
+def draft_directory(nav, directory):
+    """Where a draft whose published home is `directory` is written instead.
+
+    "windows/version-1/guides" -> "drafts/windows/version-1/guides". Groups
+    outside the mirrored tabs are returned unchanged: Excluded keeps its
+    drafts, and the Drafts tab's own menus are already under drafts/.
+    """
+    tab = drafts_tab(nav)
+    directory = directory.replace("\\", "/")
+    if not tab or not tab.get("slug"):
+        return directory
+    head = directory.split("/")[0]
+    if head in {t.get("slug") for t in mirrored_tabs(nav) if t.get("slug")}:
+        return "%s/%s" % (tab["slug"], directory)
+    return directory
+
+
+VIDEOS_SLUG = "videos"
+
+
+def video_directory(nav, directory):
+    """Where a video-only article whose home is `directory` is written instead.
+
+    The Videos group of the same menu - "windows/version-1/supervisor-app" ->
+    "windows/version-1/videos" - when that menu has one. Unchanged when it
+    has none, when the article is already in it, or when its group sets
+    `keep_videos` (Healthcare, which Resources > Industries lists as a set).
+    """
+    directory = directory.replace("\\", "/")
+    groups = {"/".join(parts): grp for grp, parts, _c in iter_groups(nav)}
+    if (groups.get(directory) or {}).get("keep_videos"):
+        return directory
+    parent = directory.rsplit("/", 1)[0] if "/" in directory else ""
+    target = "/".join(p for p in (parent, VIDEOS_SLUG) if p)
+    return target if target in groups else directory
+
+
 def load_nav(root=".", filename=NAV_FILE):
     with open(os.path.join(root, filename), encoding="utf-8") as fh:
         return json.load(fh)
@@ -101,19 +159,23 @@ def load_nav(root=".", filename=NAV_FILE):
 #  Filling groups from disk
 # ---------------------------------------------------------------------------
 
-def group_dir(grp, slug_parts):
+def group_dir(grp, slug_parts, prefix=""):
     """The directory a group's pages live in, as a docs-relative path.
 
     `pages_from` points at another group's directory: Healthcare is written
     once under Windows > Version 1 and listed a second time under
     Resources > Industries, so the second group borrows the first's files.
+    `prefix` is the Drafts tab's slug when listing a group's drafts, so a
+    borrowed directory is borrowed from the drafts side too.
     """
     if grp.get("pages_from"):
-        return grp["pages_from"].replace("\\", "/").strip("/")
-    return "/".join(slug_parts)
+        directory = grp["pages_from"].replace("\\", "/").strip("/")
+    else:
+        directory = "/".join(slug_parts)
+    return "/".join(p for p in (prefix, directory) if p)
 
 
-def pages_for(grp, slug_parts, root):
+def pages_for(grp, slug_parts, root, prefix=""):
     """Page paths for one group, in sidebar order.
 
     An explicit `pages` list wins - that is how the Home tab pins index and
@@ -121,10 +183,10 @@ def pages_for(grp, slug_parts, root):
     a nested directory belongs to a different group and would otherwise be
     claimed twice.
     """
-    if grp.get("pages") is not None:
+    if grp.get("pages") is not None and not prefix:
         return list(grp["pages"])
 
-    directory = group_dir(grp, slug_parts)
+    directory = group_dir(grp, slug_parts, prefix)
     absolute = os.path.join(root, directory) if directory else root
     if not os.path.isdir(absolute):
         return []
@@ -146,14 +208,15 @@ def build_tabs(nav, root, report):
     by itself once its collection is migrated. Hidden tabs are dropped too:
     docs.json has no tab-level `hidden`, and their pages still route.
     """
-    def collect_groups(node, slug_parts, crumbs):
+    def collect_groups(node, slug_parts, crumbs, prefix=""):
         out = []
         for grp in node.get("groups") or []:
             parts = slug_parts + ([grp["slug"]] if grp.get("slug") else [])
-            pages = pages_for(grp, parts, root)
+            pages = pages_for(grp, parts, root, prefix)
             trail = crumbs + [grp.get("group")]
             if not pages:
-                report["empty"].append(" > ".join(str(c) for c in trail))
+                if not prefix:          # a group with no drafts is the norm
+                    report["empty"].append(" > ".join(str(c) for c in trail))
                 continue
             entry = {"group": grp.get("group"), "pages": pages}
             if grp.get("icon"):
@@ -161,6 +224,40 @@ def build_tabs(nav, root, report):
             out.append(entry)
             report["pages"] += len(pages)
         return out
+
+    def mirror_menus(drafts):
+        """One menu per visible tab, holding that tab's drafts.
+
+        docs.json has one level fewer than tab > menu > group needs here, so
+        the mirrored tab's menus become groups and its groups nest inside
+        them - Mintlify renders a group inside a group's `pages`.
+        """
+        prefix = drafts["slug"]
+        menus = []
+        for src in mirrored_tabs(nav):
+            src_slugs = [src["slug"]] if src.get("slug") else []
+            crumbs = [drafts.get("tab"), src.get("tab")]
+            if src.get("menu"):
+                groups = []
+                for item in src["menu"]:
+                    item_slugs = src_slugs + ([item["slug"]] if item.get("slug") else [])
+                    nested = collect_groups(item, item_slugs,
+                                            crumbs + [item.get("item")], prefix)
+                    if not nested:
+                        continue
+                    entry = {"group": item.get("item"), "pages": nested}
+                    if item.get("icon"):
+                        entry["icon"] = item["icon"]
+                    groups.append(entry)
+            else:
+                groups = collect_groups(src, src_slugs, crumbs, prefix)
+            if not groups:
+                continue
+            entry = {"item": src.get("tab"), "groups": groups}
+            if src.get("icon"):
+                entry["icon"] = src["icon"]
+            menus.append(entry)
+        return menus
 
     tabs = []
     for tab in nav.get("tabs") or []:
@@ -175,9 +272,9 @@ def build_tabs(nav, root, report):
             continue
         tab_slugs = [tab["slug"]] if tab.get("slug") else []
 
-        if tab.get("menu"):
-            menus = []
-            for item in tab["menu"]:
+        if tab.get("menu") or tab.get(MIRROR_KEY):
+            menus = mirror_menus(tab) if tab.get(MIRROR_KEY) else []
+            for item in tab.get("menu") or []:
                 item_slugs = tab_slugs + ([item["slug"]] if item.get("slug") else [])
                 groups = collect_groups(item, item_slugs, [name, item.get("item")])
                 if not groups:
@@ -201,6 +298,17 @@ def build_tabs(nav, root, report):
             built["icon"] = tab["icon"]
         tabs.append(built)
     return tabs
+
+
+def flat_pages(pages):
+    """Page paths in a docs.json `pages` list, descending into nested groups."""
+    out = []
+    for page in pages:
+        if isinstance(page, dict):
+            out.extend(flat_pages(page.get("pages") or []))
+        else:
+            out.append(page)
+    return out
 
 
 def orphans(root, listed):
@@ -340,21 +448,21 @@ def main():
     for tab in tabs:
         for node in tab.get("menu") or [tab]:
             for grp in node.get("groups") or []:
-                listed.extend(grp["pages"])
+                listed.extend(flat_pages(grp["pages"]))
 
+    count = lambda g: len(flat_pages(g["pages"]))
     print("=" * 68)
     for tab in tabs:
         kids = tab.get("menu") or tab.get("groups") or []
-        total = sum(len(g["pages"])
-                    for k in kids for g in (k.get("groups") or [k]))
+        total = sum(count(g) for k in kids for g in (k.get("groups") or [k]))
         print("%-34s %4d" % (tab["tab"], total))
         for k in kids:
             groups = k.get("groups") or [k]
             if k.get("groups"):
-                print("   %-31s %4d" % (k.get("item"), sum(len(g["pages"]) for g in groups)))
+                print("   %-31s %4d" % (k.get("item"), sum(count(g) for g in groups)))
             for g in groups:
                 pad = "      " if k.get("groups") else "   "
-                print("%s%-28s %4d" % (pad, g["group"], len(g["pages"])))
+                print("%s%-28s %4d" % (pad, g["group"], count(g)))
     print("=" * 68)
     print("%d pages in %d tab(s)" % (report["pages"], len(tabs)))
     if report["hidden"]:

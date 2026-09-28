@@ -733,10 +733,11 @@ class HtmlToMdx(HTMLParser):
         """Intercom screenshots almost never carry alt text, so a positional
         fallback is generated rather than shipping an empty alt attribute."""
         alt = re.sub(r"\s+", " ", (alt or "")).replace("]", "").strip()
-        if alt:
-            return alt
-        self.figure_no += 1
-        return "%s - screenshot %d" % (self.alt_prefix or "Screenshot", self.figure_no)
+        if not alt:
+            self.figure_no += 1
+            alt = "%s - screenshot %d" % (self.alt_prefix or "Screenshot", self.figure_no)
+        # titles like "ProWatch <> ServiceNow" would otherwise parse as JSX
+        return mdx_escape(alt)
 
     @staticmethod
     def frame_video(src, title):
@@ -1998,6 +1999,25 @@ def drop_repeated_title(body, title):
     return "\n".join(lines[1:]).lstrip("\n")
 
 
+#: Words of prose, besides the video, a page may carry and still be a video.
+VIDEO_ONLY_WORDS = 40
+
+
+def is_video_only(body_mdx):
+    """A page that is just a video: an embed plus at most a one-line intro.
+
+    Articles that embed a video among real steps are not video pages and
+    stay in their own group.
+    """
+    if not re.search(r"<(iframe|video)\b", body_mdx or ""):
+        return False
+    text = re.sub(r"\{/\*.*?\*/\}", "", body_mdx, flags=re.S)
+    text = re.sub(r"<Frame>.*?</Frame>", "", text, flags=re.S)
+    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)
+    text = re.sub(r"<[^>]+>", "", text)
+    return len(re.findall(r"[A-Za-z]{2,}", text)) <= VIDEO_ONLY_WORDS
+
+
 def drop_placeholder(directory):
     """Remove a group's generated overview once real articles have landed."""
     path = os.path.join(directory, "overview.mdx")
@@ -2071,6 +2091,12 @@ def migrate(args, root):
             continue
 
         directory = dirs[0]
+        if is_video_only(body_mdx):
+            # the menu's Videos group, where it has one
+            directory = build_nav.video_directory(nav, directory).replace("/", os.sep)
+        if art.get("state") == "draft":
+            # drafts/<same path>, listed under the Drafts tab; Excluded keeps its own
+            directory = build_nav.draft_directory(nav, directory).replace("/", os.sep)
         slug = page_slug(art)
         rel = "%s/%s" % (directory.replace(os.sep, "/"), slug)
         if rel in used_paths and used_paths[rel] != article_id:
