@@ -2,6 +2,11 @@
 # .git, .github, .claude, .agents, .idea, node_modules,
 # README.md, LICENSE.md, CHANGELOG.md, CONTRIBUTING.md
 
-# Draft content
-drafts/
+# Draft content. drafts/ is NOT ignored: it holds the Intercom drafts that
+# the Drafts tab lists (see navigation.json).
 *.draft.mdx
+
+# secrets - never publish
+.intercom_token
+intercom_export/
+intercom_workspaces/
