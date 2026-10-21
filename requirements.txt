@@ -1,0 +1,11 @@
+# oloid.py has NO third-party dependencies.
+#
+# Everything it uses ships with Python 3.8+:
+#   argparse  csv  hashlib  json  os  re  sys  time  urllib  datetime
+#
+# There is nothing to `pip install` and nothing to uninstall later.
+# Run it directly:
+#     python oloid.py
+#
+# If you later swap urllib for requests, add it here:
+# requests>=2.31.0
