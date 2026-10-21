@@ -1,0 +1,313 @@
+/* Ask Oloid: topbar button and modern AI assistant sidebar (see ask-oloid.js) */
+:root {
+  --ask-oloid-width: 420px;
+  --ask-oloid-primary: #0D9373;
+  --ask-oloid-primary-soft: rgb(13 147 115 / 0.1);
+  --ask-oloid-bg: #ffffff;
+  --ask-oloid-fg: #111827;
+  --ask-oloid-muted: #6b7280;
+  --ask-oloid-border: rgb(0 0 0 / 0.08);
+  --ask-oloid-surface: #f4f5f7;
+}
+.dark {
+  --ask-oloid-primary-soft: rgb(13 147 115 / 0.18);
+  --ask-oloid-bg: #0f1117;
+  --ask-oloid-fg: #f3f4f6;
+  --ask-oloid-muted: #9ca3af;
+  --ask-oloid-border: rgb(255 255 255 / 0.1);
+  --ask-oloid-surface: #1a1d24;
+}
+
+/* ---------- Topbar button (far right) ---------- */
+#ask-oloid-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 9999px;
+  background: var(--ask-oloid-primary);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), inset 0 1px 0 rgb(255 255 255 / 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+#ask-oloid-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(13 147 115 / 0.3);
+}
+#ask-oloid-button.ask-oloid-button-fixed {
+  position: fixed;
+  top: 0.75rem;
+  right: 1rem;
+  z-index: 9997;
+}
+#ask-oloid-button:focus-visible { outline: 2px solid var(--ask-oloid-primary); outline-offset: 2px; }
+
+/* ---------- Overlay + panel ---------- */
+#ask-oloid-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.2);
+  backdrop-filter: blur(1px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 9998;
+}
+#ask-oloid-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: min(var(--ask-oloid-width), 100vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--ask-oloid-bg);
+  color: var(--ask-oloid-fg);
+  border-left: 1px solid var(--ask-oloid-border);
+  box-shadow: -12px 0 32px rgb(0 0 0 / 0.08);
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 9999;
+}
+.ask-oloid-open #ask-oloid-overlay { opacity: 1; pointer-events: auto; }
+.ask-oloid-open #ask-oloid-panel { transform: translateX(0); }
+
+/* ---------- Header ---------- */
+.ask-oloid-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ask-oloid-border);
+}
+.ask-oloid-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.ask-oloid-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--ask-oloid-primary);
+  color: #fff;
+}
+.ask-oloid-header-actions { display: flex; gap: 0.25rem; }
+.ask-oloid-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ask-oloid-muted);
+  cursor: pointer;
+}
+.ask-oloid-icon-btn:hover { background: var(--ask-oloid-surface); color: var(--ask-oloid-fg); }
+
+/* ---------- Scroll area ---------- */
+.ask-oloid-scroll {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Welcome screen */
+.ask-oloid-welcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+.ask-oloid-has-messages .ask-oloid-welcome { display: none; }
+.ask-oloid-welcome-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  background: var(--ask-oloid-primary-soft);
+  color: var(--ask-oloid-primary);
+}
+.ask-oloid-welcome-icon svg { width: 22px; height: 22px; }
+.ask-oloid-welcome-title {
+  margin: 0 0 0.375rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ask-oloid-fg);
+}
+.ask-oloid-welcome-sub {
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
+  color: var(--ask-oloid-muted);
+}
+.ask-oloid-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.ask-oloid-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border: 1px solid var(--ask-oloid-border);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ask-oloid-fg);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.ask-oloid-card:hover { border-color: var(--ask-oloid-primary); background: var(--ask-oloid-primary-soft); }
+.ask-oloid-card-title { font-size: 0.8125rem; font-weight: 600; }
+.ask-oloid-card-prompt { font-size: 0.75rem; color: var(--ask-oloid-muted); line-height: 1.4; }
+
+/* Messages */
+.ask-oloid-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 1rem;
+}
+.ask-oloid-messages:empty { display: none; }
+.ask-oloid-msg { display: flex; gap: 0.625rem; animation: ask-oloid-in 0.2s ease; }
+.ask-oloid-msg-content {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.ask-oloid-msg-user { justify-content: flex-end; }
+.ask-oloid-msg-user .ask-oloid-msg-content {
+  max-width: 85%;
+  padding: 0.5rem 0.875rem;
+  border-radius: 18px 18px 4px 18px;
+  background: var(--ask-oloid-surface);
+}
+.ask-oloid-msg-assistant .ask-oloid-msg-content { flex: 1; padding-top: 0.125rem; }
+.ask-oloid-msg-avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--ask-oloid-primary-soft);
+  color: var(--ask-oloid-primary);
+}
+.ask-oloid-msg-avatar svg { width: 14px; height: 14px; }
+@keyframes ask-oloid-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Thinking indicator */
+.ask-oloid-thinking .ask-oloid-msg-content {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--ask-oloid-muted);
+}
+.ask-oloid-dots { display: inline-flex; gap: 3px; }
+.ask-oloid-dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: ask-oloid-pulse 1.2s infinite ease-in-out;
+}
+.ask-oloid-dots i:nth-child(2) { animation-delay: 0.15s; }
+.ask-oloid-dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes ask-oloid-pulse {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+
+/* ---------- Composer ---------- */
+.ask-oloid-footer { padding: 0.75rem 1rem 0.875rem; }
+.ask-oloid-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.875rem;
+  border: 1px solid var(--ask-oloid-border);
+  border-radius: 16px;
+  background: var(--ask-oloid-bg);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.06);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ask-oloid-form:focus-within {
+  border-color: var(--ask-oloid-primary);
+  box-shadow: 0 0 0 3px var(--ask-oloid-primary-soft);
+}
+#ask-oloid-input {
+  flex: 1;
+  min-height: 24px;
+  max-height: 160px;
+  padding: 0.25rem 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+#ask-oloid-input::placeholder { color: var(--ask-oloid-muted); }
+.ask-oloid-send {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 10px;
+  background: var(--ask-oloid-primary);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.ask-oloid-send:disabled { opacity: 0.35; cursor: default; }
+.ask-oloid-disclaimer {
+  margin: 0.5rem 0 0;
+  font-size: 0.6875rem;
+  text-align: center;
+  color: var(--ask-oloid-muted);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 640px) {
+  #ask-oloid-button span { display: none; }
+  #ask-oloid-button { padding: 0.45rem; }
+  .ask-oloid-cards { grid-template-columns: 1fr; }
+}
+
+@media print {
+  #ask-oloid-button, #ask-oloid-panel, #ask-oloid-overlay { display: none !important; }
+}
