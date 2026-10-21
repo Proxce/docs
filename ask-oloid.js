@@ -216,11 +216,14 @@
   }
 
   function injectButton() {
-    if ($(BUTTON_ID)) return;
+    var existing = $(BUTTON_ID);
+    if (existing && document.body.contains(existing)) return;
+    if (existing) existing.remove();
+
     var target =
       document.querySelector('.topbar-right-container') ||
+      document.querySelector('#navbar nav') ||
       document.querySelector('#navbar');
-    if (!target) return;
 
     var btn = document.createElement('button');
     btn.id = BUTTON_ID;
@@ -230,8 +233,14 @@
     btn.innerHTML = SPARKLE_ICON + '<span>Ask Oloid</span>';
     btn.addEventListener('click', togglePanel);
 
-    /* Far right corner: last item in the navbar's right side */
-    target.appendChild(btn);
+    if (target) {
+      /* Far right corner: last item in the navbar's right side */
+      target.appendChild(btn);
+    } else {
+      /* Fallback: pin the button to the top-right corner of the window */
+      btn.classList.add('ask-oloid-button-fixed');
+      document.body.appendChild(btn);
+    }
   }
 
   function init() {
@@ -245,10 +254,14 @@
 
   init();
   window.addEventListener('mintlify:navigate', init);
-  /* the topbar can mount after scripts run; retry briefly */
-  var tries = 0;
-  var timer = setInterval(function () {
-    injectButton();
-    if ($(BUTTON_ID) || ++tries > 20) clearInterval(timer);
-  }, 250);
+  /* The topbar can mount or re-render after scripts run, which can remove
+     the injected button. Re-check once a second and re-add it if missing. */
+  setInterval(function () {
+    var btn = $(BUTTON_ID);
+    var inNavbar = document.querySelector('.topbar-right-container, #navbar');
+    if (!btn || (btn.classList.contains('ask-oloid-button-fixed') && inNavbar)) {
+      if (btn) btn.remove();
+      init();
+    }
+  }, 1000);
 })();

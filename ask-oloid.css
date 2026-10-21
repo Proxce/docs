@@ -43,6 +43,12 @@
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgb(13 147 115 / 0.3);
 }
+#ask-oloid-button.ask-oloid-button-fixed {
+  position: fixed;
+  top: 0.75rem;
+  right: 1rem;
+  z-index: 9997;
+}
 #ask-oloid-button:focus-visible { outline: 2px solid var(--ask-oloid-primary); outline-offset: 2px; }
 
 /* ---------- Overlay + panel ---------- */
