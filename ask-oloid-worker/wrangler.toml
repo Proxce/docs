@@ -11,9 +11,10 @@ command = "python build_index.py"
 # Public, non-secret settings. The API key is NOT here - it is a secret:
 #   npx wrangler secret put ANTHROPIC_API_KEY
 [vars]
-# Sites allowed to call this Worker. Add the production docs domain
-# (e.g. https://docs.oloid.com) and any Mintlify preview domain you use.
-ALLOWED_ORIGINS = "http://localhost:3000"
+# Sites allowed to call this Worker: scheme + host, no trailing slash.
+# When the docs move to a custom domain, add it here (keep the old one until
+# the switch is done) and run `npx wrangler deploy`.
+ALLOWED_ORIGINS = "https://oloid-999c42b2.mintlify.site,http://localhost:3000"
 MODEL = "claude-opus-5-5"
 
 # 10 questions per minute per visitor IP.
