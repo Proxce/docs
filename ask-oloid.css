@@ -190,6 +190,22 @@
   background: rgb(0 0 0 / 0.08);
 }
 .ask-oloid-row--user .ask-oloid-bubble code { background: rgb(255 255 255 / 0.2); }
+.ask-oloid-bubble pre {
+  margin: 0.4rem 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgb(0 0 0 / 0.08);
+  overflow-x: auto;
+  white-space: pre;
+}
+.ask-oloid-bubble pre code { padding: 0; background: none; }
+.ask-oloid-bubble a {
+  color: var(--ao-primary);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ask-oloid-row--user .ask-oloid-bubble a { color: #fff; }
 
 /* typing indicator */
 .ask-oloid-typing { display: inline-flex; gap: 4px; padding: 0.8rem 0.9rem; }

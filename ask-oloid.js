@@ -5,18 +5,20 @@
    this is the only way to put a custom control in the topbar (MDX/React
    snippets only render inside page content). Styles live in ask-oloid.css.
 
-   Wiring up Claude later
-   ----------------------
-   Never put a Claude API key in this file: it is shipped to every visitor's
-   browser. Instead, stand up a small backend endpoint that holds the key and
-   calls the Anthropic Messages API, then set CONFIG.endpoint below.
+   Claude integration
+   ------------------
+   NEVER put the Claude API key in this file: every .js file here is shipped
+   to every visitor's browser, so anyone could copy the key.
+
+   The key lives only in the backend proxy (Cloudflare Worker secret
+   ANTHROPIC_API_KEY). The proxy calls Claude, which searches the Oloid docs
+   through the site's built-in MCP server (/mcp) and answers from them.
+   Set CONFIG.endpoint below to the proxy URL once it is deployed.
 
    The endpoint receives:
      POST { messages: [{ role: "user" | "assistant", content: string }], page }
-   and must return:
-     { reply: string }
-
-   `messages` is already in the shape the Claude Messages API expects.
+   and returns:
+     { reply: string }  or  { error: string }
    ========================================================================== */
 (function () {
   if (window.__askOloidLoaded) return;
@@ -27,7 +29,9 @@
     subtitle: 'AI assistant for Oloid docs',
     buttonLabel: 'Ask Oloid',
     placeholder: 'Ask a question about Oloid...',
-    endpoint: null, // e.g. 'https://api.your-domain.com/ask-oloid'
+    // Backend proxy URL (holds the Claude key). Example:
+    // 'https://ask-oloid.<your-account>.workers.dev'
+    endpoint: null,
     suggestions: [
       'How do I set up Windows login?',
       'How do I enroll a face in DeviceLock?',
@@ -90,12 +94,27 @@
       .replace(/'/g, '&#39;');
   }
 
-  /* Minimal, safe formatting: escape first, then code / bold / line breaks. */
+  /* Minimal, safe Markdown: escape everything first, then add code blocks,
+     inline code, bold, headings, bullets and http(s) / site-relative links. */
   function formatText(str) {
-    return escapeHtml(str)
-      .replace(/`([^`]+)`/g, '<code>$1</code>')
+    var blocks = [];
+    var html = escapeHtml(str).replace(/```[\w-]*\n?([\s\S]*?)```/g, function (_, code) {
+      blocks.push('<pre><code>' + code.replace(/\n$/, '') + '</code></pre>');
+      return '\u0000' + (blocks.length - 1) + '\u0000';
+    });
+    html = html
+      .replace(/`([^`\n]+)`/g, '<code>$1</code>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(
+        /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/(?!\/)[^\s)]*)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+      )
+      .replace(/^#{1,6}\s+(.+)$/gm, '<strong>$1</strong>')
+      .replace(/^\s*[-*]\s+(.+)$/gm, '&bull; $1')
       .replace(/\n/g, '<br>');
+    return html.replace(/\u0000(\d+)\u0000/g, function (_, i) {
+      return blocks[+i];
+    });
   }
 
   /* ------------------------------------------------------------- backend */
@@ -116,11 +135,12 @@
       body: JSON.stringify({ messages: messages, page: location.pathname })
     })
       .then(function (res) {
-        if (!res.ok) throw new Error('Request failed: ' + res.status);
-        return res.json();
-      })
-      .then(function (data) {
-        return data.reply || 'Sorry, I did not get a response.';
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok || data.error) {
+            throw new Error(data.error || 'Request failed: ' + res.status);
+          }
+          return data.reply || 'Sorry, I did not get a response.';
+        });
       });
   }
 
