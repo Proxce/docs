@@ -8,5 +8,13 @@
 
 # secrets - never publish
 .intercom_token
+.dev.vars
+.env*
+
+# Ask Oloid backend. Mintlify ships every .js file in the repo to the
+# browser, and wrangler writes bundled .js into .wrangler/ - none of it may be
+# published. The Claude API key lives only in the Worker's secrets.
+ask-oloid-worker/
+.wrangler/
 intercom_export/
 intercom_workspaces/

@@ -1,5 +1,12 @@
 # secrets
 .intercom_token
+.dev.vars
+.env*
+
+# Ask Oloid worker: dependencies, wrangler build output, generated index
+node_modules/
+.wrangler/
+ask-oloid-worker/src/docs-index.json
 
 # python
 __pycache__/

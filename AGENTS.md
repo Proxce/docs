@@ -135,6 +135,43 @@ python build_nav.py             # write docs.json, index.mdx and placeholders
   `navigation.json`.
 
 
+## Ask Oloid assistant
+
+`ask-oloid.js` / `ask-oloid.css` are the topbar button and chat sidebar. They
+POST the conversation to `CONFIG.endpoint`, a Cloudflare Worker in
+`ask-oloid-worker/` that holds the Claude API key and answers from the docs.
+
+- **The key is a Worker secret, nowhere else.** Never put it in
+  `ask-oloid.js`, `docs.json`, `wrangler.toml` or a committed file: every
+  `.js` in this repo is shipped to visitors. `ask-oloid-worker/` and
+  `.wrangler/` are in `.mintignore` for the same reason.
+- **Knowledge base.** `build_index.py` turns every published page (not
+  `drafts/`, not `excluded/`) into sections plus a BM25 index. Wrangler runs it
+  on each `dev`/`deploy`, so redeploying the Worker after a docs change is
+  what refreshes the assistant.
+- **Behaviour lives in `ask-oloid-worker/src/system-prompt.txt`.** It answers
+  only Oloid / docs questions (anything else gets a one-line polite redirect),
+  uses the docs first, falls back to web search / fetch (any site, at most 3
+  of each per answer) only for Oloid-related gaps, and ends with a
+  "Related articles" list. Edit the file, then `npx wrangler deploy`.
+  Links to docs pages that don't exist are unlinked by the Worker.
+- **Abuse limits.** Only origins in `ALLOWED_ORIGINS` are served, 10 questions
+  a minute per IP, 10 turns of history at 2,000 characters each. Error
+  replies are generic; upstream errors are logged as a status code only.
+
+```
+cd ask-oloid-worker
+npm install
+npx wrangler login
+npx wrangler secret put ANTHROPIC_API_KEY   # paste the key at the hidden prompt only
+npx wrangler deploy                         # prints the https://...workers.dev URL
+```
+
+Then set `CONFIG.endpoint` in `ask-oloid.js` to that URL and add the docs
+domain to `ALLOWED_ORIGINS` in `wrangler.toml`. For local testing, put the key
+in `ask-oloid-worker/.dev.vars` (git- and mint-ignored) and run
+`npx wrangler dev` alongside `mint dev`.
+
 ## Typography
 
 Page *structure* follows oloid.help exactly (verified: all 16 headings match

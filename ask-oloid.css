@@ -199,6 +199,23 @@
   white-space: pre;
 }
 .ask-oloid-bubble pre code { padding: 0; background: none; }
+.ask-oloid-table {
+  margin: 0.4rem 0;
+  overflow-x: auto;
+}
+.ask-oloid-table table {
+  border-collapse: collapse;
+  font-size: 0.92em;
+  width: 100%;
+}
+.ask-oloid-table th,
+.ask-oloid-table td {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--ao-border);
+  text-align: left;
+  vertical-align: top;
+}
+.ask-oloid-table th { background: var(--ao-surface); font-weight: 600; }
 .ask-oloid-bubble a {
   color: var(--ao-primary);
   font-weight: 500;

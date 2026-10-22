@@ -10,9 +10,9 @@
    NEVER put the Claude API key in this file: every .js file here is shipped
    to every visitor's browser, so anyone could copy the key.
 
-   The key lives only in the backend proxy (Cloudflare Worker secret
-   ANTHROPIC_API_KEY). The proxy calls Claude, which searches the Oloid docs
-   through the site's built-in MCP server (/mcp) and answers from them.
+   The key lives only in the backend proxy, ask-oloid-worker/ (Cloudflare
+   Worker secret ANTHROPIC_API_KEY). The proxy searches an index of these docs
+   built from the .mdx pages and has Claude answer from the matching sections.
    Set CONFIG.endpoint below to the proxy URL once it is deployed.
 
    The endpoint receives:
@@ -29,9 +29,8 @@
     subtitle: 'AI assistant for Oloid docs',
     buttonLabel: 'Ask Oloid',
     placeholder: 'Ask a question about Oloid...',
-    // Backend proxy URL (holds the Claude key). Example:
-    // 'https://ask-oloid.<your-account>.workers.dev'
-    endpoint: null,
+    // Backend proxy URL (holds the Claude key): ask-oloid-worker/
+    endpoint: 'https://ask-oloid.ask-oloid.workers.dev',
     suggestions: [
       'How do I set up Windows login?',
       'How do I enroll a face in DeviceLock?',
@@ -95,20 +94,46 @@
   }
 
   /* Minimal, safe Markdown: escape everything first, then add code blocks,
-     inline code, bold, headings, bullets and http(s) / site-relative links. */
-  function formatText(str) {
-    var blocks = [];
-    var html = escapeHtml(str).replace(/```[\w-]*\n?([\s\S]*?)```/g, function (_, code) {
-      blocks.push('<pre><code>' + code.replace(/\n$/, '') + '</code></pre>');
-      return '\u0000' + (blocks.length - 1) + '\u0000';
-    });
-    html = html
+     tables, inline code, bold, italics, headings, bullets and http(s) /
+     site-relative links. */
+  function inline(html) {
+    return html
       .replace(/`([^`\n]+)`/g, '<code>$1</code>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[^*\w])\*([^*\n]+)\*(?!\w)/g, '$1<em>$2</em>')
       .replace(
         /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/(?!\/)[^\s)]*)\)/g,
         '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-      )
+      );
+  }
+
+  function tableHtml(lines) {
+    var rows = lines.filter(function (_, i) { return i !== 1; }).map(function (line) {
+      return line.trim().replace(/^\||\|$/g, '').split('|').map(function (c) {
+        return inline(c.trim());
+      });
+    });
+    var head = '<tr><th>' + rows[0].join('</th><th>') + '</th></tr>';
+    var body = rows.slice(1).map(function (r) {
+      return '<tr><td>' + r.join('</td><td>') + '</td></tr>';
+    }).join('');
+    return '<div class="ask-oloid-table"><table><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>';
+  }
+
+  function formatText(str) {
+    var blocks = [];
+    function stash(markup) {
+      blocks.push(markup);
+      return '\u0000' + (blocks.length - 1) + '\u0000';
+    }
+    var html = escapeHtml(str).replace(/```[\w-]*\n?([\s\S]*?)```/g, function (_, code) {
+      return stash('<pre><code>' + code.replace(/\n$/, '') + '</code></pre>');
+    });
+    // a table: header row, |---|---| separator, then body rows
+    html = html.replace(/(^\|.*\|[ \t]*\n\|[ \t:|-]+\|[ \t]*(?:\n\|.*\|[ \t]*)*)/gm, function (t) {
+      return stash(tableHtml(t.split('\n')));
+    });
+    html = inline(html)
       .replace(/^#{1,6}\s+(.+)$/gm, '<strong>$1</strong>')
       .replace(/^\s*[-*]\s+(.+)$/gm, '&bull; $1')
       .replace(/\n/g, '<br>');
@@ -137,7 +162,9 @@
       .then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {
           if (!res.ok || data.error) {
-            throw new Error(data.error || 'Request failed: ' + res.status);
+            var err = new Error(data.error || 'Request failed: ' + res.status);
+            err.fromServer = !!data.error; // safe, user-facing text from the proxy
+            throw err;
           }
           return data.reply || 'Sorry, I did not get a response.';
         });
@@ -303,10 +330,12 @@
       .then(function (reply) {
         state.messages.push({ role: 'assistant', content: reply });
       })
-      .catch(function () {
+      .catch(function (err) {
         state.messages.push({
           role: 'assistant',
-          content: 'Something went wrong while contacting the assistant. Please try again.',
+          content: err && err.fromServer
+            ? err.message
+            : 'Something went wrong while contacting the assistant. Please try again.',
           error: true
         });
       })

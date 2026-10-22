@@ -1,0 +1,26 @@
+name = "ask-oloid"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Rebuild the docs index from the .mdx pages on every `wrangler deploy` / `dev`,
+# so the assistant always answers from the current docs.
+[build]
+command = "python build_index.py"
+
+# Public, non-secret settings. The API key is NOT here - it is a secret:
+#   npx wrangler secret put ANTHROPIC_API_KEY
+[vars]
+# Sites allowed to call this Worker. Add the production docs domain
+# (e.g. https://docs.oloid.com) and any Mintlify preview domain you use.
+ALLOWED_ORIGINS = "http://localhost:3000"
+MODEL = "claude-opus-5-5"
+
+# 10 questions per minute per visitor IP.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 10
+  period = 60
