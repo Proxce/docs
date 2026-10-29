@@ -21,6 +21,10 @@
      { reply: string }  or  { error: string }
    ========================================================================== */
 (function () {
+  // Set to true to show the Ask Oloid button and chat panel again.
+  var ENABLED = false;
+  if (!ENABLED) return;
+
   if (window.__askOloidLoaded) return;
   window.__askOloidLoaded = true;
 
