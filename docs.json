@@ -2591,7 +2591,15 @@
       },
       {
         "tab": "Shared Workspace",
-        "hidden": true
+        "hidden": true,
+        "groups": [
+          {
+            "group": "Roshan's Workspace",
+            "pages": [
+              "test-doc"
+            ]
+          }
+        ]
       }
     ]
   },
