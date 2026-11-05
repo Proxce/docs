@@ -2596,13 +2596,20 @@
           {
             "group": "Roshan's Workspace",
             "pages": [
-              "test-doc"
+              "test-doc",
+              "test-doc-process"
             ]
           },
           {
             "group": "Shubham Workspace",
             "pages": [
               "device-lock-app-how-to-enable-theme-tab"
+            ]
+          },
+          {
+            "group": "Subhra",
+            "pages": [
+              "test-doc-process"
             ]
           }
         ]
