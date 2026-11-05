@@ -2598,6 +2598,10 @@
             "pages": [
               "test-doc"
             ]
+          },
+          {
+            "group": "Shubham Workspace",
+            "pages": []
           }
         ]
       }
