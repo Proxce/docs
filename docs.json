@@ -2603,7 +2603,8 @@
             "group": "Shubham Workspace",
             "pages": [
               "device-lock-app-how-to-enable-theme-tab",
-              "doc"
+              "doc",
+              "test-doc-for-copy-paste-content"
             ]
           }
         ]
