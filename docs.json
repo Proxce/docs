@@ -2596,7 +2596,8 @@
           {
             "group": "Roshan's Workspace",
             "pages": [
-              "test-doc"
+              "test-doc",
+              "test-doc-process"
             ]
           },
           {
@@ -2606,6 +2607,10 @@
               "doc",
               "test-doc-for-copy-paste-content"
             ]
+          },
+          {
+            "group": "Subhra",
+            "pages": []
           }
         ]
       }
