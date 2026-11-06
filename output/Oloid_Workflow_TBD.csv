@@ -1,0 +1,16 @@
+﻿order,product,collection,workspace_id,article_id,title,url,state,created_at,updated_at
+1718,Oloid Workflow (TBD),6. Monitoring,e4gi378c,6969144,Monitoring,,draft,2023-02-07 06:08:29,2023-02-07 06:27:24
+1719,Oloid Workflow (TBD),5. Flows,e4gi378c,6955307,Flows,,draft,2023-02-01 07:20:48,2023-02-01 09:18:50
+1720,Oloid Workflow (TBD),4. Nodes,e4gi378c,6955192,ServiceNow Nodes,,draft,2023-02-01 05:26:20,2023-02-01 05:26:40
+1721,Oloid Workflow (TBD),4. Nodes,e4gi378c,6955191,Oloid Nodes,,draft,2023-02-01 05:25:23,2023-02-01 05:25:48
+1722,Oloid Workflow (TBD),4. Nodes,e4gi378c,6955189,ProWatch Nodes,,draft,2023-02-01 05:24:30,2023-02-01 05:24:55
+1723,Oloid Workflow (TBD),4. Nodes,e4gi378c,6955144,Node Pallet,,draft,2023-02-01 05:14:26,2023-02-01 05:16:39
+1724,Oloid Workflow (TBD),4. Nodes,e4gi378c,6955101,Nodes,,draft,2023-02-01 05:09:41,2023-02-01 05:11:17
+1725,Oloid Workflow (TBD),3. Workflow Accounts,e4gi378c,6951455,ServiceNow Account,,draft,2023-01-31 11:05:53,2023-02-01 05:06:52
+1726,Oloid Workflow (TBD),3. Workflow Accounts,e4gi378c,6951377,ProWatch Account,,draft,2023-01-31 10:19:26,2023-01-31 11:03:02
+1727,Oloid Workflow (TBD),3. Workflow Accounts,e4gi378c,6951354,Workflow Accounts - Introduction,,draft,2023-01-31 10:07:17,2023-01-31 10:12:05
+1728,Oloid Workflow (TBD),2. Deployment,e4gi378c,6950909,Instruction for Workflow Instance Setup,,draft,2023-01-31 04:59:41,2023-01-31 07:32:28
+1729,Oloid Workflow (TBD),2. Deployment,e4gi378c,6950882,Outbound Network Access Requirements for Oloid Workflow (On-prem),,draft,2023-01-31 04:44:23,2023-01-31 04:54:14
+1733,Oloid Workflow (TBD),2. Deployment,e4gi378c,6899306,Installation requirements for Oloid Workflow (On-prem),,draft,2023-01-17 10:57:44,2023-01-18 10:55:28
+1734,Oloid Workflow (TBD),1. Getting Started,e4gi378c,6895962,Oloid Workflow: Key Concepts,,draft,2023-01-16 13:23:27,2023-01-18 10:55:20
+1735,Oloid Workflow (TBD),1. Getting Started,e4gi378c,6839176,What is Oloid Workflow?,,draft,2022-12-20 12:00:13,2023-01-18 10:55:13
