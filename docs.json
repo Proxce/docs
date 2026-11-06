@@ -2602,7 +2602,8 @@
           {
             "group": "Shubham Workspace",
             "pages": [
-              "device-lock-app-how-to-enable-theme-tab"
+              "device-lock-app-how-to-enable-theme-tab",
+              "doc"
             ]
           }
         ]
