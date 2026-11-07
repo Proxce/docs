@@ -22,7 +22,8 @@
                 "group": "Overview",
                 "pages": [
                   "windows/getting-started/overview/what-is-oloid-s-windows-login"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Platform configuration",
@@ -40,7 +41,8 @@
                   "windows/getting-started/platform-configuration/oloid-devicelock-app-how-to-add-face-for-users-in-the-devicelock-app",
                   "windows/getting-started/platform-configuration/oloid-devicelock-app-how-to-enroll-face",
                   "windows/getting-started/platform-configuration/tenant-admin-portal-how-to-configure-theme-tab-for-devicelock-app"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "flag-checkered"
@@ -57,13 +59,15 @@
                   "windows/version-1/guides/windows-login-v1-0-hardware-and-software-requirements",
                   "windows/version-1/guides/windows-login-v1-0-how-to-deploy-windows-login-v1-0-using-microsoft",
                   "windows/version-1/guides/windows-login-v1-0-network-url-whitelisting-requirements-for-preview"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Installation and deployment",
                 "pages": [
                   "windows/version-1/installation/how-to-download-install-and-configure-windows-authenticator-app"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Supervisor App",
@@ -113,7 +117,8 @@
                   "windows/version-1/supervisor-app/windows-login-how-to-view-and-edit-shared-password-details-in",
                   "windows/version-1/supervisor-app/windows-login-how-to-view-and-edit-user-details"
                 ],
-                "icon": "user-tie"
+                "icon": "user-tie",
+                "public": true
               },
               {
                 "group": "Healthcare",
@@ -147,7 +152,8 @@
                   "windows/version-1/healthcare/windows-login-healthcare-how-to-use-two-user-authentication-using",
                   "windows/version-1/healthcare/windows-login-healthcare-two-user-authentication-using-badge-id-in"
                 ],
-                "icon": "hospital"
+                "icon": "hospital",
+                "public": true
               },
               {
                 "group": "Presence detection",
@@ -161,7 +167,8 @@
                   "windows/version-1/presence-detection/windows-login-screen-block-on-face-tracking-violation",
                   "windows/version-1/presence-detection/windows-login-screen-block-on-gadgets-detected",
                   "windows/version-1/presence-detection/windows-login-screen-block-on-multiple-faces-detected"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Videos",
@@ -194,7 +201,8 @@
                   "windows/version-1/videos/how-to-view-and-edit-shared-credential-details-in-supervisor-app-for",
                   "windows/version-1/videos/how-to-view-and-edit-user-details-in-the-supervisor-app-for-windows"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "1"
@@ -227,7 +235,8 @@
                   "windows/version-2/guides/windows-login-v2-0-network-url-whitelisting-requirements-for-prod-eu",
                   "windows/version-2/guides/windows-login-v2-0-network-url-whitelisting-requirements-for-prod-us",
                   "windows/version-2/guides/windows-login-v2-0-overview"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Videos",
@@ -238,7 +247,8 @@
                   "windows/version-2/videos/windows-login-v2-0-how-to-enable-windows-post-login-module-video",
                   "windows/version-2/videos/windows-login-v2-0-how-to-set-user-cache-validity-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "2"
@@ -292,7 +302,8 @@
                   "windows/general-guides/admin-guides/windows-login-set-up-preferred-machine-configuration-for-windows-login",
                   "windows/general-guides/admin-guides/windows-login-troubleshooting-auto-config-pairing-failure-in"
                 ],
-                "icon": "user-shield"
+                "icon": "user-shield",
+                "public": true
               },
               {
                 "group": "User guides",
@@ -334,7 +345,8 @@
                   "windows/general-guides/user-guides/windows-login-how-to-login-to-windows-device-using-nfc-id-and-duo",
                   "windows/general-guides/user-guides/windows-login-how-to-reset-pin-in-windows-login-using-badge-and"
                 ],
-                "icon": "user"
+                "icon": "user",
+                "public": true
               },
               {
                 "group": "Supporting documents",
@@ -342,7 +354,8 @@
                   "windows/general-guides/supporting-documents/integration-guide-for-tap-to-login-and-tap-badge-to-logout-for",
                   "windows/general-guides/supporting-documents/windows-passwordless-authenticator-troubleshooting-guide"
                 ],
-                "icon": "file-lines"
+                "icon": "file-lines",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -381,7 +394,8 @@
                   "windows/general-guides/videos/windows-login-platform-configuration-for-manual-capture-of-face-video",
                   "windows/general-guides/videos/windows-login-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "book"
@@ -405,7 +419,8 @@
                   "device/android/getting-started/android-passwordless-device-unlock-with-automatic-okta-login",
                   "device/android/getting-started/setting-up-oloid-devicelock-mfa",
                   "device/android/getting-started/updating-oloid-devicelock-mfa"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Device Lock",
@@ -435,7 +450,8 @@
                   "device/android/device-lock/devicelock-app-setting-up-and-using-oloid-devicelock-app",
                   "device/android/device-lock/devicelock-app-ways-to-pair-an-endpoint"
                 ],
-                "icon": "lock"
+                "icon": "lock",
+                "public": true
               },
               {
                 "group": "Supporting documents",
@@ -450,7 +466,8 @@
                   "device/android/supporting-documents/set-up-oloid-devicelock-on-android-using-microsoft-intune-mdm",
                   "device/android/supporting-documents/soti-mobicontrol-app-profile-policy-configuration-guide"
                 ],
-                "icon": "file-lines"
+                "icon": "file-lines",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -482,7 +499,8 @@
                   "device/android/videos/oloid-device-lock-video-tutorial",
                   "device/android/videos/oloid-devicelock-how-to-enroll-face-as-a-user-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": {
@@ -507,7 +525,8 @@
                   "device/ios/getting-started/what-is-oloid-connect-for-passwordless",
                   "device/ios/getting-started/what-is-oloid-connect",
                   "device/ios/getting-started/what-is-oloid-verify"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Oloid Connect",
@@ -584,7 +603,8 @@
                   "device/ios/oloid-connect/oloid-connect-view-user-details",
                   "device/ios/oloid-connect/setting-up-and-using-oloid-connect-for-passwordless",
                   "device/ios/oloid-connect/setting-up-application-and-connections-for-passwordless-login-in-the"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Oloid Verify",
@@ -617,7 +637,8 @@
                   "device/ios/oloid-verify/oloid-verify-login-using-okta-sso",
                   "device/ios/oloid-verify/oloid-verify-set-up-ipad-in-guided-access-mode-or-kiosk-mode",
                   "device/ios/oloid-verify/oloid-verify-view-user-details"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Supporting documents",
@@ -626,14 +647,16 @@
                   "device/ios/supporting-documents/set-up-sharing-logs-with-the-app-developer",
                   "device/ios/supporting-documents/what-is-an-offline-task-and-what-does-it-do"
                 ],
-                "icon": "file-lines"
+                "icon": "file-lines",
+                "public": true
               },
               {
                 "group": "FAQs",
                 "pages": [
                   "device/ios/faqs/hardboot-for-ipad-pro-11"
                 ],
-                "icon": "circle-question"
+                "icon": "circle-question",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -711,7 +734,8 @@
                   "device/ios/videos/oloid-verify-how-to-view-punch-details-video-tutorial",
                   "device/ios/videos/oloid-verify-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": {
@@ -737,7 +761,8 @@
                   "administration/user-portal/accounts-and-settings/how-to-share-feedback-using-oloid-user-portal",
                   "administration/user-portal/accounts-and-settings/oloid-user-portal-how-to-configure-custom-post-login-landing-page",
                   "administration/user-portal/accounts-and-settings/oloid-user-portal-how-to-login-with-email"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Credential management",
@@ -746,7 +771,8 @@
                   "administration/user-portal/credential-management/how-to-create-vault-password-using-oloid-user-portal",
                   "administration/user-portal/credential-management/how-to-edit-individual-password-using-oloid-user-portal",
                   "administration/user-portal/credential-management/oloid-user-portal-how-to-generate-oloid-passkey-in-the-user-portal"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Face and PIN",
@@ -760,7 +786,8 @@
                   "administration/user-portal/face-and-pin/oloid-user-portal-how-to-login-with-face",
                   "administration/user-portal/face-and-pin/oloid-user-portal-how-to-reset-pin-using-invite-link",
                   "administration/user-portal/face-and-pin/oloid-user-portal-how-to-revoke-consent"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Badge, NFC and QR",
@@ -771,7 +798,8 @@
                   "administration/user-portal/badge-nfc-qr/oloid-user-portal-how-to-enroll-for-badge-login",
                   "administration/user-portal/badge-nfc-qr/oloid-user-portal-how-to-enroll-for-nfc-login",
                   "administration/user-portal/badge-nfc-qr/oloid-user-portal-how-to-replace-and-assign-nfc"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Videos",
@@ -784,7 +812,8 @@
                   "administration/user-portal/videos/how-to-replace-and-assign-badge-using-oloid-user-portal-video-tutorial",
                   "administration/user-portal/videos/how-to-replace-and-assign-nfc-using-oloid-user-portal-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "user"
@@ -821,7 +850,8 @@
                   "administration/supervisor-portal/users/supervisor-portal-how-to-migrate-user-to-a-different-connection",
                   "administration/supervisor-portal/users/supervisor-portal-how-to-onboard-face-of-a-single-user",
                   "administration/supervisor-portal/users/supervisor-portal-how-to-remove-user"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Shared credentials",
@@ -832,7 +862,8 @@
                   "administration/supervisor-portal/shared-credentials/supervisor-portal-how-to-associate-users-with-shared-credentials",
                   "administration/supervisor-portal/shared-credentials/supervisor-portal-how-to-create-password-for-windows-login",
                   "administration/supervisor-portal/shared-credentials/supervisor-portal-how-to-create-shared-credentials-for-windows-login"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Accounts and settings",
@@ -841,7 +872,8 @@
                   "administration/supervisor-portal/accounts-and-settings/supervisor-portal-how-to-download-file-using-file-sharing-option",
                   "administration/supervisor-portal/accounts-and-settings/supervisor-portal-how-to-log-in-to-supervisor-portal",
                   "administration/supervisor-portal/accounts-and-settings/supervisor-portal-how-to-set-up-supervisor-profile"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Videos",
@@ -871,7 +903,8 @@
                   "administration/supervisor-portal/videos/how-to-view-and-download-user-transaction-in-supervisor-portal-video",
                   "administration/supervisor-portal/videos/supervisor-portal-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "display"
@@ -896,7 +929,8 @@
                   "administration/platform/getting-started/tenant-admin-portal-how-to-log-in-to-tenant-admin-portal-with-google",
                   "administration/platform/getting-started/tenant-admin-portal-how-to-log-in-to-the-tenant-admin-portal",
                   "administration/platform/getting-started/tenant-admin-portal-how-to-set-a-password-during-first-time-login"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Accounts and settings",
@@ -933,7 +967,8 @@
                   "administration/platform/accounts-and-settings/tenant-admin-portal-how-to-send-reset-password-link-to-a-supervisor",
                   "administration/platform/accounts-and-settings/user-roles-and-permissions-in-oloid-portal",
                   "administration/platform/accounts-and-settings/windows-login-how-to-generate-and-download-auto-pair-config-file-for"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Users and groups",
@@ -1003,7 +1038,8 @@
                   "administration/platform/users-and-groups/tenant-admin-portal-how-to-remove-endpoint-from-group",
                   "administration/platform/users-and-groups/tenant-admin-portal-how-to-sync-users-in-a-group",
                   "administration/platform/users-and-groups/tenant-admin-portal-how-to-view-and-edit-vault-passkey-fido2"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Credentials",
@@ -1029,7 +1065,8 @@
                   "administration/platform/credentials/tenant-admin-portal-how-to-create-wiegand",
                   "administration/platform/credentials/tenant-admin-portal-how-to-import-bulk-passwords",
                   "administration/platform/credentials/windows-login-how-to-enable-preferred-machine-users-in-shared"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Endpoints and locations",
@@ -1051,7 +1088,8 @@
                   "administration/platform/endpoints-and-locations/tenant-admin-portal-how-to-create-a-cloudkey-endpoint",
                   "administration/platform/endpoints-and-locations/tenant-admin-portal-how-to-create-endpoint-template",
                   "administration/platform/endpoints-and-locations/windows-login-how-to-configure-windows-alert-for-presence-detection"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Connections and applications",
@@ -1071,7 +1109,8 @@
                   "administration/platform/connections-and-applications/tenant-admin-portal-how-to-enable-oloid-account-for-a-connection",
                   "administration/platform/connections-and-applications/webkey-how-to-create-and-configure-a-webkey-application-in-tenant",
                   "administration/platform/connections-and-applications/windows-login-how-to-create-and-configure-windows-login-application"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Consent documents",
@@ -1085,7 +1124,8 @@
                   "administration/platform/consent-documents/tenant-admin-portal-how-to-create-and-configure-language-version-for",
                   "administration/platform/consent-documents/tenant-admin-portal-how-to-create-legal-document",
                   "administration/platform/consent-documents/tenant-admin-portal-how-to-view-and-download-active-consent-of-a-user"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Reports and insights",
@@ -1124,7 +1164,8 @@
                   "administration/platform/reports-and-insights/tenant-admin-portal-how-to-view-and-download-user-transactions-in",
                   "administration/platform/reports-and-insights/tenant-admin-portal-insights-dashboard-windows-shared-passwords-report",
                   "administration/platform/reports-and-insights/tenant-admin-portal-what-is-oloid-s-insights-dashboard"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Identity providers",
@@ -1142,7 +1183,8 @@
                   "administration/platform/identity-providers/tenant-admin-portal-how-to-create-idp-profile-for-oidc-entra-id",
                   "administration/platform/identity-providers/tenant-admin-portal-how-to-create-idp-profile-for-oidc-pingone",
                   "administration/platform/identity-providers/tenant-admin-portal-how-to-create-idp-profile-for-security-assertion"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Multi-factor authentication",
@@ -1162,14 +1204,16 @@
                   "administration/platform/mfa/windows-login-how-to-enable-pingone-multi-factor-authentication-mfa",
                   "administration/platform/mfa/windows-login-how-to-login-to-windows-device-using-nfc-id-and-okta",
                   "administration/platform/mfa/windows-login-how-to-login-to-windows-device-using-nfc-id-and-pingone"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Security and compliance",
                 "pages": [
                   "administration/platform/security-and-compliance/enable-customer-managed-encryption-keys-cmek-for-your-oloid-tenant"
                 ],
-                "icon": "shield-check"
+                "icon": "shield-check",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -1293,7 +1337,8 @@
                   "administration/platform/videos/tenant-admin-portal-user-credentials-overview-video-tutorial",
                   "administration/platform/videos/windows-login-how-to-add-qr-code-using-supervisor-app-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "building"
@@ -1320,7 +1365,8 @@
                   "oloid-vault/chrome-vault/getting-started/oloid-vault-chrome-chromium-network-url-whitelisting-requirements-for-15377387",
                   "oloid-vault/chrome-vault/getting-started/oloid-vault-chrome-chromium-network-url-whitelisting-requirements-for",
                   "oloid-vault/chrome-vault/getting-started/what-is-oloid-vault-chrome-chromium"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Installation and configuration",
@@ -1332,7 +1378,8 @@
                   "oloid-vault/chrome-vault/installation/oloid-vault-chrome-chromium-how-to-add-the-oloid-vault-extension",
                   "oloid-vault/chrome-vault/installation/oloid-vault-chrome-chromium-how-to-configure-theme-tab-in-tenant",
                   "oloid-vault/chrome-vault/installation/oloid-vault-chrome-chromium-how-to-manually-pair-an-endpoint"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Admin guides",
@@ -1342,7 +1389,8 @@
                   "oloid-vault/chrome-vault/admin-guides/oloid-vault-chrome-chromium-how-to-update-authenticator-tab-in-the",
                   "oloid-vault/chrome-vault/admin-guides/oloid-vault-chrome-chromium-how-to-update-details-tab-in-the-tenant"
                 ],
-                "icon": "user-shield"
+                "icon": "user-shield",
+                "public": true
               },
               {
                 "group": "User guides",
@@ -1357,7 +1405,8 @@
                   "oloid-vault/chrome-vault/user-guides/how-to-update-password-in-chrome-vault",
                   "oloid-vault/chrome-vault/user-guides/oloid-vault-chrome-chromium-how-to-log-in-with-qr-code"
                 ],
-                "icon": "user"
+                "icon": "user",
+                "public": true
               },
               {
                 "group": "Platform configuration",
@@ -1367,7 +1416,8 @@
                   "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-create-and-configure-oloid-vault",
                   "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-enable-password-autofill-for-multi",
                   "oloid-vault/chrome-vault/platform-configuration/oloid-vault-chrome-chromium-how-to-enable-saving-passkeys"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Accounts and settings",
@@ -1379,14 +1429,16 @@
                   "oloid-vault/chrome-vault/accounts-and-settings/oloid-vault-chrome-chromium-how-to-reset-tenant",
                   "oloid-vault/chrome-vault/accounts-and-settings/oloid-vault-chrome-chromium-how-to-sync-configuration",
                   "oloid-vault/chrome-vault/accounts-and-settings/oloid-vault-chrome-chromium-how-to-unpair-an-endpoint"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "FAQs",
                 "pages": [
                   "oloid-vault/chrome-vault/faqs/faqs-chrome-vault"
                 ],
-                "icon": "circle-question"
+                "icon": "circle-question",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -1418,7 +1470,8 @@
                   "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-manually-pair-an-endpoint-video",
                   "oloid-vault/chrome-vault/videos/oloid-vault-chrome-chromium-how-to-sync-configuration-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": {
@@ -1450,7 +1503,8 @@
                   "webkey/webkey/getting-started/webkey-network-url-whitelisting-requirements-for-prod-eu-environment",
                   "webkey/webkey/getting-started/webkey-network-url-whitelisting-requirements-for-prod-us-environment",
                   "webkey/webkey/getting-started/webkey-overview"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Using WebKey",
@@ -1468,7 +1522,8 @@
                   "webkey/webkey/using-webkey/webkey-how-to-login-to-tenant-admin-portal-with-oloid-webkey-sso",
                   "webkey/webkey/using-webkey/webkey-how-to-login-to-workforce-hrms-using-personal-passkey",
                   "webkey/webkey/using-webkey/webkey-how-to-re-submit-consent"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Platform configuration",
@@ -1492,7 +1547,8 @@
                   "webkey/webkey/platform-configuration/webkey-how-to-generate-auto-pair-config-file-for-webkey-in-tenant",
                   "webkey/webkey/platform-configuration/webkey-how-to-identify-spoofing-in-webkey",
                   "webkey/webkey/platform-configuration/webkey-how-to-link-webkey-with-an-identity-provider-idp-in-tenant"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Supporting documents",
@@ -1500,7 +1556,8 @@
                   "webkey/webkey/supporting-documents/guidelines-for-face-enrollment-onboarding-images",
                   "webkey/webkey/supporting-documents/troubleshooting-webkey-network-slowness-connectivity-issues"
                 ],
-                "icon": "file-lines"
+                "icon": "file-lines",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -1526,7 +1583,8 @@
                   "webkey/webkey/videos/webkey-platform-configuration-for-manual-capture-of-face-video",
                   "webkey/webkey/videos/webkey-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "key"
@@ -1552,7 +1610,8 @@
                   "workflow/oloid-workflow/overview/set-up-workday-integration-time-and-attendance-and-user-sync",
                   "workflow/oloid-workflow/overview/using-the-terminated-user-processing-api",
                   "workflow/oloid-workflow/overview/what-is-oloid-workflow"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Getting started",
@@ -1564,7 +1623,8 @@
                   "workflow/oloid-workflow/getting-started/outbound-network-access-requirements",
                   "workflow/oloid-workflow/getting-started/pre-req-system-requirements",
                   "workflow/oloid-workflow/getting-started/suggested-approach-for-installation-and-maintenance"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Accounts",
@@ -1574,7 +1634,8 @@
                   "workflow/oloid-workflow/accounts/oloid-account",
                   "workflow/oloid-workflow/accounts/prowatch-account",
                   "workflow/oloid-workflow/accounts/servicenow-account"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Flow templates",
@@ -1585,7 +1646,8 @@
                   "workflow/oloid-workflow/flow-templates/prowatch-servicenow-integration",
                   "workflow/oloid-workflow/flow-templates/servicenow-to-pro-watch-access-management-automation",
                   "workflow/oloid-workflow/flow-templates/workday-to-pro-watch-employee-lifecycle-automation"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "How-to guides",
@@ -1593,20 +1655,23 @@
                   "workflow/oloid-workflow/how-to-guides/how-to-create-a-flow",
                   "workflow/oloid-workflow/how-to-guides/how-to-enable-disable-flow",
                   "workflow/oloid-workflow/how-to-guides/how-to-import-a-flow"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "CloudKey",
                 "pages": [
                   "workflow/oloid-workflow/cloudkey/qr-code-verification-and-door-access-control"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Monitoring",
                 "pages": [
                   "workflow/oloid-workflow/monitoring/how-to-configure-system-and-api-health-in-oloid-workflow",
                   "workflow/oloid-workflow/monitoring/monitoring-health-status"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Security and data protection",
@@ -1614,7 +1679,8 @@
                   "workflow/oloid-workflow/security/data-protection",
                   "workflow/oloid-workflow/security/security"
                 ],
-                "icon": "shield-check"
+                "icon": "shield-check",
+                "public": true
               }
             ],
             "icon": "diagram-project"
@@ -1631,7 +1697,8 @@
               "api-reference/guides/guide-to-retrieving-events-and-transactions",
               "api-reference/guides/list-activity-logs-api",
               "api-reference/guides/list-transactions-api"
-            ]
+            ],
+            "public": true
           }
         ],
         "icon": "code"
@@ -1672,7 +1739,8 @@
                   "resources/integrations/sso/tenant-admin-portal-how-to-login-to-the-tenant-admin-portal-with-okta",
                   "resources/integrations/sso/tenant-admin-portal-how-to-login-to-the-tenant-admin-portal-with"
                 ],
-                "icon": "right-to-bracket"
+                "icon": "right-to-bracket",
+                "public": true
               },
               {
                 "group": "Third-party applications",
@@ -1685,7 +1753,8 @@
                   "resources/integrations/third-party-apps/set-up-prowatch-for-oloid-workflow-integrations",
                   "resources/integrations/third-party-apps/set-up-s2-netbox-for-oloid-workflow-integrations",
                   "resources/integrations/third-party-apps/set-up-servicenow-for-oloid-workflow-integrations"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "plug"
@@ -1725,7 +1794,8 @@
                   "windows/version-1/healthcare/windows-login-healthcare-how-to-use-two-user-authentication-using",
                   "windows/version-1/healthcare/windows-login-healthcare-two-user-authentication-using-badge-id-in"
                 ],
-                "icon": "hospital"
+                "icon": "hospital",
+                "public": true
               }
             ],
             "icon": "industry"
@@ -1738,7 +1808,8 @@
                 "pages": [
                   "resources/troubleshooting/troubleshooting/troubleshooting-iphone-truedepth-camera-error-blocked-camera",
                   "resources/troubleshooting/troubleshooting/troubleshooting-iphone-truedepth-camera-issue-face-id-disabled"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "wrench"
@@ -1755,7 +1826,8 @@
                   "resources/supporting-documents/documents/oloid-product-updates",
                   "resources/supporting-documents/documents/oloid-sub-processors-list",
                   "resources/supporting-documents/documents/what-s-new-in-oloid"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "file-lines"
@@ -1770,7 +1842,8 @@
                   "resources/qrg/guides/oloid-platform-qrg-how-to-create-secrets",
                   "resources/qrg/guides/oloid-platform-qrg-how-to-generate-auto-pair-config-file",
                   "resources/qrg/guides/oloid-verify-qrg-how-to-kill-and-relaunch-the-app"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "bookmark"
@@ -1791,16 +1864,19 @@
                     "group": "Overview",
                     "pages": [
                       "drafts/windows/getting-started/overview/getting-started-with-windows-device-login"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Platform configuration",
                     "pages": [
                       "drafts/windows/getting-started/platform-configuration/how-to-configure-oloid-device-lock-app"
-                    ]
+                    ],
+                    "public": false
                   }
                 ],
-                "icon": "flag-checkered"
+                "icon": "flag-checkered",
+                "public": false
               },
               {
                 "group": "Version 1",
@@ -1810,17 +1886,20 @@
                     "pages": [
                       "drafts/windows/version-1/supervisor-app/how-to-pair-supervisor-app-using-config-file"
                     ],
-                    "icon": "user-tie"
+                    "icon": "user-tie",
+                    "public": false
                   },
                   {
                     "group": "Healthcare",
                     "pages": [
                       "drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr"
                     ],
-                    "icon": "hospital"
+                    "icon": "hospital",
+                    "public": false
                   }
                 ],
-                "icon": "1"
+                "icon": "1",
+                "public": false
               },
               {
                 "group": "General guides",
@@ -1830,7 +1909,8 @@
                     "pages": [
                       "drafts/windows/general-guides/admin-guides/how-to-enable-auto-update-windows-device-agent-in-windows-login"
                     ],
-                    "icon": "user-shield"
+                    "icon": "user-shield",
+                    "public": false
                   },
                   {
                     "group": "User guides",
@@ -1838,10 +1918,12 @@
                       "drafts/windows/general-guides/user-guides/how-to-log-into-workforce-hrms-platforms-using-badge-and-pin-using",
                       "drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app"
                     ],
-                    "icon": "user"
+                    "icon": "user",
+                    "public": false
                   }
                 ],
-                "icon": "book"
+                "icon": "book",
+                "public": false
               }
             ],
             "icon": {
@@ -1874,7 +1956,8 @@
                       "drafts/device/ios/getting-started/oloid-verify-connect-video-tutorial-list-to-be-deleted",
                       "drafts/device/ios/getting-started/pre-req-system-requirements-archived",
                       "drafts/device/ios/getting-started/set-up-ipad-in-kiosk-mode-archived"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Oloid Connect",
@@ -1882,13 +1965,15 @@
                       "drafts/device/ios/oloid-connect/configuring-oloid-connect-app-for-sso-login",
                       "drafts/device/ios/oloid-connect/how-to-add-shared-credential-to-an-user-in-oloid-connect-app",
                       "drafts/device/ios/oloid-connect/oloid-connect-app-how-to-log-in-to-admin-mode-as-a-supervisor-or-admin"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Oloid Verify",
                     "pages": [
                       "drafts/device/ios/oloid-verify/oloid-verify-add-pin"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Supporting documents",
@@ -1898,14 +1983,16 @@
                       "drafts/device/ios/supporting-documents/oloid-thermal-kit-installation-and-setup-to-be-deleted",
                       "drafts/device/ios/supporting-documents/using-the-oloid-verify-connect-app"
                     ],
-                    "icon": "file-lines"
+                    "icon": "file-lines",
+                    "public": false
                   }
                 ],
                 "icon": {
                   "name": "apple",
                   "library": "fontawesome",
                   "style": "brands"
-                }
+                },
+                "public": false
               }
             ],
             "icon": "mobile-screen"
@@ -1921,10 +2008,12 @@
                     "pages": [
                       "drafts/administration/admin-portal/getting-started/oloid-platform-configuration-for-oloid-verify-app",
                       "drafts/administration/admin-portal/getting-started/oloid-platform-configuration-for-oloid-verify-connect-app-archived"
-                    ]
+                    ],
+                    "public": false
                   }
                 ],
-                "icon": "shield-halved"
+                "icon": "shield-halved",
+                "public": false
               },
               {
                 "group": "Supervisor Portal",
@@ -1933,23 +2022,27 @@
                     "group": "Create and manage users",
                     "pages": [
                       "drafts/administration/supervisor-portal/users/supervisor-portal-how-to-send-qr-code-credential-to-user-using-the"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Endpoints",
                     "pages": [
                       "drafts/administration/supervisor-portal/endpoints/how-to-create-windows-login-endpoint-in-supervisor-portal"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Videos",
                     "pages": [
                       "drafts/administration/supervisor-portal/videos/how-to-extend-qr-code-expiry-date-of-users-in-a-connection-in-the"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": false
                   }
                 ],
-                "icon": "display"
+                "icon": "display",
+                "public": false
               },
               {
                 "group": "Platform",
@@ -1959,7 +2052,8 @@
                     "pages": [
                       "drafts/administration/platform/accounts-and-settings/how-to-assign-supervisor-privileges-in-oloid-portal-this-is-a",
                       "drafts/administration/platform/accounts-and-settings/how-to-enable-new-user-creation-button-in-oloid-verify-connect"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Users and groups",
@@ -1967,7 +2061,8 @@
                       "drafts/administration/platform/users-and-groups/how-to-add-bluetooth-as-credential-to-users",
                       "drafts/administration/platform/users-and-groups/how-to-assign-badge-id-and-create-bluetooth-credentials",
                       "drafts/administration/platform/users-and-groups/how-to-improve-face"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Endpoints and locations",
@@ -1978,24 +2073,28 @@
                       "drafts/administration/platform/endpoints-and-locations/how-to-configure-endpoint-template-for-oloid-verify-connect-app",
                       "drafts/administration/platform/endpoints-and-locations/how-to-configure-passwordless-template-to-be-deleted",
                       "drafts/administration/platform/endpoints-and-locations/how-to-download-endpoint-config-file-for-windows-login"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Connections and applications",
                     "pages": [
                       "drafts/administration/platform/connections-and-applications/how-to-create-bluetooth-credential-for-users-in-a-connections-in-the",
                       "drafts/administration/platform/connections-and-applications/how-to-delete-bluetooth-credential-for-users-in-a-connections-in-the"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Videos",
                     "pages": [
                       "drafts/administration/platform/videos/how-to-add-bluetooth-as-credential-to-users-video-tutorial"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": false
                   }
                 ],
-                "icon": "building"
+                "icon": "building",
+                "public": false
               }
             ],
             "icon": "gear"
@@ -2010,20 +2109,23 @@
                     "group": "Getting started",
                     "pages": [
                       "drafts/oloid-vault/chrome-vault/getting-started/oloid-vault-chrome-chromium-network-url-whitelisting-requirements"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Installation and configuration",
                     "pages": [
                       "drafts/oloid-vault/chrome-vault/installation/how-to-install-chrome-vault-application"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Platform configuration",
                     "pages": [
                       "drafts/oloid-vault/chrome-vault/platform-configuration/how-to-download-endpoint-config-file-for-chrome-vault",
                       "drafts/oloid-vault/chrome-vault/platform-configuration/how-to-manually-create-endpoint-for-chrome-vault"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Videos",
@@ -2031,14 +2133,16 @@
                       "drafts/oloid-vault/chrome-vault/videos/how-to-download-endpoint-config-file-for-chrome-vault-video-tutorial",
                       "drafts/oloid-vault/chrome-vault/videos/how-to-manually-create-endpoint-for-chrome-vault-video-tutorial"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": false
                   }
                 ],
                 "icon": {
                   "name": "chrome",
                   "library": "fontawesome",
                   "style": "brands"
-                }
+                },
+                "public": false
               }
             ],
             "icon": "vault"
@@ -2053,10 +2157,12 @@
                     "group": "Using WebKey",
                     "pages": [
                       "drafts/webkey/webkey/using-webkey/how-to-enable-authenticator-factors-in-webkey-application"
-                    ]
+                    ],
+                    "public": false
                   }
                 ],
-                "icon": "key"
+                "icon": "key",
+                "public": false
               }
             ],
             "icon": "key"
@@ -2072,7 +2178,8 @@
                     "pages": [
                       "drafts/workflow/oloid-workflow/getting-started/oloid-workflow-key-concepts-tba",
                       "drafts/workflow/oloid-workflow/getting-started/what-is-oloid-workflow-tba"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Deployment",
@@ -2080,7 +2187,8 @@
                       "drafts/workflow/oloid-workflow/deployment/installation-requirements-for-oloid-workflow-on-prem-tba",
                       "drafts/workflow/oloid-workflow/deployment/instruction-for-workflow-instance-setup-tba",
                       "drafts/workflow/oloid-workflow/deployment/outbound-network-access-requirements-for-oloid-workflow-on-prem-tba"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Accounts",
@@ -2088,7 +2196,8 @@
                       "drafts/workflow/oloid-workflow/accounts/prowatch-account-tba",
                       "drafts/workflow/oloid-workflow/accounts/servicenow-account-tba",
                       "drafts/workflow/oloid-workflow/accounts/workflow-accounts-introduction-tba"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Nodes and flows",
@@ -2099,16 +2208,19 @@
                       "drafts/workflow/oloid-workflow/nodes-and-flows/oloid-nodes-tba",
                       "drafts/workflow/oloid-workflow/nodes-and-flows/prowatch-nodes-tba",
                       "drafts/workflow/oloid-workflow/nodes-and-flows/servicenow-nodes-tba"
-                    ]
+                    ],
+                    "public": false
                   },
                   {
                     "group": "Monitoring",
                     "pages": [
                       "drafts/workflow/oloid-workflow/monitoring/monitoring-tba"
-                    ]
+                    ],
+                    "public": false
                   }
                 ],
-                "icon": "diagram-project"
+                "icon": "diagram-project",
+                "public": false
               }
             ],
             "icon": "diagram-project"
@@ -2124,16 +2236,19 @@
                     "pages": [
                       "drafts/resources/integrations/sso/connecting-your-oloid-tenant-to-your-okta-instance-to-be-deleted"
                     ],
-                    "icon": "right-to-bracket"
+                    "icon": "right-to-bracket",
+                    "public": false
                   },
                   {
                     "group": "Third-party applications",
                     "pages": [
                       "drafts/resources/integrations/third-party-apps/set-up-workday-for-oloid-workflow-integrations"
-                    ]
+                    ],
+                    "public": false
                   }
                 ],
-                "icon": "plug"
+                "icon": "plug",
+                "public": false
               },
               {
                 "group": "Industries",
@@ -2143,10 +2258,12 @@
                     "pages": [
                       "drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr"
                     ],
-                    "icon": "hospital"
+                    "icon": "hospital",
+                    "public": false
                   }
                 ],
-                "icon": "industry"
+                "icon": "industry",
+                "public": false
               }
             ],
             "icon": "folder-open"
@@ -2539,7 +2656,8 @@
                   "drafts/unassigned/intercom/windows-login-v2-0-how-to-enable-passwordless-session-token-for-an",
                   "drafts/unassigned/intercom/windows-release-update-january-2026",
                   "drafts/unassigned/intercom/windows-v2-0-install-pair-and-configure-oloid-launcher-on-citrix"
-                ]
+                ],
+                "public": false
               },
               {
                 "group": "Passwordless Authenticator (unqualified)",
@@ -2581,7 +2699,8 @@
                   "drafts/unassigned/passwordless-authenticator/tenant-admin-portal-how-to-log-into-tenant-admin-portal-using",
                   "drafts/unassigned/passwordless-authenticator/user-onboarding-for-oloid-portal",
                   "drafts/unassigned/passwordless-authenticator/what-is-passwordless-authenticator"
-                ]
+                ],
+                "public": false
               }
             ],
             "icon": "inbox"
@@ -2597,7 +2716,8 @@
             "group": "Roshan's Workspace",
             "pages": [
               "test-doc"
-            ]
+            ],
+            "public": false
           },
           {
             "group": "Shubham Workspace",
@@ -2605,7 +2725,8 @@
               "device-lock-app-how-to-enable-theme-tab",
               "doc",
               "test-doc-for-copy-paste-content"
-            ]
+            ],
+            "public": false
           }
         ]
       }
@@ -2627,5 +2748,12 @@
   },
   "styling": {
     "eyebrows": "breadcrumbs"
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Log in",
+      "href": "/login"
+    }
   }
 }
