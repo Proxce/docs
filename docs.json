@@ -1865,18 +1865,18 @@
                     "pages": [
                       "drafts/windows/getting-started/overview/getting-started-with-windows-device-login"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Platform configuration",
                     "pages": [
                       "drafts/windows/getting-started/platform-configuration/how-to-configure-oloid-device-lock-app"
                     ],
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "flag-checkered",
-                "public": false
+                "public": true
               },
               {
                 "group": "Version 1",
@@ -1887,7 +1887,7 @@
                       "drafts/windows/version-1/supervisor-app/how-to-pair-supervisor-app-using-config-file"
                     ],
                     "icon": "user-tie",
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Healthcare",
@@ -1895,11 +1895,11 @@
                       "drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr"
                     ],
                     "icon": "hospital",
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "1",
-                "public": false
+                "public": true
               },
               {
                 "group": "General guides",
@@ -1910,7 +1910,7 @@
                       "drafts/windows/general-guides/admin-guides/how-to-enable-auto-update-windows-device-agent-in-windows-login"
                     ],
                     "icon": "user-shield",
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "User guides",
@@ -1919,11 +1919,11 @@
                       "drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app"
                     ],
                     "icon": "user",
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "book",
-                "public": false
+                "public": true
               }
             ],
             "icon": {
@@ -1957,7 +1957,7 @@
                       "drafts/device/ios/getting-started/pre-req-system-requirements-archived",
                       "drafts/device/ios/getting-started/set-up-ipad-in-kiosk-mode-archived"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Oloid Connect",
@@ -1966,14 +1966,14 @@
                       "drafts/device/ios/oloid-connect/how-to-add-shared-credential-to-an-user-in-oloid-connect-app",
                       "drafts/device/ios/oloid-connect/oloid-connect-app-how-to-log-in-to-admin-mode-as-a-supervisor-or-admin"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Oloid Verify",
                     "pages": [
                       "drafts/device/ios/oloid-verify/oloid-verify-add-pin"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Supporting documents",
@@ -1984,7 +1984,7 @@
                       "drafts/device/ios/supporting-documents/using-the-oloid-verify-connect-app"
                     ],
                     "icon": "file-lines",
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": {
@@ -1992,7 +1992,7 @@
                   "library": "fontawesome",
                   "style": "brands"
                 },
-                "public": false
+                "public": true
               }
             ],
             "icon": "mobile-screen"
@@ -2009,11 +2009,11 @@
                       "drafts/administration/admin-portal/getting-started/oloid-platform-configuration-for-oloid-verify-app",
                       "drafts/administration/admin-portal/getting-started/oloid-platform-configuration-for-oloid-verify-connect-app-archived"
                     ],
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "shield-halved",
-                "public": false
+                "public": true
               },
               {
                 "group": "Supervisor Portal",
@@ -2023,14 +2023,14 @@
                     "pages": [
                       "drafts/administration/supervisor-portal/users/supervisor-portal-how-to-send-qr-code-credential-to-user-using-the"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Endpoints",
                     "pages": [
                       "drafts/administration/supervisor-portal/endpoints/how-to-create-windows-login-endpoint-in-supervisor-portal"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Videos",
@@ -2038,11 +2038,11 @@
                       "drafts/administration/supervisor-portal/videos/how-to-extend-qr-code-expiry-date-of-users-in-a-connection-in-the"
                     ],
                     "icon": "circle-play",
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "display",
-                "public": false
+                "public": true
               },
               {
                 "group": "Platform",
@@ -2053,7 +2053,7 @@
                       "drafts/administration/platform/accounts-and-settings/how-to-assign-supervisor-privileges-in-oloid-portal-this-is-a",
                       "drafts/administration/platform/accounts-and-settings/how-to-enable-new-user-creation-button-in-oloid-verify-connect"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Users and groups",
@@ -2062,7 +2062,7 @@
                       "drafts/administration/platform/users-and-groups/how-to-assign-badge-id-and-create-bluetooth-credentials",
                       "drafts/administration/platform/users-and-groups/how-to-improve-face"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Endpoints and locations",
@@ -2074,7 +2074,7 @@
                       "drafts/administration/platform/endpoints-and-locations/how-to-configure-passwordless-template-to-be-deleted",
                       "drafts/administration/platform/endpoints-and-locations/how-to-download-endpoint-config-file-for-windows-login"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Connections and applications",
@@ -2082,7 +2082,7 @@
                       "drafts/administration/platform/connections-and-applications/how-to-create-bluetooth-credential-for-users-in-a-connections-in-the",
                       "drafts/administration/platform/connections-and-applications/how-to-delete-bluetooth-credential-for-users-in-a-connections-in-the"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Videos",
@@ -2090,11 +2090,11 @@
                       "drafts/administration/platform/videos/how-to-add-bluetooth-as-credential-to-users-video-tutorial"
                     ],
                     "icon": "circle-play",
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "building",
-                "public": false
+                "public": true
               }
             ],
             "icon": "gear"
@@ -2110,14 +2110,14 @@
                     "pages": [
                       "drafts/oloid-vault/chrome-vault/getting-started/oloid-vault-chrome-chromium-network-url-whitelisting-requirements"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Installation and configuration",
                     "pages": [
                       "drafts/oloid-vault/chrome-vault/installation/how-to-install-chrome-vault-application"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Platform configuration",
@@ -2125,7 +2125,7 @@
                       "drafts/oloid-vault/chrome-vault/platform-configuration/how-to-download-endpoint-config-file-for-chrome-vault",
                       "drafts/oloid-vault/chrome-vault/platform-configuration/how-to-manually-create-endpoint-for-chrome-vault"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Videos",
@@ -2134,7 +2134,7 @@
                       "drafts/oloid-vault/chrome-vault/videos/how-to-manually-create-endpoint-for-chrome-vault-video-tutorial"
                     ],
                     "icon": "circle-play",
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": {
@@ -2142,7 +2142,7 @@
                   "library": "fontawesome",
                   "style": "brands"
                 },
-                "public": false
+                "public": true
               }
             ],
             "icon": "vault"
@@ -2158,11 +2158,11 @@
                     "pages": [
                       "drafts/webkey/webkey/using-webkey/how-to-enable-authenticator-factors-in-webkey-application"
                     ],
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "key",
-                "public": false
+                "public": true
               }
             ],
             "icon": "key"
@@ -2179,7 +2179,7 @@
                       "drafts/workflow/oloid-workflow/getting-started/oloid-workflow-key-concepts-tba",
                       "drafts/workflow/oloid-workflow/getting-started/what-is-oloid-workflow-tba"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Deployment",
@@ -2188,7 +2188,7 @@
                       "drafts/workflow/oloid-workflow/deployment/instruction-for-workflow-instance-setup-tba",
                       "drafts/workflow/oloid-workflow/deployment/outbound-network-access-requirements-for-oloid-workflow-on-prem-tba"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Accounts",
@@ -2197,7 +2197,7 @@
                       "drafts/workflow/oloid-workflow/accounts/servicenow-account-tba",
                       "drafts/workflow/oloid-workflow/accounts/workflow-accounts-introduction-tba"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Nodes and flows",
@@ -2209,18 +2209,18 @@
                       "drafts/workflow/oloid-workflow/nodes-and-flows/prowatch-nodes-tba",
                       "drafts/workflow/oloid-workflow/nodes-and-flows/servicenow-nodes-tba"
                     ],
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Monitoring",
                     "pages": [
                       "drafts/workflow/oloid-workflow/monitoring/monitoring-tba"
                     ],
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "diagram-project",
-                "public": false
+                "public": true
               }
             ],
             "icon": "diagram-project"
@@ -2237,18 +2237,18 @@
                       "drafts/resources/integrations/sso/connecting-your-oloid-tenant-to-your-okta-instance-to-be-deleted"
                     ],
                     "icon": "right-to-bracket",
-                    "public": false
+                    "public": true
                   },
                   {
                     "group": "Third-party applications",
                     "pages": [
                       "drafts/resources/integrations/third-party-apps/set-up-workday-for-oloid-workflow-integrations"
                     ],
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "plug",
-                "public": false
+                "public": true
               },
               {
                 "group": "Industries",
@@ -2259,11 +2259,11 @@
                       "drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr"
                     ],
                     "icon": "hospital",
-                    "public": false
+                    "public": true
                   }
                 ],
                 "icon": "industry",
-                "public": false
+                "public": true
               }
             ],
             "icon": "folder-open"
@@ -2657,7 +2657,7 @@
                   "drafts/unassigned/intercom/windows-release-update-january-2026",
                   "drafts/unassigned/intercom/windows-v2-0-install-pair-and-configure-oloid-launcher-on-citrix"
                 ],
-                "public": false
+                "public": true
               },
               {
                 "group": "Passwordless Authenticator (unqualified)",
@@ -2700,7 +2700,7 @@
                   "drafts/unassigned/passwordless-authenticator/user-onboarding-for-oloid-portal",
                   "drafts/unassigned/passwordless-authenticator/what-is-passwordless-authenticator"
                 ],
-                "public": false
+                "public": true
               }
             ],
             "icon": "inbox"
@@ -2717,7 +2717,7 @@
             "pages": [
               "test-doc"
             ],
-            "public": false
+            "public": true
           },
           {
             "group": "Shubham Workspace",
@@ -2726,7 +2726,7 @@
               "doc",
               "test-doc-for-copy-paste-content"
             ],
-            "public": false
+            "public": true
           }
         ]
       }
@@ -2748,12 +2748,5 @@
   },
   "styling": {
     "eyebrows": "breadcrumbs"
-  },
-  "navbar": {
-    "primary": {
-      "type": "button",
-      "label": "Log in",
-      "href": "/login"
-    }
   }
 }
