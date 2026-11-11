@@ -1863,16 +1863,14 @@
                   {
                     "group": "Overview",
                     "pages": [
-                      "drafts/windows/getting-started/overview/getting-started-with-windows-device-login",
-                      "drafts/windows/getting-started/overview/getting-started-with-windows-device-login-content"
+                      "drafts/windows/getting-started/overview/getting-started-with-windows-device-login"
                     ],
                     "public": true
                   },
                   {
                     "group": "Platform configuration",
                     "pages": [
-                      "drafts/windows/getting-started/platform-configuration/how-to-configure-oloid-device-lock-app",
-                      "drafts/windows/getting-started/platform-configuration/how-to-configure-oloid-device-lock-app-content"
+                      "drafts/windows/getting-started/platform-configuration/how-to-configure-oloid-device-lock-app"
                     ],
                     "public": true
                   }
@@ -1886,8 +1884,7 @@
                   {
                     "group": "Supervisor App",
                     "pages": [
-                      "drafts/windows/version-1/supervisor-app/how-to-pair-supervisor-app-using-config-file",
-                      "drafts/windows/version-1/supervisor-app/how-to-pair-supervisor-app-using-config-file-content"
+                      "drafts/windows/version-1/supervisor-app/how-to-pair-supervisor-app-using-config-file"
                     ],
                     "icon": "user-tie",
                     "public": true
@@ -1895,8 +1892,7 @@
                   {
                     "group": "Healthcare",
                     "pages": [
-                      "drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr",
-                      "drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr-content"
+                      "drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr"
                     ],
                     "icon": "hospital",
                     "public": true
@@ -1911,8 +1907,7 @@
                   {
                     "group": "Admin guides",
                     "pages": [
-                      "drafts/windows/general-guides/admin-guides/how-to-enable-auto-update-windows-device-agent-in-windows-login",
-                      "drafts/windows/general-guides/admin-guides/how-to-enable-auto-update-windows-device-agent-in-windows-login-content"
+                      "drafts/windows/general-guides/admin-guides/how-to-enable-auto-update-windows-device-agent-in-windows-login"
                     ],
                     "icon": "user-shield",
                     "public": true
@@ -1921,8 +1916,7 @@
                     "group": "User guides",
                     "pages": [
                       "drafts/windows/general-guides/user-guides/how-to-log-into-workforce-hrms-platforms-using-badge-and-pin-using",
-                      "drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app",
-                      "drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app-content"
+                      "drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app"
                     ],
                     "icon": "user",
                     "public": true
@@ -2754,5 +2748,37 @@
   },
   "styling": {
     "eyebrows": "breadcrumbs"
-  }
+  },
+  "redirects": [
+    {
+      "source": "/drafts/windows/getting-started/overview/getting-started-with-windows-device-login-content",
+      "destination": "/drafts/windows/getting-started/overview/getting-started-with-windows-device-login",
+      "permanent": true
+    },
+    {
+      "source": "/drafts/windows/getting-started/platform-configuration/how-to-configure-oloid-device-lock-app-content",
+      "destination": "/drafts/windows/getting-started/platform-configuration/how-to-configure-oloid-device-lock-app",
+      "permanent": true
+    },
+    {
+      "source": "/drafts/windows/version-1/supervisor-app/how-to-pair-supervisor-app-using-config-file-content",
+      "destination": "/drafts/windows/version-1/supervisor-app/how-to-pair-supervisor-app-using-config-file",
+      "permanent": true
+    },
+    {
+      "source": "/drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr-content",
+      "destination": "/drafts/windows/version-1/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr",
+      "permanent": true
+    },
+    {
+      "source": "/drafts/windows/general-guides/admin-guides/how-to-enable-auto-update-windows-device-agent-in-windows-login-content",
+      "destination": "/drafts/windows/general-guides/admin-guides/how-to-enable-auto-update-windows-device-agent-in-windows-login",
+      "permanent": true
+    },
+    {
+      "source": "/drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app-content",
+      "destination": "/drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app",
+      "permanent": true
+    }
+  ]
 }
