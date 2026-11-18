@@ -22,6 +22,9 @@ boost: 0.5
 section: "Drafts"
 product: "Unassigned"
 subsection: "Collection not in navigation"
+groups:
+  - "oloid"
+  - "test"
 ---
 
 {/* Source: Intercom article 9807063 - https://oloid.help/en/articles/9807063-how-to-configure-user-sync-in-microsoft-entra-id-admin-console */}
@@ -44,61 +47,41 @@ You must have admin access for Microsoft Entra ID Admin console.
 
 ### Register an Application
 
-1. Log in to Azure Portal and select **Microsoft Entra ID** on the home page.
-
-   ![Log in to Azure Portal and select Microsoft Entra ID on the home page.](/images/intercom/9807063/aff19387-f8d9-4670-a7cb-ce371450db4e-41197c65.png)
+1. Log in to Azure Portal and select **Microsoft Entra ID** on the home page. <img src="/images/intercom/9807063/aff19387-f8d9-4670-a7cb-ce371450db4e-41197c65.png" alt="Log in to Azure Portal and select Microsoft Entra ID on the home page." />
 
    The Microsoft Entra ID page is displayed.
-2. Go to **Overview > Manage** **> App registrations > New registration**.
-
-   ![Go to Overview &gt; Manage &gt; App registrations &gt; New registration.](/images/intercom/9807063/e02687c4-25cf-49f0-81a7-e6a3386ee0b1-e8e7b925.png)
+2. Go to **Overview > Manage** **\> App registrations > New registration**. <img src="/images/intercom/9807063/e02687c4-25cf-49f0-81a7-e6a3386ee0b1-e8e7b925.png" alt="Go to Overview > Manage > App registrations > New registration." />
 
    The Register an application page is displayed.
 3. Do the following.
    1. Enter **Name**.
    2. Select Supported account types as **Single tenant only - Oloid AzureAD**.
-   3. Click **Register**.
-
-      ![Click Register.](/images/intercom/9807063/image-2d19482c.png)
+   3. Click **Register**. <img src="/images/intercom/9807063/image-2d19482c.png" alt="Click Register." />
 
       The application is registered successfully.
 
 ### Configure the Application
 
-1. Navigate to the **newly registered app > API permissions >** **Add a permission > Microsoft Graph.**
-
-   ![Navigate to the newly registered app &gt; API permissions &gt; Add a permission &gt; Microsoft Graph.](/images/intercom/9807063/image-68e341e3.png)
+1. Navigate to the **newly registered app > API permissions >** **Add a permission > Microsoft Graph.** <img src="/images/intercom/9807063/image-68e341e3.png" alt="Navigate to the newly registered app > API permissions > Add a permission > Microsoft Graph." />
 
    The **Request API permissions** pop-up box is displayed.
-2. Select **Application permissions**.
-
-   ![Select Application permissions.](/images/intercom/9807063/55f4749d-f9c8-4a95-91be-e0a9cd108acd-289b3f95.png)
+2. Select **Application permissions**. <img src="/images/intercom/9807063/55f4749d-f9c8-4a95-91be-e0a9cd108acd-289b3f95.png" alt="Select Application permissions." />
 
    The **Request API permissions** screen is displayed.
 3. On **User** drop-down, select **User.Read.All.**
-4. Click **Add permissions**.
-
-   ![Click Add permissions.](/images/intercom/9807063/image-3de2a63c.png)
+4. Click **Add permissions**. <img src="/images/intercom/9807063/image-3de2a63c.png" alt="Click Add permissions." />
 
    The API is added in the list.
-5. Click **Grant admin consent for Oloid-AzureAD.**
-
-   ![Click Grant admin consent for Oloid-AzureAD.](/images/intercom/9807063/image-f4ee2a39.png)
+5. Click **Grant admin consent for Oloid-AzureAD.** <img src="/images/intercom/9807063/image-f4ee2a39.png" alt="Click Grant admin consent for Oloid-AzureAD." />
 
    The **Grant admin consent confirmation** pop-up box is displayed.
-6. Click **Yes**.
+6. Click **Yes**. <img src="/images/intercom/9807063/image-c7347cb2.png" alt="Click Yes." />
 
-   ![Click Yes.](/images/intercom/9807063/image-c7347cb2.png)
-
-   The API is added successfully.
-
-   ![The API is added successfully.](/images/intercom/9807063/image-3c669540.png)
+   The API is added successfully. <img src="/images/intercom/9807063/image-3c669540.png" alt="The API is added successfully." />
 
 ### Create Client Secret
 
-1. Go to **Certificates & secrets** > **Client Secrets > + New client secret**.
-
-   ![Go to Certificates & secrets &gt; Client Secrets &gt; + New client secret.](/images/intercom/9807063/image-9bca5a3a.png)
+1. Go to **Certificates & secrets** > **Client Secrets > + New client secret**. <img src="/images/intercom/9807063/image-9bca5a3a.png" alt={"Go to Certificates & secrets > Client Secrets > + New client secret."} />
 
    The **Add a client secret** screen is displayed.
 2. Do the following:
@@ -109,9 +92,7 @@ You must have admin access for Microsoft Entra ID Admin console.
         **Note:** Select a key duration (preferably the max available).
       </Note>
 
-   3. Click **Add**.
-
-      ![Click Add.](/images/intercom/9807063/image-60048c30.png)
+   3. Click **Add**. <img src="/images/intercom/9807063/image-60048c30.png" alt="Click Add." />
 
       The **Client Secret** is added successfully and listed on **Client Secret** tab.
 
@@ -122,9 +103,7 @@ You must have admin access for Microsoft Entra ID Admin console.
       ![The Client Secret is added successfully and listed on Client Secret tab.](/images/intercom/9807063/image-a639cdf2.png)
 
       The application is configured successfully.
-3. Share the **Application (client) ID**, **Directory (tenant) ID,** and **Client Secret** with Oloid support.
-
-   ![Share the Application (client) ID, Directory (tenant) ID, and Client Secret with Oloid support.](/images/intercom/9807063/image-0154f988.png)
+3. Share the **Application (client) ID**, **Directory (tenant) ID,** and **Client Secret** with Oloid support. <img src="/images/intercom/9807063/image-0154f988.png" alt="Share the Application (client) ID, Directory (tenant) ID, and Client Secret with Oloid support." />
 
 #### Related Article
 

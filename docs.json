@@ -182,7 +182,8 @@
                   "platforms/windows/windows-login/windows-login-troubleshooting-auto-config-pairing-failure-in",
                   "platforms/windows/windows-login/windows-passwordless-authenticator-troubleshooting-guide"
                 ],
-                "icon": "right-to-bracket"
+                "icon": "right-to-bracket",
+                "public": true
               },
               {
                 "group": "Supervisor App",
@@ -234,7 +235,8 @@
                   "platforms/windows/supervisor-app/windows-login-how-to-view-and-edit-shared-password-details-in",
                   "platforms/windows/supervisor-app/windows-login-how-to-view-and-edit-user-details"
                 ],
-                "icon": "user-tie"
+                "icon": "user-tie",
+                "public": true
               },
               {
                 "group": "Industry Workflows",
@@ -273,7 +275,8 @@
                     "icon": "hospital"
                   }
                 ],
-                "icon": "industry"
+                "icon": "industry",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -358,7 +361,8 @@
                   "platforms/windows/videos/windows-login-v2-0-how-to-install-and-auto-pair-windows-login-v2-0",
                   "platforms/windows/videos/windows-login-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": {
@@ -391,7 +395,8 @@
                   "platforms/ios/connect-passwordless/setting-up-application-and-connections-for-passwordless-login-in-the",
                   "platforms/ios/connect-passwordless/what-is-oloid-connect-for-passwordless"
                 ],
-                "icon": "mobile-screen"
+                "icon": "mobile-screen",
+                "public": true
               },
               {
                 "group": "OLOID Vault",
@@ -408,7 +413,8 @@
                     }
                   }
                 ],
-                "icon": "vault"
+                "icon": "vault",
+                "public": true
               },
               {
                 "group": "OLOID CloudKey",
@@ -427,7 +433,8 @@
                   "platforms/ios/cloudkey/using-the-oloid-cloudkey-app-profile",
                   "platforms/ios/cloudkey/using-the-oloid-cloudkey-app-wallet"
                 ],
-                "icon": "cloud"
+                "icon": "cloud",
+                "public": true
               },
               {
                 "group": "Time Clock",
@@ -567,7 +574,8 @@
                   "platforms/ios/time-clock/set-up-sharing-logs-with-the-app-developer",
                   "platforms/ios/time-clock/what-is-an-offline-task-and-what-does-it-do"
                 ],
-                "icon": "clock"
+                "icon": "clock",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -647,7 +655,8 @@
                   "platforms/ios/videos/oloid-verify-how-to-view-punch-details-video-tutorial",
                   "platforms/ios/videos/oloid-verify-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": {
@@ -708,7 +717,8 @@
                   "platforms/android/devicelock/soti-mobicontrol-app-profile-policy-configuration-guide",
                   "platforms/android/devicelock/updating-oloid-devicelock-mfa"
                 ],
-                "icon": "lock"
+                "icon": "lock",
+                "public": true
               },
               {
                 "group": "OLOID Vault",
@@ -725,7 +735,8 @@
                     }
                   }
                 ],
-                "icon": "vault"
+                "icon": "vault",
+                "public": true
               },
               {
                 "group": "OLOID CloudKey",
@@ -744,14 +755,16 @@
                   "platforms/ios/cloudkey/using-the-oloid-cloudkey-app-profile",
                   "platforms/ios/cloudkey/using-the-oloid-cloudkey-app-wallet"
                 ],
-                "icon": "cloud"
+                "icon": "cloud",
+                "public": true
               },
               {
                 "group": "Zebra",
                 "pages": [
                   "platforms/android/zebra/devicelock-how-to-configure-a-qr-code-scanner-using-zebra-datawedge"
                 ],
-                "icon": "barcode"
+                "icon": "barcode",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -784,7 +797,8 @@
                   "platforms/android/videos/oloid-device-lock-video-tutorial",
                   "platforms/android/videos/oloid-devicelock-how-to-enroll-face-as-a-user-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": {
@@ -800,7 +814,8 @@
                 "group": "Linux & Thin Clients",
                 "pages": [
                   "platforms/linux/overview"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": {
@@ -864,7 +879,8 @@
                   "platforms/web/webkey/webkey-network-url-whitelisting-requirements-for-prod-us-environment",
                   "platforms/web/webkey/webkey-overview"
                 ],
-                "icon": "key"
+                "icon": "key",
+                "public": true
               },
               {
                 "group": "OLOID Vault",
@@ -929,7 +945,8 @@
                     }
                   }
                 ],
-                "icon": "vault"
+                "icon": "vault",
+                "public": true
               },
               {
                 "group": "Videos",
@@ -983,7 +1000,8 @@
                   "platforms/web/videos/webkey-platform-configuration-for-manual-capture-of-face-video",
                   "platforms/web/videos/webkey-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "globe"
@@ -1010,7 +1028,8 @@
                   "integrations/entra-id/tenant-admin-portal-how-to-create-idp-profile-for-oidc-entra-id",
                   "integrations/entra-id/tenant-admin-portal-how-to-enable-entra-id-sso",
                   "integrations/entra-id/tenant-admin-portal-how-to-log-in-to-tenant-admin-portal-with"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": {
@@ -1026,7 +1045,8 @@
                 "group": "Workspace ONE",
                 "pages": [
                   "integrations/workspace-one/overview"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "mobile-retro"
@@ -1039,7 +1059,8 @@
                 "pages": [
                   "integrations/citrix/installing-oloid-passwordless-on-local-machine-running-ehr-citrix-or",
                   "integrations/citrix/oloid-launcher-how-to-use-oloid-launcher-on-a-citrix-virtual-desktop"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "server"
@@ -1054,7 +1075,8 @@
                   "integrations/epic/windows-login-healthcare-how-to-log-in-to-epic-hyperspace-using-badge-14837592",
                   "integrations/epic/windows-login-healthcare-how-to-log-in-to-epic-hyperspace-using-badge",
                   "integrations/epic/windows-login-healthcare-two-user-authentication-using-badge-id-in"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "notes-medical"
@@ -1295,7 +1317,8 @@
                   "platform/tenant-admin-portal/user-roles-and-permissions-in-oloid-portal",
                   "platform/tenant-admin-portal/windows-login-how-to-enable-preferred-machine-users-in-shared",
                   "platform/tenant-admin-portal/windows-login-how-to-generate-and-download-auto-pair-config-file-for"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Videos",
@@ -1433,7 +1456,8 @@
                   "platform/tenant-admin-portal/videos/tenant-admin-portal-login-options-and-configurations",
                   "platform/tenant-admin-portal/videos/tenant-admin-portal-user-credentials-overview-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "shield-halved"
@@ -1481,7 +1505,8 @@
                   "platform/supervisor-portal/supervisor-portal-how-to-remove-user",
                   "platform/supervisor-portal/supervisor-portal-how-to-set-up-supervisor-profile",
                   "platform/supervisor-portal/what-is-supervisor-portal"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Videos",
@@ -1512,7 +1537,8 @@
                   "platform/supervisor-portal/videos/how-to-view-and-download-user-transaction-in-supervisor-portal-video",
                   "platform/supervisor-portal/videos/supervisor-portal-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "display"
@@ -1549,7 +1575,8 @@
                   "platform/user-portal/oloid-user-portal-how-to-reset-pin-using-invite-link",
                   "platform/user-portal/oloid-user-portal-how-to-revoke-consent",
                   "platform/user-portal/oloid-user-portal-onboard-face-using-okta-sso-with-custom-url"
-                ]
+                ],
+                "public": true
               },
               {
                 "group": "Videos",
@@ -1562,7 +1589,8 @@
                   "platform/user-portal/videos/how-to-replace-and-assign-badge-using-oloid-user-portal-video-tutorial",
                   "platform/user-portal/videos/how-to-replace-and-assign-nfc-using-oloid-user-portal-video-tutorial"
                 ],
-                "icon": "circle-play"
+                "icon": "circle-play",
+                "public": true
               }
             ],
             "icon": "user"
@@ -1581,7 +1609,8 @@
                 "pages": [
                   "reference/troubleshooting/troubleshooting-iphone-truedepth-camera-error-blocked-camera",
                   "reference/troubleshooting/troubleshooting-iphone-truedepth-camera-issue-face-id-disabled"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "wrench"
@@ -1596,7 +1625,8 @@
                   "reference/qrg/oloid-platform-qrg-how-to-create-secrets",
                   "reference/qrg/oloid-platform-qrg-how-to-generate-auto-pair-config-file",
                   "reference/qrg/oloid-verify-qrg-how-to-kill-and-relaunch-the-app"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "bookmark"
@@ -1620,7 +1650,8 @@
                   "reference/supporting-documents/setting-up-locations-and-connections",
                   "reference/supporting-documents/user-onboarding-for-oloid-portal",
                   "reference/supporting-documents/what-s-new-in-oloid"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "file-lines"
@@ -1633,7 +1664,8 @@
                 "pages": [
                   "reference/product-videos/how-to-use-the-oloid-help-center-video-tutorial",
                   "reference/product-videos/oloid-passwordless-solution-video-tutorial"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "circle-play"
@@ -1693,7 +1725,8 @@
                   "more/workflow/using-the-terminated-user-processing-api",
                   "more/workflow/what-is-oloid-workflow",
                   "more/workflow/workday-to-pro-watch-employee-lifecycle-automation"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "diagram-project"
@@ -1743,7 +1776,8 @@
                   "more/sso-and-mfa/windows-login-how-to-enable-pingone-multi-factor-authentication-mfa",
                   "more/sso-and-mfa/windows-login-how-to-login-to-windows-device-using-nfc-id-and-okta",
                   "more/sso-and-mfa/windows-login-how-to-login-to-windows-device-using-nfc-id-and-pingone"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "right-to-bracket"
@@ -1776,7 +1810,8 @@
                   "more/passwordless-authenticator/tenant-admin-portal-how-to-log-in-to-the-tenant-admin-portal-using",
                   "more/passwordless-authenticator/tenant-admin-portal-how-to-log-into-tenant-admin-portal-using",
                   "more/passwordless-authenticator/tenant-admin-portal-how-to-view-and-delete-totp-time-based-one-time"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "fingerprint"
@@ -1794,7 +1829,8 @@
                   "more/api-guides/list-activity-logs-api",
                   "more/api-guides/list-transactions-api",
                   "more/api-guides/login-api-documentation"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "code"
@@ -1806,7 +1842,8 @@
                 "group": "Release Notes",
                 "pages": [
                   "more/release-notes/overview"
-                ]
+                ],
+                "public": true
               }
             ],
             "icon": "clock-rotate-left"
@@ -1927,7 +1964,8 @@
                   "name": "windows",
                   "library": "fontawesome",
                   "style": "brands"
-                }
+                },
+                "public": true
               },
               {
                 "group": "iOS / iPadOS",
@@ -2057,7 +2095,8 @@
                   "name": "apple",
                   "library": "fontawesome",
                   "style": "brands"
-                }
+                },
+                "public": true
               },
               {
                 "group": "Android",
@@ -2121,7 +2160,8 @@
                   "name": "android",
                   "library": "fontawesome",
                   "style": "brands"
-                }
+                },
+                "public": true
               },
               {
                 "group": "Web & Browsers",
@@ -2189,7 +2229,8 @@
                     "icon": "circle-play"
                   }
                 ],
-                "icon": "globe"
+                "icon": "globe",
+                "public": true
               }
             ],
             "icon": "layer-group"
@@ -2207,7 +2248,8 @@
                   "name": "microsoft",
                   "library": "fontawesome",
                   "style": "brands"
-                }
+                },
+                "public": true
               },
               {
                 "group": "Epic",
@@ -2215,7 +2257,8 @@
                   "drafts/integrations/epic/how-to-login-to-epic-hyperspace-using-oloid-credentials",
                   "drafts/integrations/epic/how-to-login-to-epic-hyperspace-using-saml"
                 ],
-                "icon": "notes-medical"
+                "icon": "notes-medical",
+                "public": true
               }
             ],
             "icon": "plug"
@@ -2272,7 +2315,8 @@
                     "icon": "circle-play"
                   }
                 ],
-                "icon": "shield-halved"
+                "icon": "shield-halved",
+                "public": true
               },
               {
                 "group": "Supervisor Portal",
@@ -2298,7 +2342,8 @@
                     "icon": "circle-play"
                   }
                 ],
-                "icon": "display"
+                "icon": "display",
+                "public": true
               },
               {
                 "group": "User Portal",
@@ -2307,7 +2352,8 @@
                   "drafts/platform/user-portal/how-to-view-bluetooth-credential-using-oloid-user-portal",
                   "drafts/platform/user-portal/user-portal-how-to-use-hr-picture-verify"
                 ],
-                "icon": "user"
+                "icon": "user",
+                "public": true
               }
             ],
             "icon": "building"
@@ -2322,7 +2368,8 @@
                   "drafts/reference/supporting-documents/oloid-connect-how-to-configure-card-reader-using-rf-ideas",
                   "drafts/reference/supporting-documents/passwordless-authenticator-guides-list"
                 ],
-                "icon": "file-lines"
+                "icon": "file-lines",
+                "public": true
               }
             ],
             "icon": "life-ring"
@@ -2337,14 +2384,16 @@
                   "drafts/more/workflow/oloid-workflow-guides-list-copy-of-return-url-links",
                   "drafts/more/workflow/set-up-workday-for-oloid-workflow-integrations"
                 ],
-                "icon": "diagram-project"
+                "icon": "diagram-project",
+                "public": true
               },
               {
                 "group": "Single Sign-On & MFA",
                 "pages": [
                   "drafts/more/sso-and-mfa/connecting-your-oloid-tenant-to-your-okta-instance-to-be-deleted"
                 ],
-                "icon": "right-to-bracket"
+                "icon": "right-to-bracket",
+                "public": true
               },
               {
                 "group": "Passwordless Authenticator",
@@ -2353,10 +2402,24 @@
                   "drafts/more/passwordless-authenticator/factor-sequencing-for-multi-factor-authentication-in-windows-device",
                   "drafts/more/passwordless-authenticator/what-is-passwordless-authenticator"
                 ],
-                "icon": "fingerprint"
+                "icon": "fingerprint",
+                "public": true
               }
             ],
             "icon": "folder-open"
+          },
+          {
+            "item": "Internal docs",
+            "icon": "lock",
+            "groups": [
+              {
+                "group": "Internal docs",
+                "public": true,
+                "pages": [
+                  "drafts/internal-docs"
+                ]
+              }
+            ]
           },
           {
             "item": "Unassigned",
@@ -2504,7 +2567,9 @@
                   "drafts/unassigned/intercom/windows-device-agent-app-set-up-process",
                   "drafts/unassigned/intercom/windows-device-login-setup",
                   "drafts/unassigned/intercom/windows-release-update-january-2026"
-                ]
+                ],
+                "icon": "lock",
+                "tag": "Internal"
               },
               {
                 "group": "Collection not in navigation",
@@ -2536,7 +2601,9 @@
                   "drafts/unassigned/unmapped/using-the-oloid-app-wallet-tba",
                   "drafts/unassigned/unmapped/what-is-oloid-workflow-tba",
                   "drafts/unassigned/unmapped/workflow-accounts-introduction-tba"
-                ]
+                ],
+                "icon": "lock",
+                "tag": "Internal"
               }
             ],
             "icon": "inbox"
@@ -2548,7 +2615,9 @@
                 "group": "What is Oloid?",
                 "pages": [
                   "drafts/excluded/what-is-oloid/what-is-oloid-tba"
-                ]
+                ],
+                "icon": "lock",
+                "tag": "Internal"
               }
             ],
             "icon": "box-archive"
