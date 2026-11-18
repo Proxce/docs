@@ -18,3 +18,9 @@ ask-oloid-worker/
 .wrangler/
 intercom_export/
 intercom_workspaces/
+
+# migration manifest - every Intercom article and its page; not a docs page
+intercom_manifest.json
+
+# internal plans for future docs work; not docs pages
+plans/

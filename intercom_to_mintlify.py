@@ -270,6 +270,22 @@ STYLE_CSS = STYLE_MARKER + """
   margin-top: 0.55em; margin-bottom: 0.55em;
 }
 .mdx-content > p > img { margin-top: 0.9em; margin-bottom: 1.1em; }
+
+/* Small UI icons and buttons ("click the [gear] icon") are written as
+   <img className="oloid-icon" noZoom>: sized to the text line, sitting on
+   the baseline, without the screenshot border or spacing. */
+.mdx-content img.oloid-icon {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  max-height: 1.5em;
+  max-width: 12em;
+  margin: 0 0.15em;
+  vertical-align: -0.3em;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+}
 .mdx-content .frame { margin-top: 1.1em; margin-bottom: 1.3em; }
 .mdx-content li .frame { margin-top: 0.55em; margin-bottom: 0.75em; }
 
@@ -474,6 +490,7 @@ import html
 import json
 import os
 import re
+import struct
 import sys
 import time
 import urllib.error
@@ -1265,21 +1282,37 @@ def notes_to_callouts(body):
         content = [m.group("body").strip()] if m.group("body").strip() else []
         i += 1
 
-        # "**Note:**" on its own line introduces the bullet list beneath it
+        # "**Note:**" on its own line introduces the bullet list beneath it.
+        # The note owns what is indented under it, plus bullets in its own
+        # column, plus one opening paragraph in its own column. It stops at
+        # anything further left, and at a numbered item or a second paragraph
+        # in its own column: those are the next steps of the procedure, which
+        # a greedy scan used to swallow into the callout.
         if not content:
+            start = i
+            note_col = len(indent)
             while i < len(lines) and not lines[i][0].strip():
                 i += 1
             while i < len(lines) and lines[i][0].strip() and not lines[i][1]:
                 nxt = lines[i][0]
-                if HEADING_RE.match(nxt) or NOTE_RE.match(nxt):
+                if HEADING_RE.match(nxt) or NOTE_RE.match(nxt) or CALLOUT_OPEN_RE.match(nxt):
+                    break
+                expanded = nxt.replace("\t", "    ")
+                col = len(expanded) - len(expanded.lstrip())
+                item = LIST_ITEM_RE.match(expanded)
+                bullet = bool(item) and item.group("marker")[-1] not in ".)"
+                if col < note_col:
+                    break
+                if col == note_col and not bullet and (item or content):
                     break
                 content.append(nxt.rstrip())
                 i += 1
+            if not content:
+                out.append(line)            # a bare label with nothing to hold: keep it
+                i = start
+                continue
             base = min((len(l) - len(l.lstrip()) for l in content if l.strip()), default=0)
             content = [l[base:] if len(l) > base else l.strip() for l in content]
-
-        if not content:
-            continue
 
         component = CALLOUT_FOR.get(label, "Note")
         tag = "**%s:**" % CALLOUT_LABEL.get(label, label.title())
@@ -1519,11 +1552,16 @@ def page_slug(article):
 # MDX file
 # --------------------------------------------------------------------------
 
-def short_title(title, limit=48):
-    """Intercom titles run well past 100 characters, which wrecks the sidebar.
+def short_title(title, limit=None):
+    """The sidebar label: the title without its leading "Product - " qualifier.
 
     "Oloid Vault (Chrome / Chromium) - How to Create and Configure ..."
-      -> "How to Create and Configure Oloid Vault..."
+      -> "How to Create and Configure ..."
+
+    The menu already carries the product, so the qualifier only pushes the
+    useful words off the edge. The rest is never cut with "...": the sidebar
+    wraps, and a truncated label hid which of two similar articles was which.
+    `limit` is only used for the alt-text prefix, which may be cut.
     """
     text = re.sub(r"\s+", " ", title).strip()
     # drop a leading "Product - " qualifier; the menu already carries that context
@@ -1531,10 +1569,10 @@ def short_title(title, limit=48):
         head, _, tail = text.partition(" - ")
         if len(head) <= 60 and len(tail) >= 12:
             text = tail.strip()
-    if len(text) <= limit:
+    if not limit or len(text) <= limit:
         return text
     cut = text[:limit].rsplit(" ", 1)[0].rstrip(" ,.;:-")
-    return (cut or text[:limit]) + "..."
+    return cut or text[:limit]
 
 
 def first_sentence(body_mdx, limit=160):
@@ -1974,7 +2012,7 @@ def nav_group_dirs(nav, build_nav):
     """
     mapping = {}
     for grp, slug_parts, _crumbs in build_nav.iter_groups(nav):
-        directory = os.path.join(*slug_parts) if slug_parts else "."
+        directory = "/".join(slug_parts) if slug_parts else "."
         for coll in grp.get("collections") or []:
             mapping.setdefault(build_nav.norm(coll), []).append(directory)
     return mapping
@@ -2030,6 +2068,727 @@ def drop_placeholder(directory):
     return True
 
 
+# --------------------------------------------------------------------------
+# Placement: collections first, title rules before them
+# --------------------------------------------------------------------------
+#  Most articles are placed by their Intercom collection. Where the new
+#  navigation has no collection to draw on - Zebra, Linux & Thin Clients,
+#  the Vaults, Time Clock, everything in _Unassigned - a group's `match`
+#  places articles by title instead:
+#
+#      "match": {"titles": ["(?i)\\bzebra\\b"], "from": ["*"]}
+#
+#  `titles` are regexes. They are tried against articles from _Unassigned,
+#  plus the collections named in `from` ("*" for any), before the collection
+#  mapping. Rules are tried in navigation.json order with children before
+#  their parent, so "Windows Login V2" wins over "Windows Login" and the
+#  product groups win over the generic portal groups below them. Every title
+#  placement is listed in the report, so a wrong guess is easy to spot.
+# --------------------------------------------------------------------------
+
+def build_rules(nav, build_nav):
+    import intercom_fetch
+    unassigned = build_nav.norm("%s :: %s" % (intercom_fetch.UNASSIGNED,
+                                              intercom_fetch.UNASSIGNED))
+    rules = []
+
+    def walk(node, parts, crumbs):
+        for grp in node.get("groups") or []:
+            p = parts + ([grp["slug"]] if grp.get("slug") else [])
+            c = crumbs + [grp.get("group")]
+            walk(grp, p, c)                     # children first
+            match = grp.get("match") or {}
+            scope = match.get("from") or []
+            keys = {build_nav.norm(s) for s in scope if s != "*"} | {unassigned}
+            for pattern in match.get("titles") or []:
+                rules.append({"rx": re.compile(pattern), "any": "*" in scope,
+                              "keys": keys, "dir": "/".join(p), "crumbs": c})
+
+    for tab in nav.get("tabs") or []:
+        tab_parts = [tab["slug"]] if tab.get("slug") else []
+        walk(tab, tab_parts, [tab.get("tab")])
+        for item in tab.get("menu") or []:
+            walk(item, tab_parts + ([item["slug"]] if item.get("slug") else []),
+                 [tab.get("tab"), item.get("item")])
+    return rules
+
+
+def excluded_keys(nav, build_nav):
+    """Collections kept out of the main navigation (M-Tag, Oloid App, ...)."""
+    return {build_nav.norm(c) for c in nav.get("excluded_collections") or []}
+
+
+def unmapped_directory(nav, build_nav):
+    """The group flagged `catch_unmapped` (Drafts > Unassigned), or None."""
+    for grp, parts, _c in build_nav.iter_groups(nav):
+        if grp.get("catch_unmapped"):
+            return "/".join(parts)
+    return None
+
+
+def place(product, collection, title, mapping, rules, build_nav,
+          excluded=frozenset(), unmapped_dir=None):
+    """(directory, rule or None, category) for one article.
+
+    category is "excluded" (an excluded collection - collection mapping only,
+    never a title rule), "unassigned" (no Intercom collection and no title rule
+    matched), "unmapped" (a collection no group claims; filed under
+    `unmapped_dir`) or "added" (a home in the main navigation). directory is
+    None only for an unmapped article when there is no catch_unmapped group.
+    """
+    import intercom_fetch
+    key = build_nav.norm("%s :: %s" % (product, collection))
+    if key in excluded:
+        dirs = mapping.get(key)
+        return (dirs[0] if dirs else unmapped_dir), None, "excluded"
+    for rule in rules:
+        if (rule["any"] or key in rule["keys"]) and rule["rx"].search(title or ""):
+            return rule["dir"], rule, "added"
+    dirs = mapping.get(key)
+    if not dirs:
+        return unmapped_dir, None, "unmapped"
+    unassigned = build_nav.norm("%s :: %s" % (intercom_fetch.UNASSIGNED,
+                                              intercom_fetch.UNASSIGNED))
+    return dirs[0], None, "unassigned" if key == unassigned else "added"
+
+
+# --------------------------------------------------------------------------
+# Polish: screenshots, icons, alt text, links
+# --------------------------------------------------------------------------
+#  Runs over the finished .mdx files - at the end of --migrate, or alone with
+#  --polish - and is idempotent:
+#
+#  * A screenshot always stands on its own line, with a blank line before
+#    and after, so the step text above it and the outcome sentence below it
+#    ("The Tenant Settings screen is displayed.") never render glued to it.
+#  * Small images - icons and buttons, judged by their pixel size, or any
+#    image sitting mid-sentence whose size is unknown - become
+#    <img className="oloid-icon" noZoom>, sized to the text line by style.css.
+#  * A generic alt ("... - screenshot 3") is replaced by the step or sentence
+#    the image illustrates, else the nearest heading, else the page title.
+#  * oloid.help/articles/<id> links point at the page migrated from <id>.
+#    Links to articles that were not migrated keep their oloid.help URL and
+#    are counted in the report.
+# --------------------------------------------------------------------------
+
+IMAGE_MD_RE = re.compile(r"!\[([^\]\n]*)\]\(([^)\s]+)\)")
+GENERIC_ALT_RE = re.compile(
+    r"^\s*$|screenshot \d+\s*$|^\s*(image|img|screenshot|picture)\s*\d*\s*$"
+    r"|^\s*[\w-]+\.(png|jpe?g|gif|webp)\s*$", re.I)
+LIST_MARK_RE = re.compile(r"^([ \t]*)((?:\d+[.)]|[-*+])[ \t]+)")
+CALLOUT_ANY_CLOSE_RE = re.compile(r"</(Note|Warning|Tip|Info|Check|Danger)>")
+
+#: An image no larger than this on both sides is an icon.
+ICON_MAX_SIDE = 100
+#: A short, wide image (a button) is treated as an icon too.
+BUTTON_MAX_HEIGHT, BUTTON_MAX_WIDTH = 48, 320
+#: Longest alt text, in characters.
+ALT_MAX = 110
+
+
+def image_size(path):
+    """(width, height) of a PNG, GIF or JPEG on disk, or None."""
+    try:
+        with open(path, "rb") as fh:
+            head = fh.read(65536)
+    except OSError:
+        return None
+    if head[:8] == b"\x89PNG\r\n\x1a\n" and len(head) >= 24:
+        return struct.unpack(">II", head[16:24])
+    if head[:6] in (b"GIF87a", b"GIF89a"):
+        return struct.unpack("<HH", head[6:10])
+    if head[:2] == b"\xff\xd8":
+        i = 2
+        while i + 9 < len(head):
+            if head[i] != 0xFF:
+                i += 1
+                continue
+            marker = head[i + 1]
+            if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+                          0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                h, w = struct.unpack(">HH", head[i + 5:i + 9])
+                return w, h
+            if marker in (0xD8, 0x01, 0xFF) or 0xD0 <= marker <= 0xD7:
+                i += 2 if marker != 0xFF else 1
+                continue
+            i += 2 + struct.unpack(">H", head[i + 2:i + 4])[0]
+    return None
+
+
+def is_icon_size(size):
+    if not size:
+        return False
+    w, h = size
+    return ((w <= ICON_MAX_SIDE and h <= ICON_MAX_SIDE)
+            or (h <= BUTTON_MAX_HEIGHT and w <= BUTTON_MAX_WIDTH))
+
+
+def plain_text(line):
+    """A markdown line reduced to the words a reader sees."""
+    t = IMAGE_MD_RE.sub(" ", line)
+    t = re.sub(r"\{/\*.*?\*/\}", " ", t)
+    t = re.sub(r"<[^>]*>", " ", t)
+    t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t)
+    t = re.sub(r"^\s*(?:#{1,6}|>|\d+[.)]|[-*+])\s+", "", t)
+    t = re.sub(r"[*_`]+", "", t).replace("\\", "")
+    t = re.sub(r"&#?\w+;", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def alt_text(text):
+    text = text.strip().rstrip(":")
+    if len(text) > ALT_MAX:
+        text = text[:ALT_MAX].rsplit(" ", 1)[0].rstrip(" ,.;:-")
+    return text.replace("[", "(").replace("]", ")")
+
+
+def icon_alt(line, match):
+    """'click the [img] **Settings** icon' -> 'Settings icon'."""
+    after = re.match(r"\s*\*\*([^*\n]{1,40})\*\*", line[match.end():])
+    if after:
+        return "%s icon" % after.group(1).strip()
+    before = re.search(r"\*\*([^*\n]{1,40})\*\*\s*$", line[:match.start()])
+    if before:
+        return "%s icon" % before.group(1).strip()
+    # "the Oloid app icon [img]" / "the Download button [img] icon"
+    words = [w for w in plain_text(line[:match.start()]).split()
+             if w.lower().strip(",.;:") not in ("the", "a", "an", "click", "on", "tap",
+                                                "select", "then", "and", "or", "your")]
+    following = plain_text(line[match.end():]).lower()
+    if words and (following.startswith("icon") or words[-1].lower() in ("icon", "button")):
+        name = " ".join(words[-3:])
+        return name if name.lower().endswith("icon") else name + " icon"
+    return "Icon"
+
+
+def local_image(root, src):
+    if not src.startswith("/"):
+        return None
+    return os.path.join(root, *src.lstrip("/").split("/"))
+
+
+def polish_images(body, title, root, stats):
+    out = []
+    state = {"blank": False}            # a screenshot was just emitted
+    last_text, last_heading = "", ""
+    in_callout = 0
+    used_alts = {}
+
+    def emit(text, image=False):
+        if image:
+            if out and out[-1].strip():
+                out.append("")
+            out.append(text)
+            state["blank"] = True
+            return
+        if state["blank"] and text.strip() and out and out[-1].strip():
+            out.append("")
+        if state["blank"] or not text.strip():
+            state["blank"] = False
+        out.append(text)
+
+    for line, fenced in split_fences(body):
+        if fenced:
+            emit(line)
+            continue
+        opens = bool(CALLOUT_OPEN_RE.match(line))
+        closes = bool(CALLOUT_ANY_CLOSE_RE.search(line))
+
+        if not IMAGE_MD_RE.search(line):
+            heading = HEADING_RE.match(line)
+            if heading:
+                last_heading, last_text = plain_text(heading.group(2)), ""
+            elif not in_callout and not opens:
+                words = plain_text(line)
+                if len(words) >= 3:
+                    last_text = words
+            emit(line)
+            in_callout = max(0, in_callout + opens - closes)
+            continue
+
+        stripped = line.strip()
+        mark = LIST_MARK_RE.match(line)
+        if mark:
+            col = len(mark.group(1)) + len(mark.group(2))
+            rest = line[col:].strip()
+        else:
+            col = len(line) - len(line.lstrip())
+            rest = stripped
+        standalone = IMAGE_MD_RE.fullmatch(rest) is not None
+        table = stripped.startswith("|")
+        line_words = plain_text(line)
+
+        def convert(m):
+            alt, src = m.group(1), m.group(2)
+            size = image_size(local_image(root, src) or "")
+            icon = is_icon_size(size) or (size is None and not standalone and not table)
+            if icon:
+                if GENERIC_ALT_RE.search(alt):
+                    alt = icon_alt(line, m)
+                stats["icons"] += 1
+                return ('<img src="%s" alt="%s" className="oloid-icon" noZoom />'
+                        % (attr_escape(src), attr_escape(html.unescape(alt))))
+            if GENERIC_ALT_RE.search(alt):
+                context = line_words if (line_words and not standalone) else ""
+                text = alt_text(context or (last_text if not in_callout else "")
+                                or last_heading or title) or "Screenshot"
+                used_alts[text] = used_alts.get(text, 0) + 1
+                if used_alts[text] > 1:
+                    text = "%s (%d)" % (text, used_alts[text])
+                alt = mdx_escape(text)
+                stats["alts"] += 1
+            return "![%s](%s)" % (alt, src)
+
+        new = IMAGE_MD_RE.sub(convert, line)
+        if line_words and not standalone:
+            last_text = line_words
+
+        if table or not IMAGE_MD_RE.search(new):
+            emit(new)                                   # icons only, or a table row
+        elif standalone:
+            emit(new, image=True)
+        else:
+            # a full-size screenshot glued into a sentence: give it its own line
+            stats["split"] += 1
+            pos, first = 0, True
+            for m in IMAGE_MD_RE.finditer(new):
+                before = new[pos:m.start()]
+                if first and not before.strip():
+                    emit(before + m.group(0), image=True)   # "1. ![..]" keeps its marker
+                else:
+                    if before.strip():
+                        emit(before.rstrip() if first else " " * col + before.strip())
+                    emit(" " * col + m.group(0), image=True)
+                pos, first = m.end(), False
+            after = new[pos:]
+            if after.strip():
+                emit(" " * col + after.strip())
+        in_callout = max(0, in_callout + opens - closes)
+
+    return "\n".join(out)
+
+
+SOURCE_RE = re.compile(r"\{/\* Source: Intercom article (\d+)")
+ARTICLE_URL_RE = re.compile(
+    r"https?://(?:www\.)?(?:oloid\.help|intercom\.help/oloid)/"
+    r"(?:[a-z]{2}(?:-[a-z]{2})?/)?articles/(\d+)[^\s)\"'<>]*", re.I)
+COLLECTION_URL_RE = re.compile(
+    r"https?://(?:www\.)?(?:oloid\.help|intercom\.help/oloid)/\S*collections/", re.I)
+MD_LINK_RE = re.compile(r"\[([^\]\n]*)\]\((https?://[^)\s]+)\)")
+HREF_RE = re.compile(r'(href=")(https?://[^"]+)(")')
+TITLE_LINE_RE = re.compile(r"^title:\s*(.+)$", re.M)
+SIDEBAR_LINE_RE = re.compile(r"^sidebarTitle:.*\n", re.M)
+
+
+def iter_mdx(root, build_nav):
+    """(docs-relative path, absolute path) of every page in the project."""
+    skip = set(build_nav.SKIP_DIRS) | {"ask-oloid-worker", "node_modules"}
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = sorted(d for d in dirnames if d not in skip and not d.startswith("."))
+        for name in sorted(filenames):
+            if name.endswith(".mdx"):
+                path = os.path.join(dirpath, name)
+                yield os.path.relpath(path, root).replace(os.sep, "/"), path
+
+
+def read_title(text):
+    m = TITLE_LINE_RE.search(text[:2000])
+    if not m:
+        return ""
+    raw = m.group(1).strip()
+    try:
+        return json.loads(raw) if raw.startswith('"') else raw.strip("'")
+    except ValueError:
+        return raw.strip('"')
+
+
+def article_index(root, build_nav, nav_dirs=None):
+    """{intercom article id: (page path, title)}, read back from the pages.
+
+    Only pages inside a group navigation.json still declares are indexed
+    (`nav_dirs`, drafts/ copies included). Otherwise a run made before the old
+    layout is pruned would point links - including the hand-written guides',
+    which are never regenerated - at pages that are about to be deleted.
+    """
+    index = {}
+    for rel, path in iter_mdx(root, build_nav):
+        if nav_dirs is not None:
+            directory = os.path.dirname(rel)
+            if directory.startswith("drafts/"):
+                directory = directory[len("drafts/"):]
+            if directory not in nav_dirs and os.path.dirname(rel) not in nav_dirs:
+                continue
+        with open(path, encoding="utf-8") as fh:
+            head = fh.read(3000)
+        m = SOURCE_RE.search(head)
+        if not m:
+            continue
+        known = index.get(m.group(1))
+        if known and not known[0].startswith("drafts/"):
+            continue                        # the published copy wins
+        index[m.group(1)] = (rel[:-4], read_title(head))
+    return index
+
+
+def rewrite_article_links(body, index, stats):
+    def resolve(url):
+        if COLLECTION_URL_RE.match(url):
+            stats["links_collection"] += 1
+            return None
+        m = ARTICLE_URL_RE.fullmatch(url)
+        if not m:
+            return None
+        hit = index.get(m.group(1))
+        if not hit:
+            stats["links_unresolved"] += 1
+            stats["unresolved_ids"].add(m.group(1))
+            return None
+        stats["links_fixed"] += 1
+        return hit
+
+    def md(m):
+        text, url = m.group(1), m.group(2)
+        hit = resolve(url)
+        if not hit:
+            return m.group(0)
+        path, title = hit
+        if text.strip() == url or ARTICLE_URL_RE.fullmatch(text.strip()):
+            text = mdx_escape(title)            # a bare URL reads better as the title
+        return "[%s](/%s)" % (text, path)
+
+    def href(m):
+        hit = resolve(m.group(2))
+        return "%s/%s%s" % (m.group(1), hit[0], m.group(3)) if hit else m.group(0)
+
+    out = []
+    for line, fenced in split_fences(body):
+        if not fenced:
+            line = HREF_RE.sub(href, MD_LINK_RE.sub(md, line))
+        out.append(line)
+    return "\n".join(out)
+
+
+def fix_sidebar_title(head):
+    """Recompute sidebarTitle in a frontmatter block from its title."""
+    title = read_title(head)
+    if not title:
+        return head
+    want = short_title(title)
+    head = SIDEBAR_LINE_RE.sub("", head)
+    if want and want != title:
+        head = TITLE_LINE_RE.sub(lambda m: "%s\nsidebarTitle: %s" % (m.group(0), json.dumps(want)),
+                                 head, count=1)
+    return head
+
+
+def new_polish_stats():
+    return {"pages": 0, "changed": 0, "icons": 0, "alts": 0, "split": 0,
+            "links_fixed": 0, "links_unresolved": 0, "links_collection": 0,
+            "unresolved_ids": set()}
+
+
+def polish_tree(root, build_nav, dry_run=False, stats=None):
+    """Apply the polish to every page. Images and sidebar titles are only
+    touched on generated pages; links are fixed everywhere, hand-written
+    Getting Started guides included."""
+    stats = stats or new_polish_stats()
+    nav = build_nav.load_nav(root)
+    nav_dirs = {"/".join(parts) for _g, parts, _c in build_nav.iter_groups(nav)}
+    index = article_index(root, build_nav, nav_dirs)
+    for rel, path in iter_mdx(root, build_nav):
+        with open(path, encoding="utf-8") as fh:
+            text = fh.read()
+        m = re.match(r"---\n.*?\n---\n", text, re.S)
+        head, body = (m.group(0), text[m.end():]) if m else ("", text)
+        stats["pages"] += 1
+        if GENERATED_MARKER in text:
+            head = fix_sidebar_title(head)
+            body = polish_images(body, read_title(head) or rel, root, stats)
+        body = rewrite_article_links(body, index, stats)
+        if text.endswith("\n") and not body.endswith("\n"):
+            body += "\n"                    # the line-wise passes drop it
+        new = head + body
+        if new != text:
+            stats["changed"] += 1
+            if not dry_run:
+                with open(path, "w", encoding="utf-8", newline="\n") as fh:
+                    fh.write(new)
+    return stats
+
+
+def print_polish(stats):
+    print("Polish       : %d of %d pages changed" % (stats["changed"], stats["pages"]))
+    print("               %d alt texts written, %d icons sized inline, "
+          "%d glued screenshots split out" % (stats["alts"], stats["icons"], stats["split"]))
+    print("Links        : %d oloid.help links now point at Mintlify pages"
+          % stats["links_fixed"])
+    if stats["links_unresolved"] or stats["links_collection"]:
+        print("               %d still point at oloid.help: %d to %d article(s) that were "
+              "not migrated, %d to collections"
+              % (stats["links_unresolved"] + stats["links_collection"],
+                 stats["links_unresolved"], len(stats["unresolved_ids"]),
+                 stats["links_collection"]))
+        if stats["unresolved_ids"]:
+            print("               article ids: %s"
+                  % ", ".join(sorted(stats["unresolved_ids"])[:30]))
+
+
+# --------------------------------------------------------------------------
+# Stale pages
+# --------------------------------------------------------------------------
+
+def prune_stale(root, written, nav_dirs, build_nav):
+    """Delete generated pages this run did not write, and placeholders whose
+    group no longer exists. Hand-written pages are never touched."""
+    keep = set(written)
+    removed = []
+    for rel, path in list(iter_mdx(root, build_nav)):
+        with open(path, encoding="utf-8") as fh:
+            text = fh.read()
+        if GENERATED_MARKER in text:
+            stale = rel not in keep
+        else:
+            stale = (os.path.basename(rel) == "overview.mdx" and PLACEHOLDER_MARK in text
+                     and os.path.dirname(rel) not in nav_dirs)
+        if stale:
+            os.remove(path)
+            removed.append(rel)
+    # drop directories the old layout leaves empty
+    for rel in sorted({os.path.dirname(r) for r in removed}, key=len, reverse=True):
+        parts = rel.split("/")
+        while parts:
+            directory = os.path.join(root, *parts)
+            try:
+                if os.listdir(directory):
+                    break
+                os.rmdir(directory)
+            except OSError:
+                break
+            parts.pop()
+    return removed
+
+
+# --------------------------------------------------------------------------
+# The manifest: every Intercom article and where its page landed
+# --------------------------------------------------------------------------
+#  Written by every --migrate run (a --dry-run included, marked as such) to
+#  MANIFEST_FILE. One record per article Intercom returned - written, skipped
+#  or unmapped - plus a section index, so the knowledge base can be audited
+#  and later fed from one file. .mintignore keeps it off the site.
+# --------------------------------------------------------------------------
+
+MANIFEST_FILE = "intercom_manifest.json"
+#: Where the docs are served, for `mintlify_url`. The deployment's default
+#: domain until the custom one is added; override with --docs-url.
+DOCS_BASE_URL = "https://oloid-999c42b2.mintlify.app"
+
+
+def _iso(epoch):
+    try:
+        return datetime.fromtimestamp(int(epoch), tz=timezone.utc).isoformat()
+    except (TypeError, ValueError, OverflowError):
+        return None
+
+
+def manifest_record(art, title, product, collection, full_path):
+    return {
+        "id": str(art.get("id")),
+        "title": title,
+        "description": html.unescape((art.get("description") or "").strip()),
+        "state": art.get("state"),
+        # where it was, and where it is now
+        "oloid_help_url": art.get("url"),
+        "mintlify_url": None,
+        "mintlify_path": None,
+        "navigation": None,       # "Help Articles > Platforms & Solutions > Windows > ..."
+        "file": None,             # the .mdx, relative to the repo root
+        # where it came from in Intercom
+        "intercom_collection": html.unescape("%s :: %s" % (product, collection)),
+        "intercom_path": html.unescape(full_path or ""),
+        "created_at": _iso(art.get("created_at")),
+        "updated_at": _iso(art.get("updated_at")),
+        # how it got there
+        "category": None,         # added | excluded | unassigned | unmapped
+        "tags": [],               # category, plus published/draft, placed-by-title,
+                                  # video, not-written
+        "status": None,           # written | empty in Intercom |
+                                  # body did not convert | unmapped
+        "placed_by": None,        # collection | title rule
+        "moved_to": [],           # videos and/or drafts, when rerouted from its home
+        "section_path": None,
+        "keywords": [],
+        "words": 0,
+        "images": 0,
+        "videos": 0,
+        "fetch_error": art.get("_fetch_error"),
+    }
+
+
+def section_names(nav, build_nav):
+    """{group directory: "Tab > Menu > Group > ..."}, drafts/ copies included."""
+    names = {}
+    for _grp, parts, crumbs in build_nav.iter_groups(nav):
+        names["/".join(parts)] = " > ".join(str(c) for c in crumbs)
+    drafts = (build_nav.drafts_tab(nav) or {})
+    if drafts.get("slug"):
+        for directory, label in list(names.items()):
+            names.setdefault("%s/%s" % (drafts["slug"], directory),
+                             "%s > %s" % (drafts.get("tab"), label))
+    return names
+
+
+def write_manifest(root, nav, build_nav, records, args):
+    names = section_names(nav, build_nav)
+    sections = {}
+    for rec in records:
+        if rec["section_path"]:
+            rec["navigation"] = names.get(rec["section_path"], rec["section_path"])
+            sections.setdefault(rec["section_path"], []).append(rec["id"])
+    counts, categories, lists = {}, {}, {}
+    for rec in records:
+        counts[rec["status"]] = counts.get(rec["status"], 0) + 1
+        categories[rec["category"]] = categories.get(rec["category"], 0) + 1
+        tags = [rec["category"], rec["state"]]
+        if rec["placed_by"] == "title rule":
+            tags.append("placed-by-title")
+        if "videos" in rec["moved_to"]:
+            tags.append("video")
+        if rec["status"] != "written":
+            tags.append("not-written")
+        rec["tags"] = [t for t in tags if t]
+        for tag in rec["tags"]:
+            lists.setdefault(tag, []).append({
+                "id": rec["id"], "title": rec["title"], "navigation": rec["navigation"],
+                "oloid_help_url": rec["oloid_help_url"],
+                "mintlify_url": rec["mintlify_url"], "status": rec["status"]})
+    data = {
+        "$comment": "Generated by intercom_to_mintlify.py --migrate. Do not edit; re-run.",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "dry_run": bool(args.dry_run),
+        "limit": args.limit,
+        "docs_url": args.docs_url,
+        "counts": {
+            "fetched": len(records),
+            "published": sum(1 for r in records if r["state"] == "published"),
+            "draft": sum(1 for r in records if r["state"] == "draft"),
+            "by_category": categories,
+            "by_status": counts,
+            "placed_by_title": sum(1 for r in records if r["placed_by"] == "title rule"),
+        },
+        "$tags": {
+            "added": "home in the main navigation (by collection or title rule)",
+            "excluded": "an excluded_collections collection, written to Drafts > Excluded",
+            "unassigned": "no collection in Intercom, written to Drafts > Unassigned",
+            "unmapped": "a collection no group claims, written to Drafts > Unassigned",
+            "published / draft": "Intercom state; drafts of added articles live under drafts/",
+            "placed-by-title": "placed by a title rule rather than its collection",
+            "video": "video-only, moved to the nearest Videos group",
+            "not-written": "no page: empty in Intercom, or the body did not convert",
+        },
+        "lists": {tag: sorted(items, key=lambda r: r["title"])
+                  for tag, items in sorted(lists.items())},
+        "sections": [
+            {"navigation": names.get(path, path), "path": path, "articles": ids}
+            for path, ids in sorted(sections.items())
+        ],
+        "articles": sorted(records, key=lambda r: (r["section_path"] or "~", r["title"])),
+    }
+    path = os.path.join(root, MANIFEST_FILE)
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(data, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+    return path
+
+
+# --------------------------------------------------------------------------
+# --plan: where every article will land, from the CSV export, no token
+# --------------------------------------------------------------------------
+
+def plan(args, root):
+    import csv
+    build_nav, fetchlib = _helpers()
+    nav = build_nav.load_nav(root)
+    mapping = nav_group_dirs(nav, build_nav)
+    rules = build_rules(nav, build_nav)
+    excluded = excluded_keys(nav, build_nav)
+    unmapped_dir = unmapped_directory(nav, build_nav)
+    by_category = {}
+    path = os.path.join(root, "output", "_all_articles.csv")
+    if not os.path.exists(path):
+        sys.stderr.write("ERROR: no %s - export the article list first (oloid.py)\n" % path)
+        return 2
+
+    counts, by_rule, unmapped = {}, [], {}
+    with open(path, encoding="utf-8-sig") as fh:
+        for row in csv.DictReader(fh):
+            product = row.get("product") or fetchlib.UNASSIGNED
+            collection = row.get("collection") or fetchlib.UNASSIGNED
+            title = html.unescape(row.get("title") or "")
+            directory, rule, category = place(product, collection, title, mapping, rules,
+                                              build_nav, excluded, unmapped_dir)
+            by_category[category] = by_category.get(category, 0) + 1
+            label = "%s :: %s" % (html.unescape(product), html.unescape(collection))
+            if category == "unmapped":
+                unmapped.setdefault(label, []).append(row.get("article_id"))
+            if not directory:
+                continue
+            slot = counts.setdefault(directory, [0, 0])
+            slot[1 if row.get("state") == "draft" else 0] += 1
+            if rule:
+                by_rule.append((" > ".join(rule["crumbs"][1:]), title, label,
+                                row.get("state")))
+
+    print("")
+    print("%-58s %9s %6s" % ("Section", "published", "drafts"))
+    print("=" * 75)
+    for tab in nav.get("tabs") or []:
+        print(tab.get("tab"))
+        rows = []
+        tab_parts = [tab["slug"]] if tab.get("slug") else []
+
+        def show(node, parts, depth):
+            total = [0, 0]
+            for grp in node.get("groups") or []:
+                p = parts + ([grp["slug"]] if grp.get("slug") else [])
+                at = len(rows)
+                rows.append(None)
+                sub = show(grp, p, depth + 1)
+                own = counts.get("/".join(p), [0, 0])
+                rows[at] = (depth, grp.get("group"), own[0] + sub[0], own[1] + sub[1])
+                total[0] += own[0] + sub[0]
+                total[1] += own[1] + sub[1]
+            return total
+
+        show(tab, tab_parts, 1)
+        for item in tab.get("menu") or []:
+            at = len(rows)
+            rows.append(None)
+            sub = show(item, tab_parts + ([item["slug"]] if item.get("slug") else []), 2)
+            rows[at] = (1, item.get("item"), sub[0], sub[1])
+        for depth, label, pub, drafts in rows:
+            pad = "   " * depth
+            print("%s%-*s %9d %6d" % (pad, 58 - len(pad), (label or "")[:58 - len(pad)],
+                                     pub, drafts))
+    print("")
+    print("By category: %s" % ", ".join("%s %d" % kv for kv in sorted(by_category.items())))
+    print("(excluded -> Drafts > Excluded; unassigned and unmapped -> Drafts > Unassigned)")
+    print("")
+    print("Placed by title rule - %d article(s):" % len(by_rule))
+    for target, title, source, state in sorted(by_rule):
+        print("   %-38s <- %s%s" % (target[:38], title[:80],
+                                     "  [draft]" if state == "draft" else ""))
+        print("   %-38s    from %s" % ("", source))
+    if unmapped:
+        print("")
+        print("UNMAPPED - %d collection(s):" % len(unmapped))
+        for coll, ids in sorted(unmapped.items(), key=lambda kv: -len(kv[1])):
+            print("   %4d  %s" % (len(ids), coll))
+    print("")
+    print("Not simulated: video-only articles move to their section's Videos group,")
+    print("and drafts go under drafts/ - both need the article body, so --migrate decides.")
+    return 0
+
+
 def migrate(args, root):
     """Fetch every article and file it under the navigation."""
     build_nav, fetchlib = _helpers()
@@ -2041,6 +2800,9 @@ def migrate(args, root):
     with open(nav_path, "r", encoding="utf-8") as fh:
         nav = json.load(fh)
     mapping = nav_group_dirs(nav, build_nav)
+    rules = build_rules(nav, build_nav)
+    excluded = excluded_keys(nav, build_nav)
+    unmapped_dir = unmapped_directory(nav, build_nav)
 
     sys.stderr.write("[1/3] GET /help_center/collections ...\n")
     _raw, paths = fetchlib.fetch_collections(args.api_key)
@@ -2057,22 +2819,36 @@ def migrate(args, root):
 
     img_stats = {"saved": 0, "reused": 0, "bytes": 0,
                  "large": [], "oversize": [], "failed": []}
-    written, skipped_empty, unmapped = [], [], {}
+    written, skipped_empty, unmapped, by_rule = [], [], {}, []
     used_paths, touched = {}, set()
+    records = []                       # one per article, for the manifest
+    skipped_excluded = {}
 
     for art in articles:
         article_id = str(art.get("id"))
-        product, collection, _full = fetchlib.resolve_placement(art, paths)
-        key = build_nav.norm("%s :: %s" % (product, collection))
-
-        dirs = mapping.get(key)
-        if not dirs:
-            unmapped.setdefault("%s :: %s" % (product, collection), []).append(article_id)
-            continue
-
+        product, collection, full_path = fetchlib.resolve_placement(art, paths)
         title = html.unescape((art.get("title") or "Untitled").strip())
+        record = manifest_record(art, title, product, collection, full_path)
+        records.append(record)
+
+        directory, rule, category = place(product, collection, title, mapping, rules,
+                                          build_nav, excluded, unmapped_dir)
+        record["category"] = category
+        if category == "excluded":
+            skipped_excluded.setdefault(record["intercom_collection"], []).append(article_id)
+        elif category == "unmapped":
+            unmapped.setdefault("%s :: %s" % (product, collection), []).append(article_id)
+        if not directory:
+            record["status"] = "unmapped"
+            continue
+        record["placed_by"] = "title rule" if rule else "collection"
+        if rule:
+            by_rule.append((" > ".join(rule["crumbs"][1:]), title,
+                            html.unescape("%s :: %s" % (product, collection))))
+
         if not (art.get("body") or "").strip():
             skipped_empty.append((article_id, title))
+            record["status"] = "empty in Intercom"
             continue
 
         on_image = None
@@ -2088,15 +2864,21 @@ def migrate(args, root):
 
         if not body_mdx.strip():
             skipped_empty.append((article_id, title + "  (body did not convert)"))
+            record["status"] = "body did not convert"
             continue
 
-        directory = dirs[0]
         if is_video_only(body_mdx):
-            # the menu's Videos group, where it has one
-            directory = build_nav.video_directory(nav, directory).replace("/", os.sep)
+            # the nearest Videos group, where there is one
+            moved = build_nav.video_directory(nav, directory)
+            if moved != directory:
+                record["moved_to"].append("videos")
+            directory = moved.replace("/", os.sep)
         if art.get("state") == "draft":
             # drafts/<same path>, listed under the Drafts tab; Excluded keeps its own
-            directory = build_nav.draft_directory(nav, directory).replace("/", os.sep)
+            moved = build_nav.draft_directory(nav, directory)
+            if moved != directory.replace(os.sep, "/"):
+                record["moved_to"].append("drafts")
+            directory = moved.replace("/", os.sep)
         slug = page_slug(art)
         rel = "%s/%s" % (directory.replace(os.sep, "/"), slug)
         if rel in used_paths and used_paths[rel] != article_id:
@@ -2111,6 +2893,11 @@ def migrate(args, root):
                 fh.write(build_mdx(art, body_mdx, icon=DEFAULT_PAGE_ICON,
                                    keywords=keywords))
         touched.add(directory)
+        record.update({"status": "written", "file": rel + ".mdx", "mintlify_path": "/" + rel,
+                       "mintlify_url": args.docs_url.rstrip("/") + "/" + rel,
+                       "section_path": directory.replace(os.sep, "/"),
+                       "keywords": keywords, "words": len(body_mdx.split()),
+                       "images": len(images), "videos": len(videos)})
         written.append({"id": article_id, "title": title, "path": rel + ".mdx",
                         "words": len(body_mdx.split()), "images": len(images),
                         "videos": len(videos), "sections": audit.get("found", []),
@@ -2119,12 +2906,27 @@ def migrate(args, root):
         if len(written) % 100 == 0:
             sys.stderr.write("      wrote %d pages\n" % len(written))
 
-    dropped = 0
+    dropped, pruned = 0, []
     if not args.dry_run:
         for directory in sorted(touched):
-            dropped += 1 if drop_placeholder(directory) else 0
+            dropped += 1 if drop_placeholder(os.path.join(root, directory)) else 0
+        failed = [str(a.get("id")) for a in articles if a.get("_fetch_error")]
+        if args.limit:
+            sys.stderr.write("      --limit: stale pages kept (a partial run would "
+                             "delete everything it did not fetch)\n")
+        elif failed:
+            sys.stderr.write("      %d article(s) failed to fetch (%s): stale pages kept, "
+                             "so their existing pages survive. Re-run to clean up.\n"
+                             % (len(failed), ", ".join(failed[:10])))
+        else:
+            nav_dirs = {"/".join(parts) for _g, parts, _c in build_nav.iter_groups(nav)}
+            pruned = prune_stale(root, [w["path"] for w in written], nav_dirs, build_nav)
+
+    sys.stderr.write("[4/4] polishing pages and links ...\n")
+    polish = polish_tree(root, build_nav, dry_run=args.dry_run)
 
     write_style_css(root, args.dry_run)
+    manifest_path = write_manifest(root, nav, build_nav, records, args)
 
     print("")
     print("=" * 72)
@@ -2133,17 +2935,36 @@ def migrate(args, root):
     print("Fetched      : %d articles in %d collections" % (len(articles), len(paths)))
     print("Written      : %d pages across %d groups" % (len(written), len(touched)))
     print("Skipped      : %d with an empty body" % len(skipped_empty))
+    cats = {}
+    for rec in records:
+        cats[rec["category"]] = cats.get(rec["category"], 0) + 1
+    print("Categories   : %s" % ", ".join("%s %d" % (k or "-", v)
+                                          for k, v in sorted(cats.items(), key=str)))
+    print("Excluded     : %d in %d collection(s), written to Drafts > Excluded (%s)"
+          % (sum(len(v) for v in skipped_excluded.values()), len(skipped_excluded),
+             ", ".join(sorted(skipped_excluded)) or "none"))
     print("Placeholders : %d removed (group now has real pages)" % dropped)
+    print("Stale pages  : %d deleted (generated by an earlier run, not written this time)"
+          % len(pruned))
     print("Images       : %d saved, %d reused, %d failed"
           % (img_stats["saved"], img_stats["reused"], len(img_stats["failed"])))
+    print_polish(polish)
+    print("Manifest     : %s  (every article, its status and its page)" % manifest_path)
+    if by_rule:
+        print("")
+        print("PLACED BY TITLE - %d article(s), check these:" % len(by_rule))
+        for target, title, source in sorted(by_rule):
+            print("   %-38s <- %s" % (target[:38], title[:80]))
+            print("   %-38s    from %s" % ("", source))
     if unmapped:
         total = sum(len(v) for v in unmapped.values())
         print("")
-        print("UNMAPPED - %d collection(s), %d article(s) not written:"
-              % (len(unmapped), total))
+        print("UNMAPPED - %d collection(s), %d article(s) %s:"
+              % (len(unmapped), total,
+                 "in Drafts > Unassigned" if unmapped_dir else "not written"))
         for coll, ids in sorted(unmapped.items(), key=lambda kv: -len(kv[1])):
             print("   %4d  %s" % (len(ids), coll))
-        print("   Add these to navigation.json, then re-run.")
+        print("   Add these to a group in navigation.json, then re-run.")
     if skipped_empty:
         print("")
         print("EMPTY IN INTERCOM - %d:" % len(skipped_empty))
@@ -2196,7 +3017,31 @@ def main():
                              "(default: intercom_export).")
     parser.add_argument("--no-nav", action="store_true",
                         help="--migrate: skip the build_nav.py run at the end.")
+    parser.add_argument("--docs-url", default=DOCS_BASE_URL,
+                        help="--migrate: base URL of the published docs, for the "
+                             "manifest's mintlify_url (default: %s)." % DOCS_BASE_URL)
+    parser.add_argument("--plan", action="store_true",
+                        help="Show where every article in output/_all_articles.csv would "
+                             "land under navigation.json, and which were placed by title. "
+                             "Needs no token and writes nothing.")
+    parser.add_argument("--polish", action="store_true",
+                        help="Re-apply the screenshot, icon, alt-text, sidebar-title and "
+                             "link fixes to the pages already on disk. Needs no token. "
+                             "--migrate runs this at the end anyway.")
     args = parser.parse_args()
+
+    if args.plan:
+        return plan(args, os.path.abspath(args.root))
+
+    if args.polish:
+        import build_nav
+        root = os.path.abspath(args.root)
+        stats = polish_tree(root, build_nav, dry_run=args.dry_run)
+        style_status = write_style_css(root, args.dry_run)
+        print("")
+        print_polish(stats)
+        print("style.css    : %s" % style_status)
+        return 0
 
     try:
         import intercom_fetch

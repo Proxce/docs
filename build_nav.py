@@ -69,31 +69,40 @@ def norm(text):
     return " :: ".join(parts)
 
 
+def _slugs(node, acc):
+    value = node.get("slug")
+    return acc + [value] if value else acc
+
+
+def walk_groups(node, slug_parts, crumbs):
+    """Yield (group, slug_parts, crumbs) for `node`'s groups, depth first.
+
+    A group may hold `groups` of its own (Windows > Windows Login > V1), and
+    each nested group is a directory inside its parent's.
+    """
+    for grp in node.get("groups") or []:
+        parts = _slugs(grp, slug_parts)
+        trail = crumbs + [grp.get("group")]
+        yield grp, parts, trail
+        yield from walk_groups(grp, parts, trail)
+
+
 def iter_groups(nav):
     """Yield (group, slug_parts, crumbs) for every group in navigation.json.
 
-    The file nests tab -> [menu ->] group, and either level may carry a slug.
-    `slug_parts` are the directory segments with empty slugs dropped, so the
-    hidden Home tab (slug "") resolves to the repository root rather than a
-    directory literally called "". `crumbs` are the display labels, for
-    readable log lines.
+    The file nests tab -> [menu ->] group [-> group ...], and any level may
+    carry a slug. `slug_parts` are the directory segments with empty slugs
+    dropped, so the hidden Home tab (slug "") resolves to the repository root
+    rather than a directory literally called "". `crumbs` are the display
+    labels, for readable log lines.
     """
-    def slugs(node, acc):
-        value = node.get("slug")
-        return acc + [value] if value else acc
-
     for tab in nav.get("tabs") or []:
-        tab_slugs = slugs(tab, [])
+        tab_slugs = _slugs(tab, [])
         tab_crumbs = [tab.get("tab")]
-
-        for grp in tab.get("groups") or []:
-            yield grp, slugs(grp, tab_slugs), tab_crumbs + [grp.get("group")]
-
+        yield from walk_groups(tab, tab_slugs, tab_crumbs)
         for item in tab.get("menu") or []:
-            item_slugs = slugs(item, tab_slugs)
-            item_crumbs = tab_crumbs + [item.get("item")]
-            for grp in item.get("groups") or []:
-                yield grp, slugs(grp, item_slugs), item_crumbs + [grp.get("group")]
+            yield from walk_groups(item, _slugs(item, tab_slugs),
+                                   tab_crumbs + [item.get("item")])
 
 
 def drafts_tab(nav):
@@ -136,18 +145,101 @@ VIDEOS_SLUG = "videos"
 def video_directory(nav, directory):
     """Where a video-only article whose home is `directory` is written instead.
 
-    The Videos group of the same menu - "windows/version-1/supervisor-app" ->
-    "windows/version-1/videos" - when that menu has one. Unchanged when it
-    has none, when the article is already in it, or when its group sets
-    `keep_videos` (Healthcare, which Resources > Industries lists as a set).
+    The nearest Videos group at or above it: "help/platforms/windows/
+    windows-login/v2" -> "help/platforms/windows/videos", because Windows is
+    the closest level that declares one. Unchanged when no ancestor has one,
+    when the article is already in a Videos group, or when its group sets
+    `keep_videos`.
     """
     directory = directory.replace("\\", "/")
     groups = {"/".join(parts): grp for grp, parts, _c in iter_groups(nav)}
     if (groups.get(directory) or {}).get("keep_videos"):
         return directory
-    parent = directory.rsplit("/", 1)[0] if "/" in directory else ""
-    target = "/".join(p for p in (parent, VIDEOS_SLUG) if p)
-    return target if target in groups else directory
+    parts = directory.split("/")
+    if parts[-1] == VIDEOS_SLUG:
+        return directory
+    while parts:
+        target = "/".join(parts + [VIDEOS_SLUG])
+        if target in groups:
+            return target
+        parts.pop()
+    return directory
+
+
+# ---------------------------------------------------------------------------
+#  Placeholders for groups that have no pages yet
+# ---------------------------------------------------------------------------
+#  Mintlify fails the build on an empty group, so build_tabs leaves those out -
+#  which would hide sections like Linux & Thin Clients until content exists.
+#  Each declared leaf group with no pages gets an overview.mdx instead, marked
+#  with PLACEHOLDER_MARK. intercom_to_mintlify.py --migrate deletes it once
+#  real articles land, and so does this script when it finds other pages
+#  beside it. Videos groups never get one: they appear only once they hold
+#  videos.
+
+PLACEHOLDER_MARK = "This section is a placeholder."
+PLACEHOLDER_FILE = "overview.mdx"
+
+
+def placeholder_groups(nav):
+    """(group, slug_parts, crumbs) for every group that deserves a placeholder."""
+    for tab in nav.get("tabs") or []:
+        if tab.get("hidden") or tab.get(MIRROR_KEY):
+            continue
+        for grp, parts, crumbs in iter_groups({"tabs": [tab]}):
+            if (grp.get("pages") is not None or grp.get("pages_from")
+                    or grp.get("slug") == VIDEOS_SLUG
+                    or grp.get("placeholder") is False):
+                continue
+            kids = [g for g in grp.get("groups") or [] if g.get("slug") != VIDEOS_SLUG]
+            if kids:
+                continue
+            yield grp, parts, crumbs
+
+
+def is_placeholder_file(path):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return PLACEHOLDER_MARK in fh.read()
+    except OSError:
+        return False
+
+
+def write_placeholders(nav, root, dry_run=False):
+    """Create or retire overview.mdx placeholders. Returns (written, removed)."""
+    written, removed = [], []
+    for grp, parts, crumbs in placeholder_groups(nav):
+        directory = os.path.join(root, *parts)
+        target = os.path.join(directory, PLACEHOLDER_FILE)
+        others = [n for n in (os.listdir(directory) if os.path.isdir(directory) else [])
+                  if n.endswith(".mdx") and n != PLACEHOLDER_FILE]
+        if others:
+            if os.path.exists(target) and is_placeholder_file(target):
+                removed.append(target)
+                if not dry_run:
+                    os.remove(target)
+            continue
+        if os.path.exists(target):
+            continue                      # a placeholder already, or a real overview
+        written.append(target)
+        if dry_run:
+            continue
+        name = grp.get("group") or "Overview"
+        trail = " > ".join(str(c) for c in crumbs[1:-1])
+        os.makedirs(directory, exist_ok=True)
+        with open(target, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write("---\n")
+            fh.write("title: %s\n" % json.dumps(name))
+            fh.write("description: %s\n" % json.dumps(
+                "Articles for %s are on the way." % name))
+            fh.write('icon: "hourglass-half"\n')
+            fh.write("---\n\n")
+            fh.write("{/* %s build_nav.py wrote it because the group has no pages; "
+                     "it is deleted automatically once articles land here. */}\n\n"
+                     % PLACEHOLDER_MARK)
+            fh.write("Articles for **%s**%s are on the way.\n"
+                     % (name, " (%s)" % trail if trail else ""))
+    return written, removed
 
 
 def load_nav(root=".", filename=NAV_FILE):
@@ -209,21 +301,38 @@ def build_tabs(nav, root, report):
     docs.json has no tab-level `hidden`, and their pages still route.
     """
     def collect_groups(node, slug_parts, crumbs, prefix=""):
+        """Groups of `node`, nested groups included.
+
+        Inside a group, its sub-sections come first, then its own pages, and
+        its Videos group last, so "Windows Login" opens on V1 / V2 rather
+        than on a long list of general articles.
+        """
         out = []
         for grp in node.get("groups") or []:
             parts = slug_parts + ([grp["slug"]] if grp.get("slug") else [])
             pages = pages_for(grp, parts, root, prefix)
             trail = crumbs + [grp.get("group")]
-            if not pages:
+            children = collect_groups(grp, parts, trail, prefix)
+            if not pages and not children:
                 if not prefix:          # a group with no drafts is the norm
                     report["empty"].append(" > ".join(str(c) for c in trail))
                 continue
-            entry = {"group": grp.get("group"), "pages": pages}
+            videos = [c for c, g in zip(children, _kept(grp, children))
+                      if g.get("slug") == VIDEOS_SLUG]
+            others = [c for c in children if c not in videos]
+            entry = {"group": grp.get("group"), "pages": others + pages + videos}
             if grp.get("icon"):
                 entry["icon"] = grp["icon"]
             out.append(entry)
             report["pages"] += len(pages)
         return out
+
+    def _kept(grp, children):
+        """The navigation.json groups behind `children`, matched by label."""
+        by_label = {}
+        for g in grp.get("groups") or []:
+            by_label.setdefault(g.get("group"), g)
+        return [by_label.get(c.get("group"), {}) for c in children]
 
     def mirror_menus(drafts):
         """One menu per visible tab, holding that tab's drafts.
@@ -300,6 +409,71 @@ def build_tabs(nav, root, report):
     return tabs
 
 
+# ---------------------------------------------------------------------------
+#  index.mdx - the landing page
+# ---------------------------------------------------------------------------
+
+INDEX_FILE = "index.mdx"
+LANDING_TITLE = "OLOID documentation"
+LANDING_HEADER = ("Set up and use every OLOID product. Pick a section below, "
+                  "or use the tabs above.")
+
+
+def _card_icon(icon):
+    """docs.json icon (a name, or {name, style}) -> Card attributes."""
+    if isinstance(icon, dict):
+        attrs = ' icon="%s"' % icon.get("name", "")
+        if icon.get("style"):
+            attrs += ' iconType="%s"' % icon["style"]
+        return attrs
+    return ' icon="%s"' % icon if icon else ""
+
+
+def _first_page(pages):
+    flat = flat_pages(pages)
+    return flat[0] if flat else None
+
+
+def write_index(nav, tabs, root):
+    """A card per section of every visible tab, with its article count."""
+    drafts = (drafts_tab(nav) or {}).get("tab")
+    out = ["---",
+           "title: %s" % json.dumps(LANDING_TITLE),
+           "description: %s" % json.dumps("Every OLOID guide and help article, by product"),
+           "public: true",
+           "---",
+           "",
+           "{/* generated by build_nav.py - edit navigation.json, not this file */}",
+           "",
+           LANDING_HEADER,
+           ""]
+    for tab in tabs:
+        if tab["tab"] == drafts:
+            continue
+        sections = []                       # (heading or None, [groups])
+        if tab.get("menu"):
+            for item in tab["menu"]:
+                sections.append((item.get("item"), item.get("groups") or []))
+        else:
+            sections.append((None, tab.get("groups") or []))
+        out += ["## %s" % tab["tab"], ""]
+        for heading, groups in sections:
+            if heading:
+                out += ["### %s" % heading, ""]
+            out.append("<Columns cols={3}>")
+            for grp in groups:
+                n = len(flat_pages(grp["pages"]))
+                first = _first_page(grp["pages"])
+                href = ' href="/%s"' % first if first else ""
+                out.append('  <Card title=%s%s%s>'
+                           % (json.dumps(grp["group"]), _card_icon(grp.get("icon")), href))
+                out.append("    %d article%s" % (n, "" if n == 1 else "s"))
+                out.append("  </Card>")
+            out += ["</Columns>", ""]
+    with open(os.path.join(root, INDEX_FILE), "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("\n".join(out).rstrip() + "\n")
+
+
 def flat_pages(pages):
     """Page paths in a docs.json `pages` list, descending into nested groups."""
     out = []
@@ -365,10 +539,15 @@ def print_tree(nav, root):
                 parts = slug_parts + ([grp["slug"]] if grp.get("slug") else [])
                 pages = len(pages_for(grp, parts, root))
                 want = counts.get(id(grp), 0)
+                at = len(rows)
                 rows.append((depth, grp.get("group"), pages, want,
                              len(grp.get("collections") or [])))
-                got += pages
-                exp += want
+                sub_got, sub_exp = rows_for(grp, parts, depth + 1)
+                if sub_got or sub_exp:
+                    rows[at] = (depth, grp.get("group"), pages + sub_got,
+                                want + sub_exp, None)
+                got += pages + sub_got
+                exp += want + sub_exp
             return got, exp
 
         tab_got, tab_exp = rows_for(tab, tab_slugs, 1)
@@ -432,6 +611,9 @@ def main():
     nav = load_nav(root)
     report = {"pages": 0, "empty": [], "hidden": [], "hidden_pages": [],
               "skipped_tabs": []}
+    # placeholders first, so the sections they hold open are listed below
+    placed, retired = write_placeholders(
+        nav, root, dry_run=args.dry_run or args.tree or args.empty)
     tabs = build_tabs(nav, root, report)
 
     if args.tree:
@@ -471,6 +653,8 @@ def main():
     if report["skipped_tabs"]:
         print("tabs with no content yet : %s" % ", ".join(report["skipped_tabs"]))
     print("groups awaiting content  : %d   (--empty to list)" % len(report["empty"]))
+    print("placeholders             : %d %s, %d retired"
+          % (len(placed), "to write" if args.dry_run else "written", len(retired)))
 
     stranded = orphans(root, listed + report["hidden_pages"])
     if stranded:
@@ -497,6 +681,8 @@ def main():
         json.dump(docs, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
     print("\nwritten to %s" % docs_path)
+    write_index(nav, tabs, root)
+    print("written to %s" % os.path.join(root, INDEX_FILE))
     return 0
 
 
