@@ -1,0 +1,423 @@
+﻿order,product,collection,workspace_id,article_id,title,url,state,created_at,updated_at
+1,_Unassigned,_Unassigned,e4gi378c,16897074,Oloid Vault - How to Deploy Oloid Vault using Group Policy (GPO) Machine Scope,https://oloid.help/en/articles/16897074-oloid-vault-how-to-deploy-oloid-vault-using-group-policy-gpo-machine-scope,published,2026-09-10 04:40:37,2026-09-16 11:27:19
+9,_Unassigned,_Unassigned,e4gi378c,16957880,Test 141#,,draft,2026-09-15 08:47:00,2026-09-15 08:48:50
+10,_Unassigned,_Unassigned,e4gi378c,16957879,Untitled public article,,draft,2026-09-15 08:46:58,2026-09-15 08:46:58
+14,_Unassigned,_Unassigned,e4gi378c,16904142,Oloid Connect - How to configure Card Reader Using RF IDEAS Configuration Utility for Oloid Applications,https://oloid.help/en/articles/16904142-oloid-connect-how-to-configure-card-reader-using-rf-ideas-configuration-utility-for-oloid-applications,published,2026-09-10 13:19:55,2026-09-14 08:31:40
+24,_Unassigned,_Unassigned,e4gi378c,16900235,Untitled public article,,draft,2026-09-10 08:41:34,2026-09-10 08:41:34
+26,_Unassigned,_Unassigned,e4gi378c,11079712,How to configure Card Reader Using RF IDEAS Configuration Utility for Oloid Applications,https://oloid.help/en/articles/11079712-how-to-configure-card-reader-using-rf-ideas-configuration-utility-for-oloid-applications,published,2025-04-14 09:18:10,2026-09-10 07:17:31
+28,_Unassigned,_Unassigned,e4gi378c,11324573,Tenant Admin Portal - How to configure and test Biometric Policy to add face for the user using Oloid User Portal,https://oloid.help/en/articles/11324573-tenant-admin-portal-how-to-configure-and-test-biometric-policy-to-add-face-for-the-user-using-oloid-user-portal,published,2025-05-08 06:32:49,2026-08-28 09:10:03
+41,_Unassigned,_Unassigned,e4gi378c,9555730,How to log in to Supervisor App with Google SSO,https://oloid.help/en/articles/9555730-how-to-log-in-to-supervisor-app-with-google-sso,published,2024-07-03 04:01:37,2026-09-07 10:30:37
+48,_Unassigned,_Unassigned,e4gi378c,16817007,Windows Login 2.0 - How to Login to Supervisor App using Badge,,draft,2026-09-04 10:02:14,2026-09-04 10:10:21
+49,_Unassigned,_Unassigned,e4gi378c,16816423,Windows Login 2.0 - How to Login to Supervisor App using Face,,draft,2026-09-04 09:16:33,2026-09-04 09:54:46
+52,_Unassigned,_Unassigned,e4gi378c,16782092,How to Configure PingOne SSO for DeviceLock App in the PingOne Admin Console,,draft,2026-09-02 10:26:49,2026-09-04 08:45:59
+53,_Unassigned,_Unassigned,e4gi378c,16780855,Oloid Connect - How to Configure PingOne Single Sign-On (SSO) in Tenant Admin Portal,https://oloid.help/en/articles/16780855-oloid-connect-how-to-configure-pingone-single-sign-on-sso-in-tenant-admin-portal,published,2026-09-02 08:12:01,2026-09-04 08:35:06
+54,_Unassigned,_Unassigned,e4gi378c,16779341,How to Configure PingOne Single Sign-On (SSO) for the Oloid Connect in the PingOne Admin Console,https://oloid.help/en/articles/16779341-how-to-configure-pingone-single-sign-on-sso-for-the-oloid-connect-in-the-pingone-admin-console,published,2026-09-02 04:39:50,2026-09-04 07:19:20
+62,_Unassigned,_Unassigned,e4gi378c,16781960,DeviceLock App - How to Configure PingOne SSO in Tenant Admin Portal,,draft,2026-09-02 10:15:31,2026-09-02 11:34:03
+67,_Unassigned,_Unassigned,e4gi378c,16769146,Windows Login v2.0 - How to Enable Passwordless Session Token for an Endpoint.,,draft,2026-09-01 06:59:33,2026-09-01 08:08:32
+73,_Unassigned,_Unassigned,e4gi378c,15869122,Tenant Admin Portal - How to Configure Data Mapper Table for Paychex Inbound,https://oloid.help/en/articles/15869122-tenant-admin-portal-how-to-configure-data-mapper-table-for-paychex-inbound,published,2026-07-08 08:12:06,2026-08-28 10:13:07
+77,_Unassigned,_Unassigned,e4gi378c,12304611,Release Updates,https://oloid.help/en/articles/12304611-release-updates,published,2025-09-16 15:37:39,2026-08-28 06:26:01
+80,_Unassigned,_Unassigned,e4gi378c,16729183,Tenant Admin Portal - How to Create Data Mapper Table for ADP Vantage Inbound,,draft,2026-08-28 04:50:32,2026-08-28 04:58:54
+104,_Unassigned,_Unassigned,e4gi378c,16295726,Windows Login - Screen block on Focus Monitor Violation,https://oloid.help/en/articles/16295726-windows-login-screen-block-on-focus-monitor-violation,published,2026-08-10 10:44:20,2026-08-25 10:39:47
+137,_Unassigned,_Unassigned,e4gi378c,16592657,Oloid Vault (Chrome / Chromium) - How to Enable and Configure Enable Browser Lock in the Tenant Admin Portal,https://oloid.help/en/articles/16592657-oloid-vault-chrome-chromium-how-to-enable-and-configure-enable-browser-lock-in-the-tenant-admin-portal,published,2026-08-24 06:29:27,2026-08-25 05:41:30
+138,_Unassigned,_Unassigned,e4gi378c,16612969,Tenant Admin Portal - Endpoint Health Status Overview,https://oloid.help/en/articles/16612969-tenant-admin-portal-endpoint-health-status-overview,published,2026-08-25 04:08:40,2026-08-25 05:38:16
+146,_Unassigned,_Unassigned,e4gi378c,16592724,Oloid Vault (Chrome / Chromium) - How to Configure Browser Inactivity Timer in the Tenant Admin Portal,https://oloid.help/en/articles/16592724-oloid-vault-chrome-chromium-how-to-configure-browser-inactivity-timer-in-the-tenant-admin-portal,published,2026-08-24 06:43:53,2026-08-24 11:20:13
+191,_Unassigned,_Unassigned,e4gi378c,16412674,Untitled public article,,draft,2026-08-14 09:45:58,2026-08-14 09:45:58
+203,_Unassigned,_Unassigned,e4gi378c,11829502,Supervisor App: Assign Passkey,,draft,2025-07-23 08:50:24,2026-08-13 09:07:09
+218,_Unassigned,_Unassigned,e4gi378c,15732109,Supervisor App - How to Add Face for User,,draft,2026-07-01 08:21:21,2026-08-11 08:48:16
+256,_Unassigned,_Unassigned,e4gi378c,13396608,Oloid Vault (Chrome / Chromium) – How to Generate a Passkey for Oloid Vault,https://oloid.help/en/articles/13396608-oloid-vault-chrome-chromium-how-to-generate-a-passkey-for-oloid-vault,published,2026-01-15 08:56:20,2026-08-06 09:20:24
+257,_Unassigned,_Unassigned,e4gi378c,15051772,Configuring OLOID as an External Identity Provider in Azure AD,,draft,2026-05-11 04:47:36,2026-08-06 08:51:33
+299,_Unassigned,_Unassigned,e4gi378c,15515518,Device Lock - How to Enable Location Mandate and configure Geo-fencing Radius,https://oloid.help/en/articles/15515518-device-lock-how-to-enable-location-mandate-and-configure-geo-fencing-radius,published,2026-06-16 06:10:37,2026-07-31 08:31:13
+300,_Unassigned,_Unassigned,e4gi378c,16107870,Tenant Admin Portal - How to Configure User Sync for Azure,https://oloid.help/en/articles/16107870-tenant-admin-portal-how-to-configure-user-sync-for-azure,published,2026-07-28 10:56:40,2026-07-30 10:14:28
+303,_Unassigned,_Unassigned,e4gi378c,15174017,Tenant Admin Portal - How to Activate and Send Wallet Pass to User,https://oloid.help/en/articles/15174017-tenant-admin-portal-how-to-activate-and-send-wallet-pass-to-user,published,2026-05-19 05:38:03,2026-06-19 08:55:35
+304,_Unassigned,_Unassigned,e4gi378c,13884773,How to Login to User Portal with Oloid Passkey SSO,https://oloid.help/en/articles/13884773-how-to-login-to-user-portal-with-oloid-passkey-sso,published,2026-02-27 06:10:32,2026-07-30 05:48:34
+305,_Unassigned,_Unassigned,e4gi378c,16118858,How to Find the UDID of iOS Device,https://oloid.help/en/articles/16118858-how-to-find-the-udid-of-ios-device,published,2026-07-29 08:21:14,2026-07-30 05:20:35
+308,_Unassigned,_Unassigned,e4gi378c,15857432,Oloid Verify - How to Deactivate Endpoint in Tenant Admin Portal,https://oloid.help/en/articles/15857432-oloid-verify-how-to-deactivate-endpoint-in-tenant-admin-portal,published,2026-07-07 08:49:36,2026-07-29 05:13:30
+309,_Unassigned,_Unassigned,e4gi378c,14594718,Oloid Connect - How to Re-Submit   Consent on the Endpoint,https://oloid.help/en/articles/14594718-oloid-connect-how-to-re-submit-consent-on-the-endpoint,published,2026-04-13 09:18:26,2026-07-29 05:10:14
+311,_Unassigned,_Unassigned,e4gi378c,15690970,Oloid Connect - How to View Punch Details,https://oloid.help/en/articles/15690970-oloid-connect-how-to-view-punch-details,published,2026-06-29 08:39:05,2026-07-29 04:49:16
+312,_Unassigned,_Unassigned,e4gi378c,15869578,Oloid Connect - How to Enable Location  Mandate and configure Geo-fencing Radius in Tenant Admin Portal,https://oloid.help/en/articles/15869578-oloid-connect-how-to-enable-location-mandate-and-configure-geo-fencing-radius-in-tenant-admin-portal,published,2026-07-08 09:16:26,2026-07-29 04:47:48
+315,_Unassigned,_Unassigned,e4gi378c,16095215,Windows Login v2.0 - How to Enable Check Emotions for Presence Detection,,draft,2026-07-27 07:12:11,2026-07-27 07:15:07
+330,_Unassigned,_Unassigned,e4gi378c,15886736,Tenant Admin Portal - How to Configure Advanced User Sync for Paychex - Inbound,https://oloid.help/en/articles/15886736-tenant-admin-portal-how-to-configure-advanced-user-sync-for-paychex-inbound,published,2026-07-09 11:06:16,2026-07-21 10:25:10
+331,_Unassigned,_Unassigned,e4gi378c,16011961,Windows Login v2.0 - Emotion Tracking,,draft,2026-07-21 08:31:06,2026-07-21 08:35:13
+339,_Unassigned,_Unassigned,e4gi378c,15930213,Windows Login v2.0 – Endpoint Security Allowlisting Requirements,https://oloid.help/en/articles/15930213-windows-login-v2-0-endpoint-security-allowlisting-requirements,published,2026-07-14 04:16:25,2026-07-15 10:21:49
+340,_Unassigned,_Unassigned,e4gi378c,14885173,Tenant Admin Portal - How to Enable  Wallet Pass,https://oloid.help/en/articles/14885173-tenant-admin-portal-how-to-enable-wallet-pass,published,2026-05-04 08:50:37,2026-06-19 08:51:29
+341,_Unassigned,_Unassigned,e4gi378c,15857514,Tenant Admin Portal - How to enable wallet pass - Video Tutorial,https://oloid.help/en/articles/15857514-tenant-admin-portal-how-to-enable-wallet-pass-video-tutorial,published,2026-07-07 09:05:39,2026-07-07 09:09:32
+342,_Unassigned,_Unassigned,e4gi378c,15921475,Untitled public article,,draft,2026-07-13 09:01:29,2026-07-13 09:01:46
+345,_Unassigned,_Unassigned,e4gi378c,15885104,Windows Login v2.0 – Complete Setup and User Guide,https://oloid.help/en/articles/15885104-windows-login-v2-0-complete-setup-and-user-guide,published,2026-07-09 06:27:52,2026-07-10 03:45:42
+346,_Unassigned,_Unassigned,e4gi378c,15885350,Webkey - How to Create and Configure Factor Sequence,,draft,2026-07-09 07:25:22,2026-07-09 09:14:53
+366,_Unassigned,_Unassigned,e4gi378c,15855980,Untitled public article,,draft,2026-07-07 06:49:14,2026-07-07 06:49:14
+421,_Unassigned,_Unassigned,e4gi378c,15680237,Windows Login - Platform Configuration,https://oloid.help/en/articles/15680237-windows-login-platform-configuration,published,2026-06-27 18:33:11,2026-06-27 18:35:25
+428,_Unassigned,_Unassigned,e4gi378c,15642958,Oloid Connect - How to Configure Workday Time Clock,,draft,2026-06-25 05:19:07,2026-06-25 09:44:20
+436,_Unassigned,_Unassigned,e4gi378c,15597538,iOS Vault - How to Download Auto Config File,,draft,2026-06-23 09:30:48,2026-06-23 09:43:33
+438,_Unassigned,_Unassigned,e4gi378c,15391903,Tenant Admin Portal - How to Create Data Mapper Table for Data Filter Inbound,https://oloid.help/en/articles/15391903-tenant-admin-portal-how-to-create-data-mapper-table-for-data-filter-inbound,published,2026-06-05 08:45:14,2026-06-23 08:15:04
+439,_Unassigned,_Unassigned,e4gi378c,15441985,Tenant Admin Portal - How to Configure Data Mapper Table for Data Filter Inbound,https://oloid.help/en/articles/15441985-tenant-admin-portal-how-to-configure-data-mapper-table-for-data-filter-inbound,published,2026-06-10 05:41:58,2026-06-23 08:11:26
+440,_Unassigned,_Unassigned,e4gi378c,15595157,Oloid Connect Passwordless - Credential Onboarding,,draft,2026-06-23 06:33:52,2026-06-23 06:34:33
+443,_Unassigned,_Unassigned,e4gi378c,15431602,How to Download Google Wallet,,draft,2026-06-09 08:51:16,2026-06-18 08:45:11
+449,_Unassigned,_Unassigned,e4gi378c,15527869,Windows Login v2.0 - How to Deploy Windows Login v2.0 using Microsoft Configuration Manager (SCCM),,draft,2026-06-17 02:09:23,2026-06-17 05:43:35
+450,_Unassigned,_Unassigned,e4gi378c,15529210,test for list,,draft,2026-06-17 05:01:18,2026-06-17 05:02:51
+451,_Unassigned,_Unassigned,e4gi378c,14469123,How to Configure Advanced User Sync for ADP ETime - Inbound in the Tenant Admin Portal,https://oloid.help/en/articles/14469123-how-to-configure-advanced-user-sync-for-adp-etime-inbound-in-the-tenant-admin-portal,published,2026-04-07 08:21:20,2026-06-16 10:01:20
+453,_Unassigned,_Unassigned,e4gi378c,15501099,Windows Login 2.0 - How to Configure Post Oloid Login,,draft,2026-06-15 07:51:14,2026-06-15 08:33:07
+454,_Unassigned,_Unassigned,e4gi378c,15500503,Windows 2.0 - How to Configure Post Login page for Windows Login,,draft,2026-06-15 06:42:23,2026-06-15 07:55:33
+464,_Unassigned,_Unassigned,e4gi378c,15431547,How to Add Pass to Wallet,,draft,2026-06-09 08:38:26,2026-06-11 09:57:53
+485,_Unassigned,_Unassigned,e4gi378c,15420412,Webkey - P4 Troubleshooting Guide,,draft,2026-06-08 09:57:02,2026-06-09 08:49:50
+493,_Unassigned,_Unassigned,e4gi378c,14004108,Oloid Connect – Network URL Whitelisting Requirements,,draft,2026-03-09 07:18:31,2026-06-05 07:23:44
+494,_Unassigned,_Unassigned,e4gi378c,14004118,Device Lock – Network URL Whitelisting Requirements,,draft,2026-03-09 07:20:39,2026-06-05 07:22:55
+505,_Unassigned,_Unassigned,e4gi378c,14044724,Webkey – Network URL Whitelisting Requirements,,draft,2026-03-12 08:08:30,2026-06-04 09:23:16
+508,_Unassigned,_Unassigned,e4gi378c,15081194,Setting up and usingWindows Login v 2.0,,draft,2026-05-13 11:20:53,2026-06-03 07:34:06
+510,_Unassigned,_Unassigned,e4gi378c,15357693,Tenant Admin Portal - How to send invite to Add Pass to Wallet,,draft,2026-06-03 05:00:26,2026-06-03 05:01:52
+516,_Unassigned,_Unassigned,e4gi378c,9711471,Supervisor Portal - How to delete Bluetooth Credential of Users in a Connection,,draft,2024-08-07 08:40:33,2026-05-29 05:15:40
+519,_Unassigned,_Unassigned,e4gi378c,9716833,Supervisor Portal - How to assign Badge ID and create Bluetooth credentials,,draft,2024-08-08 08:11:25,2026-05-29 05:13:17
+520,_Unassigned,_Unassigned,e4gi378c,9669712,Supervisor Portal - How to add Bluetooth as credential to User,,draft,2024-07-29 12:02:08,2026-05-29 05:12:31
+524,_Unassigned,_Unassigned,e4gi378c,14663958,Enable OloID Account for a Connection,,draft,2026-04-17 06:56:22,2026-05-28 09:01:40
+529,_Unassigned,_Unassigned,e4gi378c,10568102,Setting up and using Oloid Verify,,draft,2025-02-17 05:30:49,2025-02-20 10:17:32
+531,_Unassigned,_Unassigned,e4gi378c,14106952,Windows Login 1.0 – Network URL Whitelisting Requirements,,draft,2026-03-18 08:20:15,2026-05-26 05:27:50
+533,_Unassigned,_Unassigned,e4gi378c,12553974,Setting up and using Oloid Connect for iPhone,,draft,2025-10-10 05:32:23,2025-11-04 04:31:47
+534,_Unassigned,_Unassigned,e4gi378c,10597390,Setting up and using Oloid Connect,,draft,2025-02-20 04:55:30,2025-02-21 05:14:22
+536,_Unassigned,_Unassigned,e4gi378c,14086363,RN - Draft,,draft,2026-03-17 10:24:43,2026-05-22 09:14:27
+537,_Unassigned,_Unassigned,e4gi378c,15223262,MDM Manage Engine,https://oloid.help/en/articles/15223262-mdm-manage-engine,published,2026-05-22 08:34:18,2026-05-22 08:34:49
+544,_Unassigned,_Unassigned,e4gi378c,15201369,Tenant Admin Portal - How to Configure Advanced User Sync for ADP Workforce Now - Inbound,,draft,2026-05-21 05:42:19,2026-05-21 08:14:12
+545,_Unassigned,_Unassigned,e4gi378c,15201318,Tenant Admin Portal - How to Create Advanced User Sync for ADP Workforce Now Inbound,https://oloid.help/en/articles/15201318-tenant-admin-portal-how-to-create-advanced-user-sync-for-adp-workforce-now-inbound,published,2026-05-21 05:32:04,2026-05-21 08:00:41
+554,_Unassigned,_Unassigned,e4gi378c,15174524,Tenant Admin Portal - How to Configure Data Mapper Table for ADP Workforce Now Inbound,https://oloid.help/en/articles/15174524-tenant-admin-portal-how-to-configure-data-mapper-table-for-adp-workforce-now-inbound,published,2026-05-19 06:38:00,2026-05-19 09:02:42
+555,_Unassigned,_Unassigned,e4gi378c,15174007,Tenant Admin Portal - How to Create Data Mapper Table for ADP Workforce Now Inbound,https://oloid.help/en/articles/15174007-tenant-admin-portal-how-to-create-data-mapper-table-for-adp-workforce-now-inbound,published,2026-05-19 05:36:46,2026-05-19 09:01:48
+561,_Unassigned,_Unassigned,e4gi378c,15164335,Untitled public article,,draft,2026-05-18 10:51:05,2026-05-18 10:51:05
+591,_Unassigned,_Unassigned,e4gi378c,14937896,How to Create and Configure Oloid Vault (iOS) Application in the Tenant Admin Portal,,draft,2026-05-05 08:10:23,2026-05-14 06:25:21
+596,_Unassigned,_Unassigned,e4gi378c,15080597,Setting up and using Windows Login (Healthcare),https://oloid.help/en/articles/15080597-setting-up-and-using-windows-login-healthcare,published,2026-05-13 10:26:09,2026-05-13 11:28:11
+605,_Unassigned,_Unassigned,e4gi378c,13903766,How to Login to Epic Hyperspace using Oloid Credentials,,draft,2026-03-02 06:50:19,2026-05-06 09:41:35
+608,_Unassigned,_Unassigned,e4gi378c,14927514,Tenant Admin Portal – How to Identify User Attributes,https://oloid.help/en/articles/14927514-tenant-admin-portal-how-to-identify-user-attributes,published,2026-05-05 05:50:47,2026-05-05 05:59:36
+609,_Unassigned,_Unassigned,e4gi378c,14924765,Troubleshooting Guide: Windows Credential & Enrollment,,draft,2026-05-05 05:13:36,2026-05-05 05:43:37
+611,_Unassigned,_Unassigned,e4gi378c,14885224,Oloid Windows Login – Windows Passwordless v1.0 vs v2.0 (Feature Comparison),,draft,2026-05-04 08:56:31,2026-05-04 08:57:25
+613,_Unassigned,_Unassigned,e4gi378c,14796418,Windows Login (Healthcare) - How to Sign Out using Badge - Epic Hyperspace,,draft,2026-04-28 03:03:00,2026-04-29 09:04:53
+617,_Unassigned,_Unassigned,e4gi378c,14778518,Windows Login (Healthcare) - How to Log in to Epic Hyperspace using Username and Password Flow,,draft,2026-04-27 04:26:38,2026-04-29 02:42:30
+621,_Unassigned,_Unassigned,e4gi378c,14778830,How to Login to Epic Hyperspace using SAML,,draft,2026-04-27 05:08:01,2026-04-28 07:38:31
+622,_Unassigned,_Unassigned,e4gi378c,14796509,Untitled public article,,draft,2026-04-28 03:14:14,2026-04-28 03:14:14
+626,_Unassigned,_Unassigned,e4gi378c,14717359,Oloid User Portal - Onboard Face Using Okta SSO with Custom URL,https://oloid.help/en/articles/14717359-oloid-user-portal-onboard-face-using-okta-sso-with-custom-url,published,2026-04-22 06:40:13,2026-04-24 10:10:18
+628,_Unassigned,_Unassigned,e4gi378c,14720166,How to configure Advanced User Sync for ADP Vantage HCM - Inbound in the Tenant Admin Portal - Video Tutorial,,draft,2026-04-22 11:03:51,2026-04-22 11:06:41
+634,_Unassigned,_Unassigned,e4gi378c,14667080,Windows Login Epic Documents,https://oloid.help/en/articles/14667080-windows-login-epic-documents,published,2026-04-17 13:49:52,2026-04-17 13:56:46
+635,_Unassigned,_Unassigned,e4gi378c,14667078,Untitled public article,,draft,2026-04-17 13:49:36,2026-04-17 13:49:36
+636,_Unassigned,_Unassigned,e4gi378c,14632843,Oloid Connect - Punch Management Using User Authentication,https://oloid.help/en/articles/14632843-oloid-connect-punch-management-using-user-authentication,published,2026-04-15 04:50:01,2026-04-17 11:46:31
+640,_Unassigned,_Unassigned,e4gi378c,10419910,Device Lock - How to Configure Online Intent Screen for Oloid DeviceLock in the Tenant Admin Portal,https://oloid.help/en/articles/10419910-device-lock-how-to-configure-online-intent-screen-for-oloid-devicelock-in-the-tenant-admin-portal,published,2025-01-17 10:29:30,2026-04-16 07:07:25
+645,_Unassigned,_Unassigned,e4gi378c,12136059,How to Authenticate using Oloid Connect (Workday),https://oloid.help/en/articles/12136059-how-to-authenticate-using-oloid-connect-workday,published,2025-09-02 08:35:06,2026-04-15 05:17:13
+647,_Unassigned,_Unassigned,e4gi378c,14084945,Oloid Device lock - How to Configure Online Intent Screen in Tenant Admin Portal (To Delete),,draft,2026-03-17 07:22:20,2026-04-13 08:42:58
+649,_Unassigned,_Unassigned,e4gi378c,14280401,Oloid Connect - How to Authenticate User  and Record Punch Using Offline Intent Screen,,draft,2026-03-26 08:27:46,2026-04-10 08:22:48
+652,_Unassigned,_Unassigned,e4gi378c,14483914,Oloid Connect - Login using PingOne SSO,,draft,2026-04-08 09:25:44,2026-04-08 10:13:49
+653,_Unassigned,_Unassigned,e4gi378c,14472623,Oloid WebKey – Feature and Capability Matrix,https://oloid.help/en/articles/14472623-oloid-webkey-feature-and-capability-matrix,published,2026-04-07 15:33:18,2026-04-08 09:16:21
+665,_Unassigned,_Unassigned,e4gi378c,14338271,Authentication when Passkey is Enabled for Windows Login,https://oloid.help/en/articles/14338271-authentication-when-passkey-is-enabled-for-windows-login,published,2026-03-31 07:54:02,2026-04-01 04:48:37
+676,_Unassigned,_Unassigned,e4gi378c,14066354,How to Enable Temporary Badge in the Tenant Admin Portal,https://oloid.help/en/articles/14066354-how-to-enable-temporary-badge-in-the-tenant-admin-portal,published,2026-03-14 10:51:07,2026-03-26 06:43:20
+681,_Unassigned,_Unassigned,e4gi378c,14099788,How to Assign Temporary Badge to a User in the Tenant Admin Portal,https://oloid.help/en/articles/14099788-how-to-assign-temporary-badge-to-a-user-in-the-tenant-admin-portal,published,2026-03-18 03:27:27,2026-03-25 06:03:12
+685,_Unassigned,_Unassigned,e4gi378c,14181342,How to replace Badge in the Tenant Admin Portal,,draft,2026-03-24 10:31:13,2026-03-24 10:32:11
+687,_Unassigned,_Unassigned,e4gi378c,13428004,Oloid Connect - Set up iPhone in Guided Access Mode,,draft,2026-01-19 08:37:36,2026-03-23 05:11:22
+689,_Unassigned,_Unassigned,e4gi378c,14079147,Test for new doc template,https://oloid.help/en/articles/14079147-test-for-new-doc-template,published,2026-03-16 16:12:00,2026-03-16 16:22:48
+690,_Unassigned,_Unassigned,e4gi378c,12330570,Test Platform Updates- Release Notes,https://oloid.help/en/articles/12330570-test-platform-updates-release-notes,published,2025-09-19 05:23:19,2026-03-16 15:50:59
+692,_Unassigned,_Unassigned,e4gi378c,14075571,Test Chrome Vault,,draft,2026-03-16 07:14:56,2026-03-16 07:15:14
+699,_Unassigned,_Unassigned,e4gi378c,11182622,Oloid Insurance Coverage,,draft,2025-05-02 03:25:09,2026-03-11 16:05:04
+715,_Unassigned,_Unassigned,e4gi378c,13905153,📘 Oloid Help Center – Video Style Guide,,draft,2026-03-02 11:27:17,2026-03-02 11:37:55
+736,_Unassigned,_Unassigned,e4gi378c,13749828,How to use the Oloid Help Center - Video Tutorial,,draft,2026-02-17 06:52:45,2026-02-17 07:19:51
+737,_Unassigned,_Unassigned,e4gi378c,13427218,How to Generate a Passkey using Microsoft for Chrome Vault,,draft,2026-01-19 04:30:08,2026-02-16 09:15:36
+739,_Unassigned,_Unassigned,e4gi378c,13725496,How to Pair Chroma Vault App using the “Auto-Pair using Config File” option,,draft,2026-02-13 08:49:36,2026-02-13 08:50:23
+740,_Unassigned,_Unassigned,e4gi378c,13700997,Oloid Connect iPhone - How to Create and Configure Endpoint Template,,draft,2026-02-11 10:32:55,2026-02-12 08:54:40
+745,_Unassigned,_Unassigned,e4gi378c,13569929,Windows RELEASE UPDATE - JANUARY 2026,https://oloid.help/en/articles/13569929-windows-release-update-january-2026,published,2026-01-30 09:12:42,2026-02-10 11:43:08
+746,_Unassigned,_Unassigned,e4gi378c,13682152,Test,,draft,2026-02-10 06:34:41,2026-02-10 06:35:06
+753,_Unassigned,_Unassigned,e4gi378c,13598349,How to Login to User Portal with Webkey SSO,,draft,2026-02-02 09:12:49,2026-02-03 10:08:48
+766,_Unassigned,_Unassigned,e4gi378c,13570296,User Portal - How to use HR Picture Verify,,draft,2026-01-30 10:29:16,2026-02-02 09:21:08
+767,_Unassigned,_Unassigned,e4gi378c,13597399,Untitled public article,,draft,2026-02-02 06:18:21,2026-02-02 06:18:21
+768,_Unassigned,_Unassigned,e4gi378c,13524540,Oloid Connect iPhone - How to generate Auto-Pair config file in Tenant Admin Portal,,draft,2026-01-27 05:41:38,2026-02-02 04:35:08
+772,_Unassigned,_Unassigned,e4gi378c,13524727,Untitled public article,,draft,2026-01-27 06:16:24,2026-01-27 06:16:24
+773,_Unassigned,_Unassigned,e4gi378c,13482278,Release Updates January - 2026,https://oloid.help/en/articles/13482278-release-updates-january-2026,published,2026-01-23 09:27:01,2026-01-23 10:06:55
+774,_Unassigned,_Unassigned,e4gi378c,13482022,Release Updates - January 2026,,draft,2026-01-23 08:34:44,2026-01-23 08:36:06
+789,_Unassigned,_Unassigned,e4gi378c,13428210,Untitled public article,,draft,2026-01-19 09:31:35,2026-01-19 09:31:35
+790,_Unassigned,_Unassigned,e4gi378c,13428208,Untitled public article,,draft,2026-01-19 09:31:17,2026-01-19 09:31:17
+793,_Unassigned,_Unassigned,e4gi378c,13406491,Oloid Verify - How to share Logs with App Developer,,draft,2026-01-16 08:23:32,2026-01-16 10:14:32
+798,_Unassigned,_Unassigned,e4gi378c,13396684,How to Login to Windows Device using Face and Passkey Credential,,draft,2026-01-15 09:11:45,2026-01-15 09:13:41
+800,_Unassigned,_Unassigned,e4gi378c,13374965,Untitled public article,,draft,2026-01-13 08:45:04,2026-01-13 08:45:15
+801,_Unassigned,_Unassigned,e4gi378c,13374822,Oloid Connect Feature Matrix,https://oloid.help/en/articles/13374822-oloid-connect-feature-matrix,published,2026-01-13 08:04:29,2026-01-13 08:43:34
+802,_Unassigned,_Unassigned,e4gi378c,13374936,Untitled public article,,draft,2026-01-13 08:37:14,2026-01-13 08:37:14
+804,_Unassigned,_Unassigned,e4gi378c,11483850,How to configure Badge credential in Windows Login application,,draft,2025-05-30 04:08:46,2026-01-12 05:48:29
+807,_Unassigned,_Unassigned,e4gi378c,13347649,Tenant Admin Portal QRG -How to create schedule transaction report,,draft,2026-01-09 03:09:44,2026-01-09 04:51:17
+808,_Unassigned,_Unassigned,e4gi378c,13347764,Untitled public article,,draft,2026-01-09 03:52:15,2026-01-09 03:52:15
+809,_Unassigned,_Unassigned,e4gi378c,13347763,Untitled public article,,draft,2026-01-09 03:52:13,2026-01-09 03:52:13
+810,_Unassigned,_Unassigned,e4gi378c,13346792,Tenant Admin Portal QRG -How to create and download endpoint login log Ad-Hoc report,,draft,2026-01-09 01:23:46,2026-01-09 02:54:34
+811,_Unassigned,_Unassigned,e4gi378c,13341005,Tenant Admin Portal QRG - How to create and download endpoint update Ad-Hoc report,,draft,2026-01-08 09:48:32,2026-01-08 10:31:09
+812,_Unassigned,_Unassigned,e4gi378c,13340732,Tenant Admin Portal QRG - How to create user transaction Ad-Hoc report,,draft,2026-01-08 08:52:39,2026-01-08 09:16:01
+813,_Unassigned,_Unassigned,e4gi378c,13340270,Tenant Admin Portal QRG - How to create and download Supervisor Ad-Hoc report,,draft,2026-01-08 06:53:58,2026-01-08 08:34:35
+814,_Unassigned,_Unassigned,e4gi378c,13340188,Tenant Admin Portal QRG - How to create and download User Ad-Hoc report,,draft,2026-01-08 06:23:54,2026-01-08 06:42:16
+816,_Unassigned,_Unassigned,e4gi378c,13333301,Tenant Admin Portal QRG - How to Extend QR Code Expiry Date,https://oloid.help/en/articles/13333301-tenant-admin-portal-qrg-how-to-extend-qr-code-expiry-date,published,2026-01-07 07:22:06,2026-01-08 05:56:49
+817,_Unassigned,_Unassigned,e4gi378c,13333813,Tenant Admin Portal QRG - How to create transaction Ad-Hoc report,,draft,2026-01-07 09:22:57,2026-01-08 05:54:30
+818,_Unassigned,_Unassigned,e4gi378c,13339654,QRG Tenant Admin Portal - How to Send Face Invite to Connections/Groups via SMS,,draft,2026-01-08 03:43:23,2026-01-08 05:49:42
+819,_Unassigned,_Unassigned,e4gi378c,13339835,QRG Tenant Admin Portal - How to Send Face Invite via Email,,draft,2026-01-08 04:28:54,2026-01-08 04:49:59
+820,_Unassigned,_Unassigned,e4gi378c,13333139,Tenant Admin Portal QRG - How to Create Users,,draft,2026-01-07 06:31:34,2026-01-08 03:40:11
+821,_Unassigned,_Unassigned,e4gi378c,13333168,Tenant Admin Portal QRG - How to Generate/Create QR Code Credential,,draft,2026-01-07 06:41:39,2026-01-07 11:37:34
+822,_Unassigned,_Unassigned,e4gi378c,13333557,Tenant Admin Portal QRG - How to create Endpoint status Ad-Hoc Report,,draft,2026-01-07 08:31:43,2026-01-07 09:06:04
+824,_Unassigned,_Unassigned,e4gi378c,13333200,Tenant Admin Portal QRG -How to create and download Endpoint Details Ad-Hoc Report,,draft,2026-01-07 06:50:27,2026-01-07 08:42:21
+826,_Unassigned,_Unassigned,e4gi378c,13333342,Tenant Admin Portal QRG - How to Delete QR Code Credential,,draft,2026-01-07 07:32:57,2026-01-07 07:40:49
+833,_Unassigned,_Unassigned,e4gi378c,13305012,Tenant Admin Portal QRG - How to Create Time Rule,,draft,2026-01-06 09:11:10,2026-01-06 10:38:21
+834,_Unassigned,_Unassigned,e4gi378c,13303684,Tenant Admin Portal QRG - How to Create Group,,draft,2026-01-06 08:20:24,2026-01-06 09:21:22
+837,_Unassigned,_Unassigned,e4gi378c,13271269,Untitled public article,,draft,2026-01-02 05:23:44,2026-01-02 05:23:44
+854,_Unassigned,_Unassigned,e4gi378c,12965315,Quick Reference Guide - Applying an Endpoint Template in Oloid Connect Application,,draft,2025-11-29 16:52:31,2025-12-22 08:41:12
+856,_Unassigned,_Unassigned,e4gi378c,12275961,How to Assign Chrome Vault Shared Password to User in the Tenant Admin Portal,https://oloid.help/en/articles/12275961-how-to-assign-chrome-vault-shared-password-to-user-in-the-tenant-admin-portal,published,2025-09-12 10:22:35,2025-12-19 09:09:42
+859,_Unassigned,_Unassigned,e4gi378c,13185052,Untitled public article,,draft,2025-12-18 10:22:32,2025-12-18 10:22:32
+861,_Unassigned,_Unassigned,e4gi378c,10198762,Oloid Verify: Add QR Code,,draft,2024-11-26 05:25:07,2025-12-18 05:25:06
+862,_Unassigned,_Unassigned,e4gi378c,13183668,Oloid Portal - How to Manual Sync Users,,draft,2025-12-18 05:19:16,2025-12-18 05:20:59
+864,_Unassigned,_Unassigned,e4gi378c,13175207,Oloid Connect: Admin/Supervisor Login Guide for iPhone,,draft,2025-12-17 05:39:57,2025-12-17 07:07:34
+870,_Unassigned,_Unassigned,e4gi378c,13158359,Quick Reference Guide - How to close and relaunch Oloid Connect App,,draft,2025-12-15 08:49:00,2025-12-15 10:32:04
+879,_Unassigned,_Unassigned,e4gi378c,13009991,Untitled public article,,draft,2025-12-05 07:52:30,2025-12-05 07:52:30
+880,_Unassigned,_Unassigned,e4gi378c,13009985,Untitled public article,,draft,2025-12-05 07:51:34,2025-12-05 07:51:34
+885,_Unassigned,_Unassigned,e4gi378c,13001606,Untitled public article,,draft,2025-12-04 07:52:44,2025-12-04 07:52:44
+886,_Unassigned,_Unassigned,e4gi378c,13001306,Insights Dashboard,,draft,2025-12-04 07:18:36,2025-12-04 07:52:26
+890,_Unassigned,_Unassigned,e4gi378c,12965245,"How to Enable Show Camera Flip Button
+in Oloid Connect Application",,draft,2025-11-29 16:23:12,2025-12-03 05:03:40
+893,_Unassigned,_Unassigned,e4gi378c,12958185,How to Enable Take Re-consent During Transactions Toggle for Oloid Connect Application in Tenant Admin Portal,,draft,2025-11-28 04:23:10,2025-11-29 16:22:56
+924,_Unassigned,_Unassigned,e4gi378c,12799279,Test Roshan,https://oloid.help/en/articles/12799279-test-roshan,published,2025-11-10 09:31:52,2025-11-10 09:34:19
+929,_Unassigned,_Unassigned,e4gi378c,12760540,Oloid Verify: Platform Configuration,https://oloid.help/en/articles/12760540-oloid-verify-platform-configuration,published,2025-11-06 04:42:19,2025-11-06 04:42:41
+939,_Unassigned,_Unassigned,e4gi378c,12697838,Test for Tech Writer,https://oloid.help/en/articles/12697838-test-for-tech-writer,published,2025-10-30 04:57:28,2025-10-30 05:02:47
+945,_Unassigned,_Unassigned,e4gi378c,12672438,How to Enroll User Badge in the DeviceLock App via Admin Mode,,draft,2025-10-27 05:27:12,2025-10-27 05:54:10
+947,_Unassigned,_Unassigned,e4gi378c,11513752,How to enable Time Clocking Mode for DeviceLock App in Tenant Admin Portal,,draft,2025-06-05 08:40:15,2025-07-14 08:40:48
+952,_Unassigned,_Unassigned,e4gi378c,12596267,Windows Login App - Hardware and Software Requirements,,draft,2025-10-16 12:04:17,2025-10-16 12:31:34
+957,_Unassigned,_Unassigned,e4gi378c,11560127,How to set Screen Timeout Duration for DeviceLock in the Tenant Admin Portal,,draft,2025-06-12 05:46:37,2025-10-08 05:17:21
+960,_Unassigned,_Unassigned,e4gi378c,12468363,How to Setup Configure tab for Chrome Vault Application in the Tenant Admin Portal,https://oloid.help/en/articles/12468363-how-to-setup-configure-tab-for-chrome-vault-application-in-the-tenant-admin-portal,published,2025-10-01 04:45:16,2025-10-01 07:02:53
+962,_Unassigned,_Unassigned,e4gi378c,12458453,How to setup Configure tab for Chrome Vault Application in the Tenant Admin Portal,,draft,2025-09-30 10:10:36,2025-09-30 10:12:29
+963,_Unassigned,_Unassigned,e4gi378c,10756940,How to add Connections in Windows Login Application,https://oloid.help/en/articles/10756940-how-to-add-connections-in-windows-login-application,published,2025-03-12 08:12:18,2025-09-30 09:45:35
+964,_Unassigned,_Unassigned,e4gi378c,12456969,Insights,,draft,2025-09-30 04:36:42,2025-09-30 04:37:13
+980,_Unassigned,_Unassigned,e4gi378c,12425279,stand alone docs for chrome vault (configuration),,draft,2025-09-26 08:10:27,2025-09-26 08:11:26
+981,_Unassigned,_Unassigned,e4gi378c,12298603,How to customize Job Code screen in Oloid Connect Application,,draft,2025-09-16 04:13:23,2025-09-25 08:56:40
+988,_Unassigned,_Unassigned,e4gi378c,12353209,How to set up Workday Account,https://oloid.help/en/articles/12353209-how-to-set-up-workday-account,published,2025-09-22 09:53:03,2025-09-23 02:41:30
+991,_Unassigned,_Unassigned,e4gi378c,12148494,Draft Doc for-Installation and set-up guide for Oloid DeviceLock and Oloid Vault via SOTI,https://oloid.help/en/articles/12148494-draft-doc-for-installation-and-set-up-guide-for-oloid-devicelock-and-oloid-vault-via-soti,published,2025-09-03 12:13:15,2025-09-19 06:28:26
+996,_Unassigned,_Unassigned,e4gi378c,12066142,Draft - Installation and Setup Guide for Oloid DeviceLock and Oloid Vault via SOTI MobiControl,,draft,2025-08-22 09:08:48,2025-09-16 05:44:49
+1001,_Unassigned,_Unassigned,e4gi378c,12164087,How to configure Workday in Oloid Connect application,,draft,2025-09-05 04:03:48,2025-09-11 12:04:05
+1002,_Unassigned,_Unassigned,e4gi378c,11069235,How to Apply Endpoint Template in Windows Login application,,draft,2025-04-11 04:27:39,2025-09-11 06:25:16
+1003,_Unassigned,_Unassigned,e4gi378c,12179093,Android Vault,,draft,2025-09-08 06:44:41,2025-09-08 06:45:43
+1005,_Unassigned,_Unassigned,e4gi378c,12146294,How to authenticate using Oloid Connect ( Workday),,draft,2025-09-03 05:00:35,2025-09-05 04:22:21
+1006,_Unassigned,_Unassigned,e4gi378c,12145833,How to login to HRIS platform using QR and Face,,draft,2025-09-03 04:31:18,2025-09-04 12:20:07
+1010,_Unassigned,_Unassigned,e4gi378c,11501934,How to configure NFC/ID credential for WebKey Application in the Tenant Admin Portal,,draft,2025-06-03 09:20:28,2025-09-03 06:33:56
+1017,_Unassigned,_Unassigned,e4gi378c,12116099,How to Unlock the Oloid DeviceLock App on Android Device Using QR Code,,draft,2025-08-29 10:45:28,2025-08-29 10:54:28
+1018,_Unassigned,_Unassigned,e4gi378c,12115916,How to Unlock the Oloid DeviceLock App on Android Device Using Face Credential,,draft,2025-08-29 10:35:42,2025-08-29 10:43:37
+1023,_Unassigned,_Unassigned,e4gi378c,12108249,How to Install and Auto-Pair Oloid DeviceLock App through MDM,,draft,2025-08-28 11:28:27,2025-08-29 05:35:17
+1026,_Unassigned,_Unassigned,e4gi378c,12096020,How to Edit setting menu for Windows Login Application in the Tenant Admin Portal,,draft,2025-08-27 10:26:30,2025-08-27 10:37:59
+1027,_Unassigned,_Unassigned,e4gi378c,10766296,How to edit Configure tab in Windows Login Application,https://oloid.help/en/articles/10766296-how-to-edit-configure-tab-in-windows-login-application,published,2025-03-13 09:35:58,2025-08-27 10:07:17
+1028,_Unassigned,_Unassigned,e4gi378c,12094812,Untitled public article,,draft,2025-08-27 07:03:42,2025-08-27 07:03:42
+1035,_Unassigned,_Unassigned,e4gi378c,12041341,SSO (Single Sign-On),,draft,2025-08-19 08:59:12,2025-08-19 09:27:34
+1036,_Unassigned,_Unassigned,e4gi378c,12041342,HRIS (Human Resource Information System),,draft,2025-08-19 08:59:27,2025-08-19 09:24:45
+1037,_Unassigned,_Unassigned,e4gi378c,12041337,MDM (Mobile Device Management),,draft,2025-08-19 08:58:45,2025-08-19 09:25:42
+1038,_Unassigned,_Unassigned,e4gi378c,12041344,PACS (Physical Access Control System),,draft,2025-08-19 08:59:42,2025-08-19 09:26:39
+1039,_Unassigned,_Unassigned,e4gi378c,12041320,Untitled public article,,draft,2025-08-19 08:55:04,2025-08-19 08:55:28
+1043,_Unassigned,_Unassigned,e4gi378c,11948502,Troubleshooting Oloid Windows Login: User Blocked After Multiple PIN Attempts (for User),,draft,2025-08-06 08:29:42,2025-08-06 09:13:48
+1044,_Unassigned,_Unassigned,e4gi378c,11948432,Troubleshooting Oloid Windows Login: User Blocked After Multiple PIN Attempts (for Supervisor),,draft,2025-08-06 08:13:17,2025-08-06 08:24:22
+1045,_Unassigned,_Unassigned,e4gi378c,11948074,Troubleshooting Oloid Windows Login: User Blocked After Multiple PIN Attempts (for Tenant Admin),,draft,2025-08-06 06:47:04,2025-08-06 08:23:20
+1046,_Unassigned,_Unassigned,e4gi378c,11905001,Troubleshooting Oloid Windows Login: User Blocked After Multiple PIN Attempts,,draft,2025-08-01 10:06:16,2025-08-06 07:00:42
+1047,_Unassigned,_Unassigned,e4gi378c,11938881,test-Troubleshooting Oloid Windows Login: User Blocked After Multiple PIN Attempts,,draft,2025-08-05 11:21:26,2025-08-05 11:26:08
+1050,_Unassigned,_Unassigned,e4gi378c,11936934,Test for interactive images,https://oloid.help/en/articles/11936934-test-for-interactive-images,published,2025-08-05 07:34:23,2025-08-05 07:35:46
+1052,_Unassigned,_Unassigned,e4gi378c,11873807,Documentation updates channel,,draft,2025-07-29 10:12:33,2025-07-29 10:16:30
+1065,_Unassigned,_Unassigned,e4gi378c,11830450,Untitled public article,,draft,2025-07-23 11:48:07,2025-07-23 11:48:07
+1069,_Unassigned,_Unassigned,e4gi378c,11569266,How to Clock In/Out using Face Credential through DeviceLock App,,draft,2025-06-13 09:48:54,2025-07-21 08:25:50
+1070,_Unassigned,_Unassigned,e4gi378c,11797862,Test for unlisted doc,https://oloid.help/en/articles/11797862-test-for-unlisted-doc,published,2025-07-18 06:19:29,2025-07-18 06:20:14
+1120,_Unassigned,_Unassigned,e4gi378c,8271500,Oloid Platform Video Tutorial List,,draft,2023-08-18 05:38:23,2024-08-02 07:15:29
+1121,_Unassigned,_Unassigned,e4gi378c,8217785,Oloid Platform Guides List,,draft,2023-08-04 10:06:50,2024-08-02 07:15:03
+1123,_Unassigned,_Unassigned,e4gi378c,10801745,How to edit Connections tab in WebKey Application,,draft,2025-03-17 10:03:33,2025-07-09 02:38:32
+1124,_Unassigned,_Unassigned,e4gi378c,10799157,How to edit Details tab in WebKey Application,,draft,2025-03-17 07:52:14,2025-07-09 02:35:03
+1125,_Unassigned,_Unassigned,e4gi378c,11711704,What is Oloid Android - DeviceLock Mode,,draft,2025-07-04 10:26:26,2025-07-07 06:12:57
+1126,_Unassigned,_Unassigned,e4gi378c,11711877,What is Oloid DeviceLock Time Clock - Android,,draft,2025-07-04 11:13:49,2025-07-07 05:21:42
+1131,_Unassigned,_Unassigned,e4gi378c,11703297,How to create PC/SC Badge interface,,draft,2025-07-03 08:53:31,2025-07-03 08:54:53
+1132,_Unassigned,_Unassigned,e4gi378c,11587186,What's new template,,draft,2025-06-17 06:28:10,2025-06-18 06:37:35
+1138,_Unassigned,_Unassigned,e4gi378c,11537542,How to set logout URL in Passwordless Login for DeviceLock in Tenant Admin Portal,,draft,2025-06-10 10:08:33,2025-06-12 08:25:56
+1139,_Unassigned,_Unassigned,e4gi378c,11560070,Untitled public article,,draft,2025-06-12 04:58:06,2025-06-12 04:58:06
+1140,_Unassigned,_Unassigned,e4gi378c,11550216,Untitled public article,,draft,2025-06-11 10:33:48,2025-06-11 10:37:08
+1141,_Unassigned,_Unassigned,e4gi378c,11494152,How to configure Windows Login endpoint in Supervisor Portal,,draft,2025-06-02 06:07:36,2025-06-11 04:43:56
+1142,_Unassigned,_Unassigned,e4gi378c,11513589,Untitled public article,,draft,2025-06-05 08:25:35,2025-06-05 08:25:35
+1143,_Unassigned,_Unassigned,e4gi378c,11508305,How to enable Clock In / Clock Out mode in Tenant Admin Portal,,draft,2025-06-04 10:12:12,2025-06-04 10:34:32
+1144,_Unassigned,_Unassigned,e4gi378c,11501488,How to exit the Oloid DeviceLock App,,draft,2025-06-03 06:58:43,2025-06-03 10:40:17
+1150,_Unassigned,_Unassigned,e4gi378c,11461750,What is Supervisor Portal,https://oloid.help/en/articles/11461750-what-is-supervisor-portal,published,2025-05-27 08:48:00,2025-05-27 08:58:30
+1158,_Unassigned,_Unassigned,e4gi378c,11460971,Untitled public article,,draft,2025-05-27 04:06:36,2025-05-27 04:06:36
+1159,_Unassigned,_Unassigned,e4gi378c,11460969,Untitled public article,,draft,2025-05-27 04:06:33,2025-05-27 04:06:33
+1164,_Unassigned,_Unassigned,e4gi378c,11425228,Enroll PIN,,draft,2025-05-22 10:06:40,2025-05-23 10:10:54
+1166,_Unassigned,_Unassigned,e4gi378c,11424173,Windows Login app- How to enroll credentials,,draft,2025-05-22 04:00:41,2025-05-23 10:03:00
+1174,_Unassigned,_Unassigned,e4gi378c,9902212,How to invite to add Face in the Supervisor Portal - Video Tutorial,https://oloid.help/en/articles/9902212-how-to-invite-to-add-face-in-the-supervisor-portal-video-tutorial,published,2024-09-20 10:40:42,2025-05-23 08:54:09
+1193,_Unassigned,_Unassigned,e4gi378c,11392898,Filter Test,,draft,2025-05-16 08:15:54,2025-05-16 08:22:48
+1194,_Unassigned,_Unassigned,e4gi378c,8498939,User Roles and Permissions in Oloid Platform- To be edited,https://oloid.help/en/articles/8498939-user-roles-and-permissions-in-oloid-platform-to-be-edited,published,2023-10-20 09:00:26,2025-05-16 07:37:05
+1195,_Unassigned,_Unassigned,e4gi378c,11388100,How to enable Adjust Video Preview Container Spacing From Top,,draft,2025-05-15 03:59:43,2025-05-15 04:46:03
+1196,_Unassigned,_Unassigned,e4gi378c,11385227,DeviceLock V 1.0.27 - Release Notes,,draft,2025-05-14 15:13:27,2025-05-14 15:14:35
+1197,_Unassigned,_Unassigned,e4gi378c,11373964,Tenant Admin Roles & Responsibilities – Oloid Platform,,draft,2025-05-13 03:46:26,2025-05-13 03:47:06
+1201,_Unassigned,_Unassigned,e4gi378c,11324438,Oloid- Best practices on Facial Authentication,https://oloid.help/en/articles/11324438-oloid-best-practices-on-facial-authentication,published,2025-05-08 05:32:36,2025-05-08 08:39:34
+1213,_Unassigned,_Unassigned,e4gi378c,11062197,Machine learning model details - Windows Login - Gadget detection,,draft,2025-04-09 18:51:39,2025-05-06 05:05:59
+1235,_Unassigned,_Unassigned,e4gi378c,11059154,How to Set Time-out for Login Screen in Windows Login application,,draft,2025-04-09 08:20:23,2025-04-29 10:49:51
+1236,_Unassigned,_Unassigned,e4gi378c,10978430,How to enable Capture Windows User Events in Windows Login Application,,draft,2025-03-28 09:34:23,2025-04-30 09:05:43
+1237,_Unassigned,_Unassigned,e4gi378c,11016632,How to enable Manual Capture Accessibility in Windows Login application,,draft,2025-04-02 05:06:07,2025-04-30 09:05:00
+1238,_Unassigned,_Unassigned,e4gi378c,11008747,How to enable Auto-recover Endpoint in Windows Login application,,draft,2025-04-01 09:14:24,2025-04-30 09:03:49
+1239,_Unassigned,_Unassigned,e4gi378c,11168930,How to enable timed auto capture in WebKey application,,draft,2025-04-30 06:17:28,2025-04-30 08:03:50
+1243,_Unassigned,_Unassigned,e4gi378c,11091553,Oloid Connect Beta App Deployment Process,https://oloid.help/en/articles/11091553-oloid-connect-beta-app-deployment-process,published,2025-04-16 04:15:44,2025-04-21 14:40:48
+1245,_Unassigned,_Unassigned,e4gi378c,10741199,How to configure Time Rule for user in Oloid Portal,,draft,2025-03-10 10:08:02,2025-04-21 08:46:09
+1246,_Unassigned,_Unassigned,e4gi378c,11098727,How to enable Show on-screen keyboard in Windows Login application,,draft,2025-04-17 08:12:56,2025-04-17 09:38:15
+1247,_Unassigned,_Unassigned,e4gi378c,11079846,How to Enable Only Preferred Machine Login in Windows Login application,,draft,2025-04-14 09:51:09,2025-04-17 05:07:24
+1248,_Unassigned,_Unassigned,e4gi378c,11085787,How to Allow any individual with Domain Credentials in Windows Login application,,draft,2025-04-15 04:40:22,2025-04-17 05:04:51
+1251,_Unassigned,_Unassigned,e4gi378c,11034025,Oloid Products and Feature List,,draft,2025-04-04 03:40:56,2025-04-08 03:50:21
+1252,_Unassigned,_Unassigned,e4gi378c,11006820,Operations allowed for Supervisor in Admin Mode,,draft,2025-04-01 04:36:16,2025-04-04 07:55:47
+1253,_Unassigned,_Unassigned,e4gi378c,10899574,Operations performed by a Tenant Admin in Oloid Portal,,draft,2025-03-24 07:21:17,2025-04-01 08:09:06
+1254,_Unassigned,_Unassigned,e4gi378c,10973277,How to enroll credentials using Windows Login app,,draft,2025-03-28 04:43:35,2025-03-28 04:47:32
+1256,_Unassigned,_Unassigned,e4gi378c,10897289,Untitled public article,,draft,2025-03-24 04:34:57,2025-03-24 04:34:57
+1259,_Unassigned,_Unassigned,e4gi378c,10851816,Untitled public article,,draft,2025-03-20 08:29:00,2025-03-20 08:29:00
+1260,_Unassigned,_Unassigned,e4gi378c,10849413,FAQs Chrome Vault application,,draft,2025-03-20 05:22:03,2025-03-20 07:06:37
+1262,_Unassigned,_Unassigned,e4gi378c,10741035,How to create Time Rule,,draft,2025-03-10 09:25:21,2025-03-19 12:04:28
+1263,_Unassigned,_Unassigned,e4gi378c,10836452,Oloid Workflow Guides List ( copy of return url links,,draft,2025-03-19 09:25:20,2025-03-19 09:25:50
+1264,_Unassigned,_Unassigned,e4gi378c,10832515,How to edit Configure tab in Chrome Vault Application,,draft,2025-03-19 03:54:56,2025-03-19 09:13:25
+1265,_Unassigned,_Unassigned,e4gi378c,10832713,How to edit Connections tab in Chrome Vault Application,,draft,2025-03-19 04:44:28,2025-03-19 08:20:43
+1268,_Unassigned,_Unassigned,e4gi378c,10814228,How to edit Details tab in Chrome Vault Application,,draft,2025-03-18 05:08:33,2025-03-18 09:54:39
+1269,_Unassigned,_Unassigned,e4gi378c,10803360,Machine Learning Project Documentation: YOLOv8 for Gadget Detection,,draft,2025-03-17 11:23:35,2025-03-17 15:28:26
+1270,_Unassigned,_Unassigned,e4gi378c,10800064,How to edit Authenticator tab in WebKey Application,,draft,2025-03-17 08:37:26,2025-03-17 10:02:58
+1271,_Unassigned,_Unassigned,e4gi378c,10796695,How to edit Health Setup tab in Windows Login Application,,draft,2025-03-17 05:20:07,2025-03-17 05:46:41
+1272,_Unassigned,_Unassigned,e4gi378c,10796420,How to edit Health Setup tab in Windows Login Application,,draft,2025-03-17 04:45:59,2025-03-17 05:18:51
+1275,_Unassigned,_Unassigned,e4gi378c,10765342,How to Disable capturing and saving of image during transactions,,draft,2025-03-13 06:19:19,2025-03-13 06:40:47
+1276,_Unassigned,_Unassigned,e4gi378c,10756535,How to disable Face enrollment image saving,,draft,2025-03-12 05:49:28,2025-03-13 06:30:19
+1278,_Unassigned,_Unassigned,e4gi378c,10299840,Oloid Connect: Add Password,https://oloid.help/en/articles/10299840-oloid-connect-add-password,published,2024-12-18 07:10:26,2025-03-12 09:47:00
+1280,_Unassigned,_Unassigned,e4gi378c,10748617,How to add Time Rule to User,,draft,2025-03-11 04:52:09,2025-03-11 05:29:16
+1281,_Unassigned,_Unassigned,e4gi378c,10748160,How to add Location for Time Rule,,draft,2025-03-11 04:11:34,2025-03-11 04:26:17
+1282,_Unassigned,_Unassigned,e4gi378c,10315344,Oloid Connect: Add Location,,draft,2024-12-23 07:23:51,2025-03-10 07:02:24
+1301,_Unassigned,_Unassigned,e4gi378c,10629986,Untitled public article,,draft,2025-02-24 21:51:04,2025-02-24 21:51:04
+1303,_Unassigned,_Unassigned,e4gi378c,10357117,How to review transactions in Oloid Connect,,draft,2025-01-07 07:28:35,2025-02-20 08:35:59
+1304,_Unassigned,_Unassigned,e4gi378c,10473440,How to configure Browser Fingerprint manually in WebKey,,draft,2025-01-28 09:28:57,2025-02-19 07:10:30
+1305,_Unassigned,_Unassigned,e4gi378c,10363804,Supervisor Portal- How to configure Web Button,,draft,2025-01-08 05:05:55,2025-02-19 05:55:25
+1306,_Unassigned,_Unassigned,e4gi378c,10337638,Oloid Connect- How to use Intent screen,,draft,2024-12-31 06:58:13,2025-02-18 07:52:45
+1308,_Unassigned,_Unassigned,e4gi378c,10568536,Windows Login- Issue/Error and Resolution,https://oloid.help/en/articles/10568536-windows-login-issue-error-and-resolution,published,2025-02-17 09:30:10,2025-02-17 09:33:43
+1309,_Unassigned,_Unassigned,e4gi378c,10515400,Troubleshooting Windows Login,,draft,2025-02-06 04:31:39,2025-02-17 09:29:49
+1311,_Unassigned,_Unassigned,e4gi378c,10530793,How to log in to Workforce/ HRMS system using Single Factor Authenticators through Oloid Connect Passwordless App- Video Tutorial,,draft,2025-02-10 06:28:49,2025-02-10 06:31:08
+1312,_Unassigned,_Unassigned,e4gi378c,10530791,How to enroll for face through Oloid Connect Passwordless App- Video Tutorial,,draft,2025-02-10 06:27:41,2025-02-10 06:28:32
+1313,_Unassigned,_Unassigned,e4gi378c,10530783,How to download and install windows login supervisor app- Video Tutorial,,draft,2025-02-10 06:25:03,2025-02-10 06:25:50
+1314,_Unassigned,_Unassigned,e4gi378c,10420196,Setting up and using Oloid Connect App for Passwordless (Draft),,draft,2025-01-17 12:23:30,2025-02-10 05:45:14
+1319,_Unassigned,_Unassigned,e4gi378c,10515457,(All devices)How to log into Workforce Management platforms using Face in WebKey- Video Tutorial,,draft,2025-02-06 05:19:11,2025-02-06 05:21:25
+1320,_Unassigned,_Unassigned,e4gi378c,10514232,Untitled public article,,draft,2025-02-05 20:35:24,2025-02-05 20:35:24
+1323,_Unassigned,_Unassigned,e4gi378c,8661702,FAQs Oloid Verify application,https://oloid.help/en/articles/8661702-faqs-oloid-verify-application,published,2023-12-01 06:34:25,2023-12-04 09:26:58
+1328,_Unassigned,_Unassigned,e4gi378c,10430185,windows authenticator app download,https://oloid.help/en/articles/10430185-windows-authenticator-app-download,published,2025-01-20 13:10:46,2025-01-30 10:52:29
+1330,_Unassigned,_Unassigned,e4gi378c,10485297,Installing the Oloid Connect App- Video Tutorial,https://oloid.help/en/articles/10485297-installing-the-oloid-connect-app-video-tutorial,published,2025-01-29 12:03:02,2025-01-29 12:09:49
+1339,_Unassigned,_Unassigned,e4gi378c,8600301,Factor sequencing for Muti-factor Authentication in Oloid's WebKey (not implemented),,draft,2023-11-17 06:05:16,2025-01-28 10:23:13
+1340,_Unassigned,_Unassigned,e4gi378c,10448856,How to auto pair endpoint through Windows Login app,,draft,2025-01-23 07:05:10,2025-01-23 10:05:28
+1341,_Unassigned,_Unassigned,e4gi378c,10428791,Supervisor Portal- How to configure endpoint for Oloid Connect,,draft,2025-01-20 05:55:20,2025-01-21 09:30:17
+1342,_Unassigned,_Unassigned,e4gi378c,10272164,How to install Supervisor App using Setup file,,draft,2024-12-12 05:39:03,2025-01-20 13:08:45
+1343,_Unassigned,_Unassigned,e4gi378c,9414423,Oloid Connect: Create Shared Credential,,draft,2024-06-03 11:37:44,2025-01-16 10:14:29
+1344,_Unassigned,_Unassigned,e4gi378c,9393375,What is Oloid Device Lock,,draft,2024-05-29 06:17:56,2025-01-16 06:41:58
+1349,_Unassigned,_Unassigned,e4gi378c,10319222,Untitled public article,,draft,2024-12-24 07:41:48,2025-01-09 09:48:04
+1368,_Unassigned,_Unassigned,e4gi378c,10356885,How to configure Azure SSO in Oloid Portal,,draft,2025-01-07 05:06:05,2025-01-07 05:42:17
+1371,_Unassigned,_Unassigned,e4gi378c,10341910,Oloid Connect- How to log in with NFC/ID,,draft,2025-01-02 08:05:03,2025-01-02 09:38:31
+1373,_Unassigned,_Unassigned,e4gi378c,10334783,ping,,draft,2024-12-30 04:41:39,2024-12-30 06:54:37
+1381,_Unassigned,_Unassigned,e4gi378c,8607304,Configuring WebKey for SSO Login,https://oloid.help/en/articles/8607304-configuring-webkey-for-sso-login,published,2023-11-20 08:20:06,2024-12-24 05:04:19
+1383,_Unassigned,_Unassigned,e4gi378c,10304431,Document List - Credential Onboarding,https://oloid.help/en/articles/10304431-document-list-credential-onboarding,published,2024-12-19 08:46:38,2024-12-20 14:12:16
+1384,_Unassigned,_Unassigned,e4gi378c,10304375,Overview of Credential Onboarding Options in Oloid,https://oloid.help/en/articles/10304375-overview-of-credential-onboarding-options-in-oloid,published,2024-12-19 08:12:41,2024-12-19 08:35:26
+1386,_Unassigned,_Unassigned,e4gi378c,10299658,Untitled public article,,draft,2024-12-18 04:55:04,2024-12-18 04:55:04
+1391,_Unassigned,_Unassigned,e4gi378c,10248495,Troubleshooting Badge Binary Error,,draft,2024-12-06 10:28:50,2024-12-10 15:58:55
+1392,_Unassigned,_Unassigned,e4gi378c,10255776,How to login with Okta SSO in Oloid Verify App,,draft,2024-12-09 07:22:40,2024-12-09 09:41:28
+1393,_Unassigned,_Unassigned,e4gi378c,10229274,How to Use Data from Configurator Tool to Create Wiegand Format Definition in Oloid,https://oloid.help/en/articles/10229274-how-to-use-data-from-configurator-tool-to-create-wiegand-format-definition-in-oloid,published,2024-12-04 05:44:25,2024-12-06 13:54:25
+1395,_Unassigned,_Unassigned,e4gi378c,10224841,How to extract logs manually,,draft,2024-12-03 04:50:48,2024-12-03 10:27:41
+1396,_Unassigned,_Unassigned,e4gi378c,10214464,How to extract logs using Oloid Portal,,draft,2024-11-29 13:24:01,2024-12-03 05:53:19
+1408,_Unassigned,_Unassigned,e4gi378c,10090022,How to configure multi button intent screen in Oloid Connect - Video Tutorial,https://oloid.help/en/articles/10090022-how-to-configure-multi-button-intent-screen-in-oloid-connect-video-tutorial,published,2024-11-06 06:20:47,2024-11-11 06:33:41
+1417,_Unassigned,_Unassigned,e4gi378c,10038652,Steps to customize Oloid Portal,,draft,2024-10-24 12:01:41,2024-10-24 12:27:38
+1418,_Unassigned,_Unassigned,e4gi378c,10037535,How to view and edit Shared Credential details in Supervisor App- Video Tutorial,,draft,2024-10-24 07:01:32,2024-10-24 07:02:27
+1439,_Unassigned,_Unassigned,e4gi378c,9937080,How to add Time Rules to a user,,draft,2024-09-30 06:34:38,2024-10-01 07:26:06
+1442,_Unassigned,_Unassigned,e4gi378c,9937011,Configure Intent Screen for Connect Passwordless,,draft,2024-09-30 05:31:14,2024-09-30 05:40:33
+1455,_Unassigned,_Unassigned,e4gi378c,9901614,How to view Bluetooth credential using Oloid User Portal,,draft,2024-09-20 08:04:13,2024-09-20 10:40:22
+1456,_Unassigned,_Unassigned,e4gi378c,9895839,How to deactivate NFC using Oloid User Portal,,draft,2024-09-19 08:26:41,2024-09-19 08:40:14
+1465,_Unassigned,_Unassigned,e4gi378c,9874251,How to view CloudKey using Oloid User Portal,,draft,2024-09-13 06:14:07,2024-09-19 04:34:24
+1467,_Unassigned,_Unassigned,e4gi378c,9841412,How to sync transaction in Endpoint,,draft,2024-09-09 08:07:28,2024-09-13 05:36:17
+1468,_Unassigned,_Unassigned,e4gi378c,9847706,How to Configure CloudKey Endpoint,https://oloid.help/en/articles/9847706-how-to-configure-cloudkey-endpoint,published,2024-09-10 08:46:03,2024-09-11 11:12:08
+1469,_Unassigned,_Unassigned,e4gi378c,9840882,How to configure M-Tag Endpoint,,draft,2024-09-09 04:57:03,2024-09-10 08:53:14
+1470,_Unassigned,_Unassigned,e4gi378c,9842063,How to check health alert in M-Tag endpoint,,draft,2024-09-09 09:48:56,2024-09-09 10:09:24
+1474,_Unassigned,_Unassigned,e4gi378c,9833394,Guide to Retrieving Events and Transactions - For Review,,draft,2024-09-06 15:04:32,2024-09-06 16:17:13
+1475,_Unassigned,_Unassigned,e4gi378c,9820411,API Template,https://oloid.help/en/articles/9820411-api-template,published,2024-09-03 15:50:49,2024-09-05 06:24:04
+1487,_Unassigned,_Unassigned,e4gi378c,9789752,How to Export Transactions of a user,,draft,2024-08-27 06:19:11,2024-08-28 05:33:00
+1488,_Unassigned,_Unassigned,e4gi378c,9611773,How to download auto-pair config file from Tenant Settings for Chrome Vault,,draft,2024-07-15 12:45:16,2024-08-26 06:10:48
+1497,_Unassigned,_Unassigned,e4gi378c,9738953,How to add rule for Multifactor Authentication,,draft,2024-08-14 08:22:02,2024-08-19 04:16:39
+1498,_Unassigned,_Unassigned,e4gi378c,9748474,How to view diagnostics and download report in Supervisor App (Test doc 1),https://oloid.help/en/articles/9748474-how-to-view-diagnostics-and-download-report-in-supervisor-app-test-doc-1,published,2024-08-16 06:51:20,2024-08-16 10:40:32
+1499,_Unassigned,_Unassigned,e4gi378c,9748593,How to view diagnostics and download report in Supervisor App (Test doc 2),https://oloid.help/en/articles/9748593-how-to-view-diagnostics-and-download-report-in-supervisor-app-test-doc-2,published,2024-08-16 07:58:13,2024-08-16 08:02:42
+1500,_Unassigned,_Unassigned,e4gi378c,9553064,How to log in to Supervisor app with Okta SSO (WIP),,draft,2024-07-02 14:02:15,2024-08-13 09:29:47
+1501,_Unassigned,_Unassigned,e4gi378c,9730690,Chrome Vault: Logout (WIP),,draft,2024-08-12 16:02:28,2024-08-12 16:16:49
+1502,_Unassigned,_Unassigned,e4gi378c,9727743,How to Create PIN in the Supervisor App for Windows - Video Tutorial,,draft,2024-08-12 05:33:22,2024-08-12 05:34:59
+1504,_Unassigned,_Unassigned,e4gi378c,9725933,How to manually edit password in Chrome Vault,,draft,2024-08-11 08:16:46,2024-08-11 08:44:31
+1505,_Unassigned,_Unassigned,e4gi378c,9706052,Oloid Portal Icons,https://oloid.help/en/articles/9706052-oloid-portal-icons,published,2024-08-06 05:29:58,2024-08-09 12:37:55
+1506,_Unassigned,_Unassigned,e4gi378c,9720373,Demo Article,,draft,2024-08-09 07:12:32,2024-08-09 08:16:56
+1509,_Unassigned,_Unassigned,e4gi378c,9717148,How to export a flow?,,draft,2024-08-08 10:39:45,2024-08-09 06:55:13
+1510,_Unassigned,_Unassigned,e4gi378c,9720272,,,draft,2024-08-09 06:19:38,2024-08-09 06:19:38
+1511,_Unassigned,_Unassigned,e4gi378c,9706459,Supervisor Portal - How to send invite email to download mobile app for multiple users,,draft,2024-08-06 08:56:35,2024-08-08 10:58:45
+1512,_Unassigned,_Unassigned,e4gi378c,9716564,How to send Invite to add face using Oloid Portal,,draft,2024-08-08 05:09:53,2024-08-08 10:23:07
+1514,_Unassigned,_Unassigned,e4gi378c,9673790,Supervisor Portal - How to configure user details,,draft,2024-07-30 06:43:10,2024-08-08 07:56:35
+1515,_Unassigned,_Unassigned,e4gi378c,9716722,,,draft,2024-08-08 06:57:20,2024-08-08 06:57:20
+1516,_Unassigned,_Unassigned,e4gi378c,9710547,How to set new password on first time login to Supervisor Portal,,draft,2024-08-07 05:08:10,2024-08-08 06:38:37
+1517,_Unassigned,_Unassigned,e4gi378c,9711988,Supervisor Portal - How to send QR code link for multiple users (wip),,draft,2024-08-07 10:51:18,2024-08-07 12:09:48
+1518,_Unassigned,_Unassigned,e4gi378c,9711204,Supervisor Portal - How to create Bluetooth credential for users in a Connection,,draft,2024-08-07 08:17:29,2024-08-07 11:52:04
+1520,_Unassigned,_Unassigned,e4gi378c,9699294,Supervisor Portal - How to edit Supervisor Profile,,draft,2024-08-05 04:22:06,2024-08-07 08:34:44
+1524,_Unassigned,_Unassigned,e4gi378c,9706110,,,draft,2024-08-06 06:32:49,2024-08-06 06:32:49
+1526,_Unassigned,_Unassigned,e4gi378c,9670509,Supervisor Portal: How to create OloID account (to be reviewed),,draft,2024-07-29 15:43:30,2024-08-06 05:08:05
+1528,_Unassigned,_Unassigned,e4gi378c,9687684,What is pairing endpoint ?,,draft,2024-08-01 16:10:46,2024-08-01 16:13:00
+1529,_Unassigned,_Unassigned,e4gi378c,9668957,Face Login/Enroll error list and mitigation ways,https://oloid.help/en/articles/9668957-face-login-enroll-error-list-and-mitigation-ways,published,2024-07-29 05:40:24,2024-07-31 11:48:18
+1533,_Unassigned,_Unassigned,e4gi378c,9673778,,,draft,2024-07-30 06:38:36,2024-07-30 06:38:36
+1534,_Unassigned,_Unassigned,e4gi378c,8974681,Test for Image,https://oloid.help/en/articles/8974681-test-for-image,published,2024-02-20 08:21:33,2024-11-21 05:51:40
+1535,_Unassigned,_Unassigned,e4gi378c,9669581,,,draft,2024-07-29 10:58:56,2024-07-29 10:58:56
+1537,_Unassigned,_Unassigned,e4gi378c,9611988,How to pair using config file in admin mode through Chrome Vault (To be reviewed; WIP),,draft,2024-07-15 13:45:55,2024-07-28 13:51:34
+1538,_Unassigned,_Unassigned,e4gi378c,9667258,,,draft,2024-07-28 13:16:59,2024-07-28 13:16:59
+1539,_Unassigned,_Unassigned,e4gi378c,9662136,Attachment test,https://oloid.help/en/articles/9662136-attachment-test,published,2024-07-26 09:21:38,2024-07-26 09:34:21
+1546,_Unassigned,_Unassigned,e4gi378c,9614841,How to download Chrome Vault,,draft,2024-07-16 09:03:47,2024-07-16 09:39:00
+1550,_Unassigned,_Unassigned,e4gi378c,9297276,How to register punches in Oloid Connect - WIP,,draft,2024-05-08 09:43:02,2024-07-15 06:55:39
+1551,_Unassigned,_Unassigned,e4gi378c,9366492,ADManager Plus Account - WIP( workflow),,draft,2024-05-23 07:11:28,2024-07-15 06:53:34
+1552,_Unassigned,_Unassigned,e4gi378c,9514800,Setting up iPAD for Oloid Verify,https://oloid.help/en/articles/9514800-setting-up-ipad-for-oloid-verify,published,2024-06-24 05:00:51,2024-06-24 05:48:59
+1553,_Unassigned,_Unassigned,e4gi378c,9495749,Credential Set up- Oloid Connect for Passwordless,,draft,2024-06-19 07:31:43,2024-06-19 07:33:33
+1565,_Unassigned,_Unassigned,e4gi378c,7958118,M-Tag: Error Codes & their description,https://oloid.help/en/articles/7958118-m-tag-error-codes-their-description,published,2023-05-30 06:13:00,2024-06-05 14:26:36
+1566,_Unassigned,_Unassigned,e4gi378c,9361377,Issue: Oloid Connect - Unable to View / add face or QR,https://oloid.help/en/articles/9361377-issue-oloid-connect-unable-to-view-add-face-or-qr,published,2024-05-22 11:58:39,2024-06-05 14:25:03
+1567,_Unassigned,_Unassigned,e4gi378c,8679447,How to login into Workforce/HRMS application using PIN with Oloid Connect,https://oloid.help/en/articles/8679447-how-to-login-into-workforce-hrms-application-using-pin-with-oloid-connect,published,2023-12-06 07:52:13,2024-06-03 05:19:07
+1568,_Unassigned,_Unassigned,e4gi378c,9405670,Platform Configuration for initial Windows Login Set up,,draft,2024-05-31 13:54:29,2024-05-31 13:55:35
+1569,_Unassigned,_Unassigned,e4gi378c,8886907,Windows Device Agent App Set up Process,https://oloid.help/en/articles/8886907-windows-device-agent-app-set-up-process,published,2024-01-30 16:34:31,2024-02-09 07:49:45
+1573,_Unassigned,_Unassigned,e4gi378c,9360942,Genetec Account,,draft,2024-05-22 09:50:32,2024-05-23 07:10:47
+1574,_Unassigned,_Unassigned,e4gi378c,9361033,Ebi Account,,draft,2024-05-22 10:18:07,2024-05-23 07:09:18
+1575,_Unassigned,_Unassigned,e4gi378c,9361086,OnGuard Account,,draft,2024-05-22 10:26:31,2024-05-23 07:05:49
+1576,_Unassigned,_Unassigned,e4gi378c,9207953,S2netbox Account,,draft,2024-04-17 10:37:23,2024-05-23 06:23:17
+1577,_Unassigned,_Unassigned,e4gi378c,9361340,Troubleshooting Guide- Template,,draft,2024-05-22 11:46:37,2024-05-22 11:55:55
+1591,_Unassigned,_Unassigned,e4gi378c,9310661,Using the OloID CloudKey App: Activity Tab,,draft,2024-05-10 09:56:31,2024-05-13 05:17:19
+1594,_Unassigned,_Unassigned,e4gi378c,9239638,Test doc-Shradha (not to be published),,draft,2024-04-24 05:42:18,2024-04-24 13:16:25
+1596,_Unassigned,_Unassigned,e4gi378c,9230322,FAQs ( collapsible section test),https://oloid.help/en/articles/9230322-faqs-collapsible-section-test,published,2024-04-22 12:58:21,2024-04-22 13:05:40
+1598,_Unassigned,_Unassigned,e4gi378c,9158355,test for Images,https://oloid.help/en/articles/9158355-test-for-images,published,2024-04-05 07:42:29,2024-04-05 07:42:47
+1601,_Unassigned,_Unassigned,e4gi378c,9082330,Passwordless Authenticator Doc List,,draft,2024-03-18 07:09:04,2024-03-28 04:59:01
+1602,_Unassigned,_Unassigned,e4gi378c,9036834,FAQs( Supervisor App),,draft,2024-03-06 08:35:18,2024-11-21 05:51:40
+1603,_Unassigned,_Unassigned,e4gi378c,9099620,Supervisor Flow App: Badge,,draft,2024-03-21 06:04:28,2024-03-21 13:40:29
+1605,_Unassigned,_Unassigned,e4gi378c,9070527,How to add or delete application for Tenant Supervisor- Clueso Test doc,https://oloid.help/en/articles/9070527-how-to-add-or-delete-application-for-tenant-supervisor-clueso-test-doc,published,2024-03-14 09:30:55,2024-03-14 09:32:46
+1608,_Unassigned,_Unassigned,e4gi378c,8978764,Offline Processing for Windows Device App,,draft,2024-02-21 06:14:20,2024-11-21 05:51:40
+1609,_Unassigned,_Unassigned,e4gi378c,8943090,Oloid Verify: Shared Credential,https://oloid.help/en/articles/8943090-oloid-verify-shared-credential,published,2024-02-13 09:27:35,2024-11-21 05:51:40
+1610,_Unassigned,_Unassigned,e4gi378c,8929352,Oloid Verify: Add Password,https://oloid.help/en/articles/8929352-oloid-verify-add-password,published,2024-02-09 06:45:42,2024-11-21 05:51:39
+1612,_Unassigned,_Unassigned,e4gi378c,8629775,Configuring Windows Device app with Tenant Name,https://oloid.help/en/articles/8629775-configuring-windows-device-app-with-tenant-name,published,2023-11-24 05:55:07,2024-02-09 11:38:47
+1613,_Unassigned,_Unassigned,e4gi378c,8878376,How to configure Windows Device Admin App with Workflow as a Proxy?,https://oloid.help/en/articles/8878376-how-to-configure-windows-device-admin-app-with-workflow-as-a-proxy,published,2024-01-29 05:28:30,2024-02-08 11:29:23
+1615,_Unassigned,_Unassigned,e4gi378c,8911034,Oloid Cloud Key Set Up Process,https://oloid.help/en/articles/8911034-oloid-cloud-key-set-up-process,published,2024-02-06 09:23:05,2024-11-21 05:51:39
+1616,_Unassigned,_Unassigned,e4gi378c,8915058,How to  configure Cloudkey to open the door using Oloid Workflow.,https://oloid.help/en/articles/8915058-how-to-configure-cloudkey-to-open-the-door-using-oloid-workflow,published,2024-02-07 04:28:43,2024-11-21 05:51:39
+1617,_Unassigned,_Unassigned,e4gi378c,8894431,How to disable passwordless in Windows Device App?,https://oloid.help/en/articles/8894431-how-to-disable-passwordless-in-windows-device-app,published,2024-02-01 10:07:00,2024-02-05 08:06:37
+1618,_Unassigned,_Unassigned,e4gi378c,8624137,Windows Device Login Setup,https://oloid.help/en/articles/8624137-windows-device-login-setup,published,2023-11-23 06:48:57,2024-01-30 09:08:15
+1619,_Unassigned,_Unassigned,e4gi378c,8679444,How to login into Workforce/HRMS application using Badge with Oloid Connect,https://oloid.help/en/articles/8679444-how-to-login-into-workforce-hrms-application-using-badge-with-oloid-connect,published,2023-12-06 07:51:00,2024-01-25 12:50:59
+1620,_Unassigned,_Unassigned,e4gi378c,8679197,How to login into Workforce/HRMS application using Face with Oloid Connect,https://oloid.help/en/articles/8679197-how-to-login-into-workforce-hrms-application-using-face-with-oloid-connect,published,2023-12-06 05:56:36,2024-01-25 10:09:24
+1621,_Unassigned,_Unassigned,e4gi378c,8825186,How to enroll badge as credential using Windows Device Login App?,https://oloid.help/en/articles/8825186-how-to-enroll-badge-as-credential-using-windows-device-login-app,published,2024-01-16 08:03:20,2024-01-24 13:04:40
+1622,_Unassigned,_Unassigned,e4gi378c,8860264,How to install and configure Windows Login Agent App?,https://oloid.help/en/articles/8860264-how-to-install-and-configure-windows-login-agent-app,published,2024-01-24 07:00:38,2024-01-24 12:39:13
+1623,_Unassigned,_Unassigned,e4gi378c,8575199,How to download Windows Device Login installer files?,https://oloid.help/en/articles/8575199-how-to-download-windows-device-login-installer-files,published,2023-11-10 10:20:15,2024-01-24 11:09:24
+1624,_Unassigned,_Unassigned,e4gi378c,8849903,Steps to Setup Login to Okta using Oloid Connect,,draft,2024-01-22 05:38:26,2024-01-24 04:41:06
+1625,_Unassigned,_Unassigned,e4gi378c,8777766,Troubleshooting Windows Device Login,,draft,2024-01-05 04:49:49,2024-01-22 05:37:36
+1628,_Unassigned,_Unassigned,e4gi378c,8794094,Factor Sequence for MFA Applications,,draft,2024-01-09 04:51:15,2024-01-09 05:34:49
+1629,_Unassigned,_Unassigned,e4gi378c,8385046,Creating Passwords and Shared Credentials for Users in Oloid Platform - User Guide,https://oloid.help/en/articles/8385046-creating-passwords-and-shared-credentials-for-users-in-oloid-platform-user-guide,published,2023-09-18 04:25:35,2023-12-22 06:10:26
+1630,_Unassigned,_Unassigned,e4gi378c,8696613,How to Configure Oloid's DeviceLock for SSO Login,https://oloid.help/en/articles/8696613-how-to-configure-oloid-s-devicelock-for-sso-login,published,2023-12-12 04:52:11,2023-12-18 08:28:19
+1631,_Unassigned,_Unassigned,e4gi378c,8661571,Getting started with Oloid Connect App for Passwordless,https://oloid.help/en/articles/8661571-getting-started-with-oloid-connect-app-for-passwordless,published,2023-12-01 04:40:02,2023-12-08 05:37:30
+1632,_Unassigned,_Unassigned,e4gi378c,8611576,Multi-factor authentication (MFA) in DeviceLock App using NFC/ID and Pin,,draft,2023-11-21 09:08:23,2023-12-05 09:00:44
+1647,_Unassigned,_Unassigned,e4gi378c,8644776,How to create Shared credentials and assign it to users,https://oloid.help/en/articles/8644776-how-to-create-shared-credentials-and-assign-it-to-users,published,2023-11-28 13:00:54,2023-11-29 06:56:10
+1648,_Unassigned,_Unassigned,e4gi378c,8643149,Using the Oloid Verify App,,draft,2023-11-28 08:35:23,2023-11-28 09:08:35
+1649,_Unassigned,_Unassigned,e4gi378c,8636886,Oloid Verify: iPad Installation,,draft,2023-11-27 04:57:16,2023-11-27 04:57:53
+1650,_Unassigned,_Unassigned,e4gi378c,8636856,Oloid Connect: iPad Installation,,draft,2023-11-27 04:53:59,2023-11-27 04:55:17
+1651,_Unassigned,_Unassigned,e4gi378c,8617114,Getting Started with Oloid Connect,,draft,2023-11-22 09:53:51,2023-11-22 10:32:10
+1652,_Unassigned,_Unassigned,e4gi378c,8611461,How to log into Workforce /HRMS platforms using NFC/ID and Pin,https://oloid.help/en/articles/8611461-how-to-log-into-workforce-hrms-platforms-using-nfc-id-and-pin,published,2023-11-21 08:13:05,2023-11-21 12:09:19
+1653,_Unassigned,_Unassigned,e4gi378c,8591055,Getting Started with Passwordless- Copy,https://oloid.help/en/articles/8591055-getting-started-with-passwordless-copy,published,2023-11-15 05:20:05,2023-11-21 12:01:57
+1654,_Unassigned,_Unassigned,e4gi378c,8591615,,,draft,2023-11-15 06:54:14,2023-11-15 06:54:14
+1655,_Unassigned,_Unassigned,e4gi378c,8591028,,,draft,2023-11-15 04:24:41,2023-11-15 04:24:41
+1657,_Unassigned,_Unassigned,e4gi378c,8590252,How to get Hex or Binary Value from the RFID Badge,,draft,2023-11-15 01:02:53,2023-11-15 01:03:31
+1665,_Unassigned,_Unassigned,e4gi378c,8473235,Passwordless Flow,https://oloid.help/en/articles/8473235-passwordless-flow,published,2023-10-13 09:36:09,2023-10-19 04:28:57
+1666,_Unassigned,_Unassigned,e4gi378c,8480356,Platform Configuration for Oloid Connect Passwordless App,,draft,2023-10-16 11:37:17,2023-10-16 12:00:03
+1675,_Unassigned,_Unassigned,e4gi378c,8420008,Multi-factor authentication in Windows Device Login,,draft,2023-09-27 09:26:20,2023-09-27 12:15:18
+1677,_Unassigned,_Unassigned,e4gi378c,7261927,M-Tag Admin - Configure Battery and Performance Modes (WIP),,draft,2023-04-12 05:17:30,2023-08-16 04:28:14
+1678,_Unassigned,_Unassigned,e4gi378c,7262008,M-Tag Admin App - Upgrade Firmware (Completed),,draft,2023-04-12 06:28:18,2023-08-14 13:42:50
+1679,_Unassigned,_Unassigned,e4gi378c,7262034,M-Tag Admin App - Register M-tag (Completed),,draft,2023-04-12 06:55:42,2023-08-14 13:38:08
+1680,_Unassigned,_Unassigned,e4gi378c,8205077,Oloid Verify Time Clock Connector for ADP Enterprise eTIME® (Completed),,draft,2023-08-02 07:44:46,2023-08-14 13:26:49
+1681,_Unassigned,_Unassigned,e4gi378c,8217407,How to Connect to Oloid connector on ADP Workforce Now® Essential Time(Completed),,draft,2023-08-04 06:29:47,2023-08-14 13:26:00
+1682,_Unassigned,_Unassigned,e4gi378c,8153002,What is Oloid Platform,https://oloid.help/en/articles/8153002-what-is-oloid-platform,published,2023-07-20 04:58:31,2023-07-20 14:54:57
+1705,_Unassigned,_Unassigned,e4gi378c,7041063,Pre-requisites,,draft,2023-03-01 11:32:29,2023-03-02 06:30:19
+1708,_Unassigned,_Unassigned,e4gi378c,7061058,Private Articles,https://oloid.help/en/articles/7061058-private-articles,published,2023-03-07 16:38:39,2023-03-27 11:20:57
+1709,_Unassigned,_Unassigned,e4gi378c,6872628,Getting Started with Oloid Products and Solutions,https://oloid.help/en/articles/6872628-getting-started-with-oloid-products-and-solutions,published,2023-01-06 05:58:16,2023-06-01 08:25:00
+1711,_Unassigned,_Unassigned,e4gi378c,7257161,M-Tag Admin App -Configure Battery and Performance Modes,https://oloid.help/en/articles/7257161-m-tag-admin-app-configure-battery-and-performance-modes,published,2023-04-11 11:10:58,2023-04-11 11:11:49
+1714,_Unassigned,_Unassigned,e4gi378c,7120185,Onboarding Users Using Import Template,https://oloid.help/en/articles/7120185-onboarding-users-using-import-template,published,2023-03-13 06:04:31,2023-03-14 09:46:42
+1715,_Unassigned,_Unassigned,e4gi378c,7129819,How to create Bluetooth ID,https://oloid.help/en/articles/7129819-how-to-create-bluetooth-id,published,2023-03-14 16:50:18,2023-03-14 16:53:42
+1716,_Unassigned,_Unassigned,e4gi378c,7129885,How to generate BLE token in bulk,https://oloid.help/en/articles/7129885-how-to-generate-ble-token-in-bulk,published,2023-03-14 16:54:08,2023-03-15 17:29:51
+1717,_Unassigned,_Unassigned,e4gi378c,7120406,Oloid M-Tag Setup Guide,https://oloid.help/en/articles/7120406-oloid-m-tag-setup-guide,published,2023-03-13 09:14:16,2023-03-15 17:36:39
+1730,_Unassigned,_Unassigned,e4gi378c,6912146,Getting Started with Oloid Connect,,draft,2023-01-20 13:34:17,2023-01-20 13:35:54
+1731,_Unassigned,_Unassigned,e4gi378c,6651612,Test for video,,draft,2022-10-18 03:21:52,2023-01-18 11:23:48
