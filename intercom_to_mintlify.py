@@ -1969,7 +1969,7 @@ def download_image(url, root, article_id, dry_run, stats):
         return rel
     except Exception as exc:  # noqa: BLE001 - an image is never worth aborting for
         sys.stderr.write("  ! image failed (%s), keeping remote URL\n" % exc)
-        stats["failed"].append(url)
+        stats["failed"].append({"article": str(article_id), "url": url, "error": str(exc)})
         return url
 
 
@@ -2481,6 +2481,126 @@ def fix_sidebar_title(head):
     return head
 
 
+# --------------------------------------------------------------------------
+# Lint: what is still wrong with a finished page
+# --------------------------------------------------------------------------
+#  Run over every page --migrate wrote, after the polish, so it reports what a
+#  reader would actually see. Nothing is changed here; each finding becomes an
+#  entry in the page's `issues` in the manifest.
+# --------------------------------------------------------------------------
+
+REMOTE_IMAGE_RE = re.compile(r"!\[[^\]]*\]\((https?://[^)\s]+)\)|<img\b[^>]*\bsrc=\"(https?://[^\"]+)\"")
+RAW_HTML_RE = re.compile(r"</?(div|span|p|table|thead|tbody|tr|td|th|ul|ol|li|b|i|u|strong|em|"
+                         r"h[1-6]|blockquote|pre|code|font|center|section)\b[^>]*>", re.I)
+GLUED_IMAGE_RE = re.compile(r"\S[ \t]*!\[[^\]]*\]\(/|!\[[^\]]*\]\([^)]*\)[ \t]*[A-Za-z]")
+CALLOUT_NAMES = ("Note", "Warning", "Tip", "Info", "Check", "Danger", "Frame")
+
+
+def lint_page(text):
+    """[{"type", "detail"}] for one finished page; empty when it is clean."""
+    issues = []
+
+    def add(kind, detail):
+        issues.append({"type": kind, "detail": detail})
+
+    m = re.match(r"---\n.*?\n---\n", text, re.S)
+    body = text[m.end():] if m else text
+    if not m:
+        add("frontmatter", "no frontmatter block")
+
+    prose, fence_open = [], False
+    for line, fenced in split_fences(body):
+        if FENCE_RE.match(line):
+            fence_open = not fence_open
+        if not fenced:
+            prose.append(line)
+    if fence_open:
+        add("code fence", "a ``` code block is never closed")
+    # {/* ... */} comments render nothing - the Source line names oloid.help
+    prose = re.sub(r"\{/\*.*?\*/\}", "", "\n".join(prose), flags=re.S)
+
+    for name in CALLOUT_NAMES:
+        opened = len(re.findall(r"<%s\b(?![^>]*/>)" % name, prose))
+        closed = prose.count("</%s>" % name)
+        if opened != closed:
+            add("unbalanced component", "<%s> opened %d time(s), closed %d" % (name, opened, closed))
+    for line in prose.splitlines():
+        if re.match(r"^# ", line):
+            add("h1 in body", line.strip()[:120])
+    for mm in REMOTE_IMAGE_RE.finditer(prose):
+        add("remote image", (mm.group(1) or mm.group(2))[:200])
+    for mm in RAW_HTML_RE.finditer(prose):
+        add("raw html", mm.group(0)[:120])
+    for mm in ARTICLE_URL_RE.finditer(prose):
+        add("link to oloid.help", "article %s was not migrated: %s" % (mm.group(1), mm.group(0)[:160]))
+    for mm in re.finditer(r"\]\(#h_[0-9a-f]+\)", prose):
+        add("dead anchor", mm.group(0)[:80])
+    for mm in re.finditer(r"(?<!!)\[\s*\]\([^)]*\)", prose):
+        add("empty link text", mm.group(0)[:120])
+    for mm in IMAGE_MD_RE.finditer(prose):
+        if GENERIC_ALT_RE.search(mm.group(1)):          # what the polish could not fix
+            add("generic alt text", mm.group(0)[:120])
+    for line in prose.splitlines():
+        # "4. ![..](..)" is a step that is only a screenshot, not glued text
+        bare = re.sub(r"^\s*(?:\d+[.)]|[-*+])\s+(?=!\[)", "", line)
+        if GLUED_IMAGE_RE.search(bare) and "oloid-icon" not in line:
+            add("image glued to text", line.strip()[:160])
+    # &lt; &gt; &#123; are deliberate MDX escapes; these are leftovers
+    for mm in re.finditer(r"&(?:nbsp|amp;\w+|#160|zwnj|zwj|shy);", prose):
+        add("html entity", "literal %s left in the text" % mm.group(0))
+        break
+    return issues
+
+
+def collect_issues(root, records, img_stats, dry_pages=None):
+    """Attach image failures and lint findings to each manifest record.
+
+    On a real run each written page is read back from disk, after the polish.
+    On --dry-run nothing was written, so the page text kept in `dry_pages` is
+    polished in memory instead; links to oloid.help are not reported there,
+    because they are only resolved against pages that exist on disk.
+    """
+    by_id = {rec["id"]: rec for rec in records}
+    failed_urls = {}                    # article id -> image URLs without ?query
+    for fail in img_stats.get("failed") or []:
+        rec = by_id.get(fail["article"])
+        failed_urls.setdefault(fail["article"], set()).add(fail["url"].split("?")[0])
+        if rec is not None:
+            rec["issues"].append({"type": "image download failed",
+                                  "detail": "%s - %s (the page links the remote URL, which "
+                                            "may expire)" % (fail["error"], fail["url"][:200])})
+    for kind, label in (("oversize", "image over 20 MB"), ("large", "image over 5 MB")):
+        for rel, size in img_stats.get(kind) or []:
+            parts = rel.strip("/").split("/")
+            rec = by_id.get(parts[2] if len(parts) > 3 else None)
+            if rec is not None:
+                rec["issues"].append({"type": label,
+                                      "detail": "%s (%.1f MB)" % (rel, size / 1048576.0)})
+
+    stats = new_polish_stats()
+    for rec in records:
+        if rec["status"] != "written" or not rec["file"]:
+            continue
+        rel = rec["file"][:-4]
+        if dry_pages is not None and rel in dry_pages:
+            text = dry_pages[rel]
+            m = re.match(r"---\n.*?\n---\n", text, re.S)
+            head, body = (m.group(0), text[m.end():]) if m else ("", text)
+            text = head + polish_images(body, rec["title"], root, stats)
+            found = [i for i in lint_page(text) if i["type"] != "link to oloid.help"]
+        else:
+            try:
+                with open(os.path.join(root, *rec["file"].split("/")), encoding="utf-8") as fh:
+                    found = lint_page(fh.read())
+            except OSError as exc:
+                found = [{"type": "page missing", "detail": str(exc)}]
+        # a failed download also shows up as a remote image; report it once
+        failed = failed_urls.get(rec["id"], set())
+        rec["issues"].extend(i for i in found
+                             if not (i["type"] == "remote image"
+                                     and i["detail"].split("?")[0] in failed))
+
+
 def new_polish_stats():
     return {"pages": 0, "changed": 0, "icons": 0, "alts": 0, "split": 0,
             "links_fixed": 0, "links_unresolved": 0, "links_collection": 0,
@@ -2611,8 +2731,8 @@ def manifest_record(art, title, product, collection, full_path):
         "category": None,         # added | excluded | unassigned | unmapped
         "tags": [],               # category, plus published/draft, placed-by-title,
                                   # video, not-written
-        "status": None,           # written | empty in Intercom |
-                                  # body did not convert | unmapped
+        "status": None,           # written | empty in Intercom | body did not convert |
+                                  # conversion error | write failed | unmapped
         "placed_by": None,        # collection | title rule
         "moved_to": [],           # videos and/or drafts, when rerouted from its home
         "section_path": None,
@@ -2621,6 +2741,10 @@ def manifest_record(art, title, product, collection, full_path):
         "images": 0,
         "videos": 0,
         "fetch_error": art.get("_fetch_error"),
+        # everything that went wrong: fetch, images, conversion, writing, and
+        # what lint_page still finds on the finished page. [{"type", "detail"}]
+        "issues": ([{"type": "fetch failed", "detail": str(art["_fetch_error"])}]
+                   if art.get("_fetch_error") else []),
     }
 
 
@@ -2644,7 +2768,7 @@ def write_manifest(root, nav, build_nav, records, args):
         if rec["section_path"]:
             rec["navigation"] = names.get(rec["section_path"], rec["section_path"])
             sections.setdefault(rec["section_path"], []).append(rec["id"])
-    counts, categories, lists = {}, {}, {}
+    counts, categories, lists, issue_types = {}, {}, {}, {}
     for rec in records:
         counts[rec["status"]] = counts.get(rec["status"], 0) + 1
         categories[rec["category"]] = categories.get(rec["category"], 0) + 1
@@ -2655,12 +2779,19 @@ def write_manifest(root, nav, build_nav, records, args):
             tags.append("video")
         if rec["status"] != "written":
             tags.append("not-written")
+        if rec["issues"]:
+            tags.append("has-issues")
+        for kind in {i["type"] for i in rec["issues"]}:
+            issue_types[kind] = issue_types.get(kind, 0) + 1
         rec["tags"] = [t for t in tags if t]
         for tag in rec["tags"]:
-            lists.setdefault(tag, []).append({
-                "id": rec["id"], "title": rec["title"], "navigation": rec["navigation"],
-                "oloid_help_url": rec["oloid_help_url"],
-                "mintlify_url": rec["mintlify_url"], "status": rec["status"]})
+            entry = {"id": rec["id"], "title": rec["title"], "navigation": rec["navigation"],
+                     "oloid_help_url": rec["oloid_help_url"],
+                     "mintlify_url": rec["mintlify_url"], "status": rec["status"]}
+            if tag == "has-issues":
+                entry["file"] = rec["file"]
+                entry["issues"] = rec["issues"]
+            lists.setdefault(tag, []).append(entry)
     data = {
         "$comment": "Generated by intercom_to_mintlify.py --migrate. Do not edit; re-run.",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -2674,6 +2805,8 @@ def write_manifest(root, nav, build_nav, records, args):
             "by_category": categories,
             "by_status": counts,
             "placed_by_title": sum(1 for r in records if r["placed_by"] == "title rule"),
+            "with_issues": sum(1 for r in records if r["issues"]),
+            "articles_by_issue": dict(sorted(issue_types.items(), key=lambda kv: -kv[1])),
         },
         "$tags": {
             "added": "home in the main navigation (by collection or title rule)",
@@ -2683,7 +2816,29 @@ def write_manifest(root, nav, build_nav, records, args):
             "published / draft": "Intercom state; drafts of added articles live under drafts/",
             "placed-by-title": "placed by a title rule rather than its collection",
             "video": "video-only, moved to the nearest Videos group",
-            "not-written": "no page: empty in Intercom, or the body did not convert",
+            "not-written": "no page: empty in Intercom, did not convert, or could not be written",
+            "has-issues": "something went wrong or is left to fix; see the article's `issues`",
+        },
+        "$issues": {
+            "fetch failed": "Intercom did not return the article body",
+            "empty body": "the article has no body in Intercom",
+            "conversion error / body did not convert": "the HTML could not be turned into a page",
+            "write failed": "the .mdx file could not be saved",
+            "image download failed": "the image was not saved (e.g. HTTP 404); the page "
+                                     "links Intercom's URL, which may expire",
+            "image over 20 MB / image over 5 MB": "Mintlify rejects 20 MB; 5 MB is slow",
+            "remote image": "the page shows an image straight from another site",
+            "link to oloid.help": "links to an article that was not migrated",
+            "dead anchor": "an Intercom #h_ link that leads nowhere",
+            "raw html": "an HTML tag the converter left in the page",
+            "unbalanced component": "a <Note>, <Warning>, <Frame>... not closed (breaks the build)",
+            "code fence": "a ``` code block never closed",
+            "h1 in body": "a second page title inside the body",
+            "image glued to text": "a screenshot on the same line as text",
+            "generic alt text": "an image whose alt text says nothing",
+            "empty link text": "a link with no words to click",
+            "html entity": "a literal &nbsp; or similar in the text",
+            "frontmatter / page missing": "the page file is malformed or gone",
         },
         "lists": {tag: sorted(items, key=lambda r: r["title"])
                   for tag, items in sorted(lists.items())},
@@ -2823,6 +2978,7 @@ def migrate(args, root):
     used_paths, touched = {}, set()
     records = []                       # one per article, for the manifest
     skipped_excluded = {}
+    dry_pages = {}                     # --dry-run: rel -> page text never written
 
     for art in articles:
         article_id = str(art.get("id"))
@@ -2849,6 +3005,8 @@ def migrate(args, root):
         if not (art.get("body") or "").strip():
             skipped_empty.append((article_id, title))
             record["status"] = "empty in Intercom"
+            record["issues"].append({"type": "empty body",
+                                     "detail": "the article has no body in Intercom; no page written"})
             continue
 
         on_image = None
@@ -2856,15 +3014,23 @@ def migrate(args, root):
             def on_image(u, _id=article_id):
                 return download_image(u, root, _id, args.dry_run, img_stats)
 
-        body_mdx, images, videos = html_to_mdx(
-            art.get("body") or "", on_image=on_image,
-            alt_prefix=short_title(title, 40))
-        body_mdx, keywords, audit = apply_template(body_mdx, mirror=True)
-        body_mdx = drop_repeated_title(body_mdx, title)
+        try:
+            body_mdx, images, videos = html_to_mdx(
+                art.get("body") or "", on_image=on_image,
+                alt_prefix=short_title(title, 40))
+            body_mdx, keywords, audit = apply_template(body_mdx, mirror=True)
+            body_mdx = drop_repeated_title(body_mdx, title)
+        except Exception as exc:  # noqa: BLE001 - one bad article must not stop the run
+            sys.stderr.write("  ! article %s did not convert: %r\n" % (article_id, exc))
+            record["status"] = "conversion error"
+            record["issues"].append({"type": "conversion error", "detail": repr(exc)[:300]})
+            continue
 
         if not body_mdx.strip():
             skipped_empty.append((article_id, title + "  (body did not convert)"))
             record["status"] = "body did not convert"
+            record["issues"].append({"type": "body did not convert",
+                                     "detail": "the HTML converted to nothing; no page written"})
             continue
 
         if is_video_only(body_mdx):
@@ -2886,12 +3052,20 @@ def migrate(args, root):
             rel = "%s/%s" % (directory.replace(os.sep, "/"), slug)
         used_paths[rel] = article_id
 
-        if not args.dry_run:
+        page = build_mdx(art, body_mdx, icon=DEFAULT_PAGE_ICON, keywords=keywords)
+        if args.dry_run:
+            dry_pages[rel] = page               # linted below, as if written
+        else:
             abs_path = os.path.join(root, directory, slug + ".mdx")
-            os.makedirs(os.path.dirname(abs_path), exist_ok=True)
-            with open(abs_path, "w", encoding="utf-8", newline="\n") as fh:
-                fh.write(build_mdx(art, body_mdx, icon=DEFAULT_PAGE_ICON,
-                                   keywords=keywords))
+            try:
+                os.makedirs(os.path.dirname(abs_path), exist_ok=True)
+                with open(abs_path, "w", encoding="utf-8", newline="\n") as fh:
+                    fh.write(page)
+            except OSError as exc:
+                sys.stderr.write("  ! could not write %s: %s\n" % (abs_path, exc))
+                record["status"] = "write failed"
+                record["issues"].append({"type": "write failed", "detail": str(exc)})
+                continue
         touched.add(directory)
         record.update({"status": "written", "file": rel + ".mdx", "mintlify_path": "/" + rel,
                        "mintlify_url": args.docs_url.rstrip("/") + "/" + rel,
@@ -2924,6 +3098,9 @@ def migrate(args, root):
 
     sys.stderr.write("[4/4] polishing pages and links ...\n")
     polish = polish_tree(root, build_nav, dry_run=args.dry_run)
+
+    sys.stderr.write("      checking every page for leftover problems ...\n")
+    collect_issues(root, records, img_stats, dry_pages)
 
     write_style_css(root, args.dry_run)
     manifest_path = write_manifest(root, nav, build_nav, records, args)
@@ -2972,6 +3149,17 @@ def migrate(args, root):
             print("   %-10s %s" % (article_id, title[:70]))
         if len(skipped_empty) > 25:
             print("   ... and %d more" % (len(skipped_empty) - 25))
+    with_issues = [r for r in records if r["issues"]]
+    if with_issues:
+        kinds = {}
+        for rec in with_issues:
+            for kind in {i["type"] for i in rec["issues"]}:
+                kinds[kind] = kinds.get(kind, 0) + 1
+        print("")
+        print("ISSUES - %d article(s) need a look (details: lists.has-issues in %s):"
+              % (len(with_issues), MANIFEST_FILE))
+        for kind, n in sorted(kinds.items(), key=lambda kv: -kv[1]):
+            print("   %4d  %s" % (n, kind))
     print("")
 
     if not args.dry_run and not args.no_nav:
@@ -3266,8 +3454,8 @@ def main():
                   "compress it or host it on a CDN" % (rel, size / (1024.0 * 1024.0)))
         for rel, size in img_stats["large"]:
             print("   large  : %s (%.1f MB)" % (rel, size / (1024.0 * 1024.0)))
-        for url in img_stats["failed"]:
-            print("   FAILED : %s (left as remote URL)" % url[:90])
+        for fail in img_stats["failed"]:
+            print("   FAILED : %s (%s; left as remote URL)" % (fail["url"][:90], fail["error"]))
         print("")
 
     if bad:

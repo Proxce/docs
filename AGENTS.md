@@ -89,8 +89,21 @@ Rules the run applies:
   sections with their article ids. Each record has a `category` - `added`
   (main navigation), `excluded`, `unassigned` (no collection in Intercom) or
   `unmapped` - and `tags` (the category, `published`/`draft`,
-  `placed-by-title`, `video`, `not-written`). `lists` groups every article by
-  tag, so `lists.excluded` or `lists.unassigned` is the full list of each.
+  `placed-by-title`, `video`, `not-written`, `has-issues`). `lists` groups
+  every article by tag, so `lists.excluded` or `lists.unassigned` is the full
+  list of each.
+- **Every problem is recorded, per article.** Each record has `issues`, a list
+  of `{type, detail}`: failed fetches, image downloads that failed (e.g.
+  `HTTP Error 404`, with the URL - the page keeps Intercom's expiring URL),
+  oversized images, conversion errors, failed writes, and what `lint_page`
+  still finds on the finished page after the polish: remote images, links to
+  articles that were not migrated, raw HTML, unclosed `<Note>`/`<Frame>`/code
+  blocks, an H1 in the body, glued screenshots, generic alt text, dead
+  `#h_` anchors, empty link text, leftover `&nbsp;`. `counts.articles_by_issue`
+  totals them, `lists.has-issues` lists the affected pages with their issues,
+  and `$issues` in the file explains each type. One article failing to
+  convert is recorded and skipped; it no longer stops the run. `--dry-run`
+  downloads no images, so it cannot see image failures.
   Unassigned articles, published or not, live in `drafts/unassigned/`.
 - **Video-only articles go to the nearest Videos group.** A page that is a
   video embed plus at most 40 words (`VIDEO_ONLY_WORDS`) is written to the
