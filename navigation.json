@@ -49,6 +49,7 @@
       "tab": "Platforms & Solutions",
       "icon": "layer-group",
       "slug": "platforms",
+      "group_menu": true,
       "groups": [
         {
           "group": "Windows",
@@ -483,6 +484,7 @@
       "tab": "Integrations",
       "icon": "plug",
       "slug": "integrations",
+      "group_menu": true,
       "groups": [
         {
           "group": "Microsoft Entra ID",
@@ -550,6 +552,7 @@
       "tab": "OLOID Platform",
       "icon": "building",
       "slug": "platform",
+      "group_menu": true,
       "groups": [
         {
           "group": "Tenant Admin Portal",
@@ -668,6 +671,7 @@
       "tab": "Help & Reference",
       "icon": "life-ring",
       "slug": "reference",
+      "group_menu": true,
       "groups": [
         {
           "group": "Troubleshooting",
@@ -711,6 +715,7 @@
       "tab": "More Resources",
       "icon": "folder-open",
       "slug": "more",
+      "group_menu": true,
       "review": "Everything Intercom holds that the new tree has no place for yet.",
       "groups": [
         {

@@ -68,6 +68,25 @@ Rules the run applies:
   and every `oloid.help/en/articles/<id>` link is pointed at the page migrated
   from `<id>`. Links to articles that were not migrated keep their URL and are
   counted in the report.
+- **Tables are Markdown tables.** Intercom has no header cells, so the first
+  row is the header (bold-only header cells are unwrapped). A cell is one
+  line: its paragraphs and line breaks become `<br />`, its lists
+  `• item` / `1. item`, its images stay inline and a video becomes a link.
+  Columns empty in every row are dropped. The Keywords block at the end of
+  an article stops at the next heading, so a Document History table after
+  it is kept.
+- **SEO fields are hidden in the frontmatter.** The polish (so every
+  `--migrate` and `--polish`) rewrites each generated page's frontmatter with
+  `keywords`, `canonical`, `og:title`/`og:description`,
+  `twitter:title`/`twitter:description`, `boost` (0.7 for Videos, 0.5 for the
+  Drafts tab) and the custom fields `section`, `product`, `subsection`. None
+  of it renders; Mintlify emits it as meta tags and indexes `keywords` in
+  search. Intercom's own keywords come first; the ones below the
+  `# derived by intercom_to_mintlify.py` comment (short title, section path,
+  H2/H3 headings, synonyms from `SYNONYMS`) are rebuilt on every run, 15 at
+  most. Descriptions are Intercom's; a page with none gets its first
+  sentence. `canonical` uses `--docs-url`: after moving to a custom domain run
+  `--polish --docs-url https://<domain>`.
 - `python intercom_to_mintlify.py --plan` shows where every article in
   `output/_all_articles.csv` will land, and which were placed by title, without
   a token. Run it after editing `navigation.json`.
@@ -182,6 +201,14 @@ no tab.
 A **Getting Started** tab of hand-written setup guides is planned but not
 built: the tree, the page shape and a finished reference page are in
 `plans/getting-started.md` (mint-ignored).
+
+Each main tab carries `"group_menu": true`: its top-level groups (Windows,
+iOS / iPadOS, Tenant Admin Portal, ...) become a dropdown menu at the top of
+the sidebar, and the sidebar shows only the section picked there. A menu item
+holds groups only, so a section's own pages sit in a group of the same name.
+This changes `docs.json` only - directories, placement and the manifest's
+`navigation` path are the same. Remove the key from a tab to put its sections
+back as stacked sidebar groups.
 
 Groups nest (Windows > Windows Login > Windows Login V1); each nested group is a
 directory inside its parent's. Within a group the sidebar shows sub-groups,

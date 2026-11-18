@@ -39,6 +39,11 @@ SKIP_DIRS = {".git", "node_modules", "__pycache__", "images", "logo",
 # The tab carrying this key is the Drafts tab: it mirrors every visible tab.
 MIRROR_KEY = "mirror_drafts"
 
+# A tab carrying this key shows its top-level groups as a dropdown menu at the
+# top of the sidebar, so picking "Windows" shows only Windows. Directories and
+# placement are unchanged: this only reshapes docs.json.
+GROUP_MENU_KEY = "group_menu"
+
 
 # ---------------------------------------------------------------------------
 #  Reading navigation.json
@@ -334,6 +339,29 @@ def build_tabs(nav, root, report):
             by_label.setdefault(g.get("group"), g)
         return [by_label.get(c.get("group"), {}) for c in children]
 
+    def group_to_menu(grp):
+        """A built top-level group -> a menu item.
+
+        A menu item holds groups only, so the group's own pages are wrapped
+        in a group of the same name, kept in place between its sub-groups
+        and its Videos group.
+        """
+        groups, loose = [], []
+        for page in grp["pages"]:
+            if isinstance(page, dict):
+                if loose:
+                    groups.append({"group": grp["group"], "pages": loose})
+                    loose = []
+                groups.append(page)
+            else:
+                loose.append(page)
+        if loose:
+            groups.append({"group": grp["group"], "pages": loose})
+        entry = {"item": grp["group"], "groups": groups}
+        if grp.get("icon"):
+            entry["icon"] = grp["icon"]
+        return entry
+
     def mirror_menus(drafts):
         """One menu per visible tab, holding that tab's drafts.
 
@@ -401,7 +429,10 @@ def build_tabs(nav, root, report):
             if not groups:
                 report["skipped_tabs"].append(name)
                 continue
-            built = {"tab": name, "groups": groups}
+            if tab.get(GROUP_MENU_KEY):
+                built = {"tab": name, "menu": [group_to_menu(g) for g in groups]}
+            else:
+                built = {"tab": name, "groups": groups}
 
         if tab.get("icon"):
             built["icon"] = tab["icon"]

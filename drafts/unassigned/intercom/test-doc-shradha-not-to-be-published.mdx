@@ -2,6 +2,19 @@
 title: "Test doc-Shradha (not to be published)"
 description: "For connecting your Oloid tenant to your Okta(OIDC) instance, you need to configure Okta (OIDC) for Oloid SSO."
 icon: "file-lines"
+keywords:
+  # derived by intercom_to_mintlify.py - rebuilt on every polish
+  - "Test doc-Shradha (not to be published)"
+  - "Add Identity Provider"
+"canonical": "https://oloid-999c42b2.mintlify.app/drafts/unassigned/intercom/test-doc-shradha-not-to-be-published"
+"og:title": "Test doc-Shradha (not to be published)"
+"og:description": "For connecting your Oloid tenant to your Okta(OIDC) instance, you need to configure Okta (OIDC) for Oloid SSO."
+"twitter:title": "Test doc-Shradha (not to be published)"
+"twitter:description": "For connecting your Oloid tenant to your Okta(OIDC) instance, you need to configure Okta (OIDC) for Oloid SSO."
+boost: 0.5
+section: "Drafts"
+product: "Unassigned"
+subsection: "Unassigned in Intercom"
 ---
 
 {/* Source: Intercom article 9239638 -  */}
@@ -25,20 +38,30 @@ To generate the parameters to be filled in the IDP Settings Tab of Oloid Portal,
 Steps to add Identity Provider:
 
 1. On the home page of the Okta Admin Console, in the left menu, go to **Security** > **Identity Providers**.
-   ![Test doc-Shradha (not to be published) - screenshot 1](/images/intercom/9239638/image-54ed99eb.png)
+
+   ![On the home page of the Okta Admin Console, in the left menu, go to Security &gt; Identity Providers.](/images/intercom/9239638/image-54ed99eb.png)
+
 2. Select **Add Identity Provider**.
-   ![Test doc-Shradha (not to be published) - screenshot 2](/images/intercom/9239638/image-260155c7.png)
+
+   ![Select Add Identity Provider.](/images/intercom/9239638/image-260155c7.png)
+
    The identity provider list is displayed.
 3. Select **OpenID Connect** and click **Next**.
-   ![Test doc-Shradha (not to be published) - screenshot 3](/images/intercom/9239638/image-e0f52264.png)
+
+   ![Select OpenID Connect and click Next.](/images/intercom/9239638/image-e0f52264.png)
+
    The **Configure OpenID Connect IdP** page is displayed.
-   ![Test doc-Shradha (not to be published) - screenshot 4](/images/intercom/9239638/image-8a42da46.png)
+
+   ![The Configure OpenID Connect IdP page is displayed.](/images/intercom/9239638/image-8a42da46.png)
+
 4. Do the following:
    1. Under **General settings** section,
       1. **Name**: Enter **Name** for the Identity Provider configuration.
       2. **Scopes**: Default fields should remain unchanged.
          The scope options are included when Okta makes an OpenID Connect request to the Identity Provider.
-         ![Test doc-Shradha (not to be published) - screenshot 5](/images/intercom/9239638/image-c1a7fee8.png)
+
+         ![The scope options are included when Okta makes an OpenID Connect request to the Identity Provider.](/images/intercom/9239638/image-c1a7fee8.png)
+
    2. Under **Client details** section,
       1. **Client ID**: Enter the Client ID.
       2. **Client Secret**: Enter the Client Secret.
@@ -47,7 +70,8 @@ Steps to add Identity Provider:
            **Note:** See **Oloid Portal > Auth Policies >Identity Provider > IDP Profile Detail** page **> Meta Data** tab for the parameters
          </Note>
 
-         ![Test doc-Shradha (not to be published) - screenshot 6](/images/intercom/9239638/image-647a0f0c.png)
+         ![Client Secret: Enter the Client Secret.](/images/intercom/9239638/image-647a0f0c.png)
+
    3. Under **Endpoints** section,
       1. Enter **Issuer**.
       2. Enter **Authorization endpoint**.
@@ -58,11 +82,14 @@ Steps to add Identity Provider:
            **Note:** See **Oloid Portal > Auth Policies > Identity Provider > IDP Details** page **> Meta Data** tab for the parameters
          </Note>
 
-         ![Test doc-Shradha (not to be published) - screenshot 7](/images/intercom/9239638/image-827eb701.png)
+         ![Enter JWKS endpoint.](/images/intercom/9239638/image-827eb701.png)
+
    4. Under **Authentication Settings** section,
       1. Select **Automatic** from **Account Link Policy** dropdown.
       2. **If no match is found**, select **Redirect to Okta sign-in page** option.
-         ![Test doc-Shradha (not to be published) - screenshot 8](/images/intercom/9239638/image-5c144e77.png)
+
+         ![If no match is found, select Redirect to Okta sign-in page option.](/images/intercom/9239638/image-5c144e77.png)
+
 5. Click **Finish**.
    The IDP is created and listed under **Identity Providers** tab.
 
@@ -70,6 +97,8 @@ Steps to add Identity Provider:
      **Note:** In the search bar, you can search using identity provider name .
    </Note>
 
-   ![Test doc-Shradha (not to be published) - screenshot 9](/images/intercom/9239638/image-1944df21.png)
+   ![The IDP is created and listed under Identity Providers tab.](/images/intercom/9239638/image-1944df21.png)
+
 6. Go to IDP detail and copy **IDP ID**, **Authorize URL,** and **Redirect URL** to your notepad. It will be used later for the configuration of IDP Profile in the Oloid Portal.
-   ![Test doc-Shradha (not to be published) - screenshot 10](/images/intercom/9239638/image-d12a6e0b.png)
+
+   ![Go to IDP detail and copy IDP ID, Authorize URL, and Redirect URL to your notepad. It will be used later for](/images/intercom/9239638/image-d12a6e0b.png)

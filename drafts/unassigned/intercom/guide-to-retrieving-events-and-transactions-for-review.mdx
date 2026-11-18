@@ -1,8 +1,32 @@
 ---
 title: "Guide to Retrieving Events and Transactions - For Review"
-sidebarTitle: "Guide to Retrieving Events and Transactions..."
 description: "This guide provides an overview of how to authenticate and retrieve events and transactions from our API. It covers the login process, fetching transactions..."
 icon: "file-lines"
+keywords:
+  # derived by intercom_to_mintlify.py - rebuilt on every polish
+  - "Guide to Retrieving Events and Transactions - For Review"
+  - "1. Authentication"
+  - "Login API"
+  - "Endpoint"
+  - "Request Body"
+  - "Request Body Sample"
+  - "Response Body"
+  - "Sample Response"
+  - "2. Retrieving Transactions"
+  - "Headers"
+  - "Sample curl Request"
+  - "3. Retrieving Activity Events"
+  - "Best Practices"
+  - "Error Handling"
+"canonical": "https://oloid-999c42b2.mintlify.app/drafts/unassigned/intercom/guide-to-retrieving-events-and-transactions-for-review"
+"og:title": "Guide to Retrieving Events and Transactions - For Review"
+"og:description": "This guide provides an overview of how to authenticate and retrieve events and transactions from our API. It covers the login process, fetching transactions..."
+"twitter:title": "Guide to Retrieving Events and Transactions - For Review"
+"twitter:description": "This guide provides an overview of how to authenticate and retrieve events and transactions from our API. It covers the login process, fetching transactions..."
+boost: 0.5
+section: "Drafts"
+product: "Unassigned"
+subsection: "Unassigned in Intercom"
 ---
 
 {/* Source: Intercom article 9833394 -  */}
@@ -12,9 +36,9 @@ This guide provides an overview of how to authenticate and retrieve events and t
 
 ## Table of Contents
 
-1. [Authentication](https://oloid.help/en/articles/9073240-login-api-documentation)
-2. [Retrieving Transactions](https://oloid.help/en/articles/9827773-list-transactions-api)
-3. [Retrieving Activity Events](https://oloid.help/en/articles/9827844-list-activity-logs-api)
+1. [Authentication](/more/api-guides/login-api-documentation)
+2. [Retrieving Transactions](/more/api-guides/list-transactions-api)
+3. [Retrieving Activity Events](/more/api-guides/list-activity-logs-api)
 
 ## 1. Authentication
 
@@ -30,29 +54,11 @@ To obtain an access token, use the Login API
 
 ## Request Body
 
-**Parameter**
-
-**Data Type**
-
-**Description**
-
-UserName
-
-*string*
-
-The username of the credential
-
-TenantName
-
-*string*
-
-The name of the tenant that the user belongs to.
-
-Password
-
-*string*
-
-The password of the credential
+| Parameter | Data Type | Description |
+| --- | --- | --- |
+| UserName | *string* | The username of the credential |
+| TenantName | *string* | The name of the tenant that the user belongs to. |
+| Password | *string* | The password of the credential |
 
 ## Request Body Sample
 
@@ -78,59 +84,16 @@ curl --location 'https://api.oloidpreview.com/login' \
 
 ## Response Body
 
-**Parameter**
-
-**Data Type**
-
-**Description**
-
-cognitoToken.AuthenticationResult.IdToken
-
-*string*
-
-The JWT token that serves as the identity token
-
-cognitoToken.AuthenticationResult.AccessToken
-
-*string*
-
-The token used to access API resources
-
-cognitoToken.AuthenticationResult.RefreshToken
-
-*string*
-
-The token used to refresh the authentication when the current token expires
-
-cognitoToken.AuthenticationResult.ExpiresIn
-
-*integer*
-
-The expiration time of the token in seconds
-
-cognitoToken.AuthenticationResult.TokenType
-
-*string*
-
-The type of the token provided
-
-user.OloID
-
-*string*
-
-OloID of the user
-
-user.TenantID
-
-*string*
-
-The ID of the tenant
-
-user.TenantName
-
-*string*
-
-The name of the tenant that the user belongs to.
+| Parameter | Data Type | Description |
+| --- | --- | --- |
+| cognitoToken.AuthenticationResult.IdToken | *string* | The JWT token that serves as the identity token |
+| cognitoToken.AuthenticationResult.AccessToken | *string* | The token used to access API resources |
+| cognitoToken.AuthenticationResult.RefreshToken | *string* | The token used to refresh the authentication when the current token expires |
+| cognitoToken.AuthenticationResult.ExpiresIn | *integer* | The expiration time of the token in seconds |
+| cognitoToken.AuthenticationResult.TokenType | *string* | The type of the token provided |
+| user.OloID | *string* | OloID of the user |
+| user.TenantID | *string* | The ID of the tenant |
+| user.TenantName | *string* | The name of the tenant that the user belongs to. |
 
 ## Sample Response
 
@@ -154,7 +117,7 @@ The name of the tenant that the user belongs to.
 }
 ```
 
-Store the `AccessToken` securely. You'll need to include it in the `Authorization` header for subsequent API calls. For more details on the Login API, see the [full Login API documentation](https://oloid.help/en/articles/9073240-login-api-documentation).
+Store the `AccessToken` securely. You'll need to include it in the `Authorization` header for subsequent API calls. For more details on the Login API, see the [full Login API documentation](/more/api-guides/login-api-documentation).
 
 ## 2. Retrieving Transactions
 
@@ -171,35 +134,12 @@ To fetch transactions, use the List Transactions API:
 
 ## Request Body
 
-**Parameter**
-
-**Data Type**
-
-**Description**
-
-PageSize
-
-*number*
-
-Number of items in the result set
-
-FromDate
-
-*Epoch time*
-
-The start timestamp for filtering results
-
-ToDate
-
-*Epoch time*
-
-The end timestamp for filtering results
-
-ApplicationID
-
-*string*
-
-The ID of the application
+| Parameter | Data Type | Description |
+| --- | --- | --- |
+| PageSize | *number* | Number of items in the result set |
+| FromDate | *Epoch time* | The start timestamp for filtering results |
+| ToDate | *Epoch time* | The end timestamp for filtering results |
+| ApplicationID | *string* | The ID of the application |
 
 ## Sample curl Request
 
@@ -226,31 +166,11 @@ curl --location 'https://api.oloidpreview.com/transactions' \
 
 ## Response Body
 
-**Parameter**
-
-**Data Type**
-
-**Description**
-
-data.NextPageToken
-
-*Json Object*
-
-To paginate through the result
-
-set
-
-data.transactions
-
-*Array*
-
-A list of transactions
-
-message
-
-*string*
-
-Additional information about the status of transactions
+| Parameter | Data Type | Description |
+| --- | --- | --- |
+| data.NextPageToken | *Json Object* | To paginate through the result<br />set |
+| data.transactions | *Array* | A list of transactions |
+| message | *string* | Additional information about the status of transactions |
 
 ```
 {
@@ -314,7 +234,7 @@ Additional information about the status of transactions
 }
 ```
 
-To fetch subsequent pages, include the `NextPageToken` in your next request. For more details on the List Transactions API, see the [full List Transactions API documentation](https://oloid.help/en/articles/9827773-list-transactions-api).
+To fetch subsequent pages, include the `NextPageToken` in your next request. For more details on the List Transactions API, see the [full List Transactions API documentation](/more/api-guides/list-transactions-api).
 
 ## 3. Retrieving Activity Events
 
@@ -331,31 +251,11 @@ To fetch activity events, use the Filter Activity API:
 
 ### Request Body
 
-**Parameter**
-
-**Data Type**
-
-**Description**
-
-start
-
-*Epoch time*
-
-The start timestamp for filtering results
-
-end
-
-*Epoch time*
-
-The end timestamp for filtering results
-
-limit
-
-*Number*
-
-Number of items on
-
-result set
+| Parameter | Data Type | Description |
+| --- | --- | --- |
+| start | *Epoch time* | The start timestamp for filtering results |
+| end | *Epoch time* | The end timestamp for filtering results |
+| limit | *Number* | Number of items on<br />result set |
 
 **Sample curl Request**
 
@@ -377,31 +277,11 @@ curl --location 'https://api.oloidpreview.com/filterActivity' \
 
 **Response Body**
 
-**Parameters**
-
-**Data Type**
-
-**Description**
-
-data.activities
-
-*array*
-
-A list of activity objects
-
-data.nextToken
-
-*JSON Object*
-
-Token for paginating
-
-through result set
-
-message
-
-*string*
-
-Additional information about the status of activities
+| Parameters | Data Type | Description |
+| --- | --- | --- |
+| data.activities | *array* | A list of activity objects |
+| data.nextToken | *JSON Object* | Token for paginating<br />through result set |
+| message | *string* | Additional information about the status of activities |
 
 ```
 {
@@ -450,7 +330,7 @@ Additional information about the status of activities
 
 To fetch subsequent pages, include the `nextToken` in your next request.
 
-For more details on the Filter Activity API, see the [full Filter Activity API documentation](https://oloid.help/en/articles/9827844-list-activity-logs-api).
+For more details on the Filter Activity API, see the [full Filter Activity API documentation](/more/api-guides/list-activity-logs-api).
 
 ## Best Practices
 

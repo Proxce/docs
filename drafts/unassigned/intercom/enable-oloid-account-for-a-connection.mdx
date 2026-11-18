@@ -10,6 +10,23 @@ keywords:
   - "WebKey"
   - "Supervisor Application"
   - "Tenant Admin Portal"
+  # derived by intercom_to_mintlify.py - rebuilt on every polish
+  - "Enable OloID Account for a Connection"
+  - "OloID Enablement Reference"
+  - "Example Scenarios"
+  - "Connection A: User Portal Access"
+  - "Connection B: Vault Access via Supervisor Session"
+  - "Connection C: WebKey Authentication"
+  - "Connection D: Supervisor Application Usage"
+"canonical": "https://oloid-999c42b2.mintlify.app/drafts/unassigned/intercom/enable-oloid-account-for-a-connection"
+"og:title": "Enable OloID Account for a Connection"
+"og:description": "This document provides use-cases for when to enable OloID for a connection."
+"twitter:title": "Enable OloID Account for a Connection"
+"twitter:description": "This document provides use-cases for when to enable OloID for a connection."
+boost: 0.5
+section: "Drafts"
+product: "Unassigned"
+subsection: "Unassigned in Intercom"
 ---
 
 {/* Source: Intercom article 14663958 -  */}
@@ -25,35 +42,12 @@ This document helps admins determine when OloID must be enabled for a connection
 
 ## OloID Enablement Reference
 
-Use Case
-
-OloID Required
-
-Description
-
-User Portal Login
-
-Yes
-
-Required for users to log in to the User Portal using OloID-based authentication
-
-Vault Authentication (via Supervisor Session)
-
-Yes
-
-Required when using an active session from the Supervisor application to authenticate into Vault
-
-WebKey Application
-
-No
-
-OloID is not required for WebKey-based authentication flows
-
-Supervisor Application Usage
-
-No
-
-OloID is not required for standard Supervisor application operations
+| Use Case | OloID Required | Description |
+| --- | --- | --- |
+| User Portal Login | Yes | Required for users to log in to the User Portal using OloID-based authentication |
+| Vault Authentication (via Supervisor Session) | Yes | Required when using an active session from the Supervisor application to authenticate into Vault |
+| WebKey Application | No | OloID is not required for WebKey-based authentication flows |
+| Supervisor Application Usage | No | OloID is not required for standard Supervisor application operations |
 
 ---
 

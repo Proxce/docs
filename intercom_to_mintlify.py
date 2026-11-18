@@ -606,6 +606,8 @@ class HtmlToMdx(HTMLParser):
         self.blockquote = 0
         self.table = None
         self.row = None
+        self.cell = 0           # >0 inside a <td>/<th>
+        self.cell_lists = []    # lists open inside the current cell
         self.images = []
         self.videos = []
         self.in_link = 0
@@ -652,6 +654,9 @@ class HtmlToMdx(HTMLParser):
             self.div_image.append(is_image_div)
             if is_image_div:
                 self.image_block += 1
+
+        if self.cell and self.cell_starttag(tag, a):
+            return
 
         if tag == "br":
             self.write("  \n")
@@ -736,6 +741,8 @@ class HtmlToMdx(HTMLParser):
         elif tag == "tr":
             self.row = []
         elif tag in ("td", "th"):
+            self.cell += 1
+            self.cell_lists = []
             self.push()
         elif tag in BLOCK_TAGS:
             # Intercom nests <p> inside <li>. Flushing there would drop the bullet
@@ -745,6 +752,58 @@ class HtmlToMdx(HTMLParser):
                     self.write("\n")
             else:
                 self.flush_block()
+
+    # -- table cells -------------------------------------------------------
+    # A Markdown table cell is one line. Intercom wraps every cell's text in
+    # <p>, and flushing on that is what used to pull the text out of the
+    # table, leaving loose bold lines behind. Inside a cell, paragraphs and
+    # line breaks become <br />, list items "• item" / "1. item" lines,
+    # images stay inline and a video becomes a link.
+    CELL_BREAK = "<br />"
+
+    def cell_break(self):
+        text = "".join(self.stack[-1])
+        # not between a list marker and its text: "1. <p>Tap</p>"
+        if text.strip() and not re.search(r"(•|\d+\.) $", text):
+            self.write(self.CELL_BREAK)
+
+    def cell_starttag(self, tag, a):
+        """Handle `tag` inside a cell. Returns False to fall through to the
+        normal handling (inline tags: bold, links, code)."""
+        if tag in ("br", "hr") or tag in BLOCK_TAGS:
+            self.cell_break()
+        elif tag in ("ul", "ol"):
+            self.cell_break()
+            self.cell_lists.append({"tag": tag, "n": 0})
+        elif tag == "li":
+            self.cell_break()
+            lst = self.cell_lists[-1] if self.cell_lists else {"tag": "ul", "n": 0}
+            lst["n"] += 1
+            self.write("%d. " % lst["n"] if lst["tag"] == "ol" else "• ")
+        elif tag == "img":
+            src = a.get("src", "")
+            if src:
+                if self.on_image:
+                    src = self.on_image(src)
+                self.images.append(src)
+                self.write("![%s](%s)" % (self.alt_for((a.get("alt") or "").strip()), src))
+        elif tag == "iframe":
+            src = a.get("src", "")
+            if src:
+                self.videos.append(src)
+                self.write("[%s](%s)" % (mdx_escape(a.get("title") or "Video"), src))
+            self.skip_depth += 1
+        else:
+            return False
+        return True
+
+    def cell_text(self):
+        text = self.pop_raw()
+        text = re.sub(r"[ \t]*\n[ \t]*", " ", text)
+        brk = re.escape(self.CELL_BREAK)
+        text = re.sub(r"(\s*%s\s*)+" % brk, self.CELL_BREAK, text)
+        text = re.sub(r"^(%s)+|(%s)+$" % (brk, brk), "", text.strip()).strip()
+        return text.replace("|", "\\|")
 
     def alt_for(self, alt):
         """Intercom screenshots almost never carry alt text, so a positional
@@ -811,6 +870,14 @@ class HtmlToMdx(HTMLParser):
             if self.div_image.pop():
                 self.image_block = max(0, self.image_block - 1)
 
+        if self.cell and tag not in ("td", "th", "tr", "table"):
+            if tag in ("ul", "ol"):
+                if self.cell_lists:
+                    self.cell_lists.pop()
+                return
+            if tag in ("br", "hr", "li") or tag in BLOCK_TAGS:
+                return
+
         if tag in ("strong", "b", "em", "i"):
             # "**Bold **next" never closes in Markdown. Keep the padding, but put
             # it outside the emphasis markers where it renders correctly.
@@ -869,10 +936,11 @@ class HtmlToMdx(HTMLParser):
                 # displayed.") after the sub-steps. It used to be dropped here.
                 self.emit_li_continuation(text, entry["col"])
         elif tag in ("td", "th"):
+            text = self.cell_text() if self.cell else self.pop()
+            self.cell = max(0, self.cell - 1)
+            self.cell_lists = []
             if self.row is not None:
-                self.row.append(self.pop().replace("|", "\\|").replace("\n", " "))
-            else:
-                self.pop()
+                self.row.append(text)
         elif tag == "tr":
             if self.table is not None and self.row:
                 self.table.append(self.row)
@@ -898,7 +966,13 @@ class HtmlToMdx(HTMLParser):
             return
         width = max(len(r) for r in rows)
         rows = [r + [""] * (width - len(r)) for r in rows]
-        head, body = rows[0], rows[1:]
+        keep = [i for i in range(width) if any(r[i].strip() for r in rows)]
+        rows = [[r[i] for i in keep] for r in rows]     # columns empty in every row
+        width = len(keep)
+        # Intercom has no <th>: the first row is the header. A header renders
+        # bold already, so a cell that is bold as a whole is unwrapped.
+        head = [re.sub(r"^\*\*([^*]+)\*\*$", r"\1", c) for c in rows[0]]
+        body = rows[1:]
         lines = ["| " + " | ".join(head) + " |",
                  "| " + " | ".join(["---"] * width) + " |"]
         for r in body:
@@ -1092,10 +1166,16 @@ def extract_keywords(body):
     if not m:
         return body, []
 
-    words = []
-    for line in m.group("tail").splitlines():
+    # The block ends at the next heading, or at a rule once words are found,
+    # so a "Document History" table after it stays on the page.
+    words, rest = [], []
+    lines = m.group("tail").splitlines()
+    for at, line in enumerate(lines):
         line = line.strip()
-        if not line or re.fullmatch(r"-{3,}", line) or line.startswith("#"):
+        if line.startswith("#") or (words and re.fullmatch(r"-{3,}", line)):
+            rest = lines[at:]
+            break
+        if not line or re.fullmatch(r"-{3,}", line):
             continue
         cells = line.strip("|").split("|") if line.startswith("|") else re.split(r"[,;]", line)
         for cell in cells:
@@ -1108,7 +1188,10 @@ def extract_keywords(body):
         if word.lower() not in seen:
             seen.add(word.lower())
             out.append(word)
-    return body[:m.start()].rstrip(), out
+    kept = body[:m.start()].rstrip()
+    rest = "\n".join(rest).strip()
+    rest = re.sub(r"^-{3,}[ \t]*\n+", "", rest)     # the rule that closed the block
+    return (kept + "\n\n" + rest if rest else kept), out
 
 
 def normalize_headings(body, mirror=False):
@@ -1579,7 +1662,7 @@ def first_sentence(body_mdx, limit=160):
     """Fallback description: the first real prose line of the article."""
     for line in (body_mdx or "").splitlines():
         line = line.strip()
-        if not line or line.startswith(("#", "<", "|", "-", ">", "!", "`", "1.")):
+        if not line or line.startswith(("#", "<", "|", "-", ">", "!", "`", "1.", "{/*")):
             continue
         line = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", line)   # unwrap links
         line = re.sub(r"[*`]+", "", line)                        # drop emphasis
@@ -2482,6 +2565,191 @@ def fix_sidebar_title(head):
 
 
 # --------------------------------------------------------------------------
+# SEO frontmatter
+# --------------------------------------------------------------------------
+#  Everything here sits between the --- lines, so none of it renders on the
+#  page. Mintlify turns `description`, `keywords`, `canonical`, `og:*` and
+#  `twitter:*` into <meta> tags for crawlers, indexes `keywords` in site
+#  search, and ranks results with `boost`. `section` / `product` /
+#  `subsection` are custom fields, hidden as well.
+#
+#  The pass reruns on every polish, so the derived values follow a page when
+#  it moves. Intercom's own keywords sit above DERIVED_KEYWORDS_MARK and are
+#  never touched; everything below it is rebuilt.
+# --------------------------------------------------------------------------
+
+DERIVED_KEYWORDS_MARK = "  # derived by intercom_to_mintlify.py - rebuilt on every polish"
+SEO_KEYS = ("canonical", "og:title", "og:description", "twitter:title",
+            "twitter:description", "boost", "section", "product", "subsection")
+MAX_KEYWORDS = 15
+BOOST_VIDEOS = 0.7      # a video-only page ranks below the written guide
+BOOST_DRAFTS = 0.5      # Drafts tab pages (drafts, unassigned, excluded) rank last
+GENERIC_HEADING_RE = re.compile(
+    r"^(introduction|overview|prerequisites?|steps?|procedure|additional information|"
+    r"related articles?|notes?|summary|conclusion|keywords|faqs?|videos?|contents?|"
+    r"table of contents|purpose|scope|steps? (to|for))$", re.I)
+# Drafts tab labels describe triage state, not content: never keywords.
+NON_KEYWORD_CRUMBS = {"Videos", "Unassigned", "Unassigned in Intercom",
+                      "Collection not in navigation", "Excluded"}
+# Acronyms, renames and spelling variants people search with. Matched against
+# the title, the section path and the headings - not the whole body - so a
+# passing mention does not add a keyword. Acronyms match in capitals only,
+# so "Tap Next" is not the Tenant Admin Portal.
+SYNONYMS = [
+    (r"(?i:\bpasswordless\b)", ["passwordless login"]),
+    (r"\bSSO\b|(?i:single sign-on)", ["SSO", "single sign-on"]),
+    (r"\bMFA\b|(?i:multi-factor)", ["MFA", "multi-factor authentication"]),
+    (r"\b2FA\b|(?i:two-factor)", ["2FA", "two-factor authentication"]),
+    (r"(?i:\bentra\b|azure ad)", ["Microsoft Entra ID", "Azure AD"]),
+    (r"\bQR\b", ["QR code"]),
+    (r"(?i:device ?lock)", ["DeviceLock", "device lock"]),
+    (r"\bTAP\b|(?i:tenant admin portal)", ["Tenant Admin Portal", "admin portal"]),
+    (r"(?i:\bokta\b)", ["Okta"]),
+    (r"(?i:\bkiosk\b)", ["kiosk mode"]),
+]
+VIDEOS_DIR = "videos"
+FM_KEY_RE = re.compile(r'^("?)([A-Za-z][\w:.-]*)\1[ \t]*:')
+
+
+def page_sections(nav, build_nav):
+    """{group directory: crumbs} for every group, drafts/ mirror included.
+
+    A mirrored draft keeps its home's crumbs, so a draft Windows page still
+    says Platforms & Solutions > Windows; it is told apart by `boost`.
+    """
+    out = {}
+    for _grp, parts, crumbs in build_nav.iter_groups(nav):
+        out["/".join(parts)] = [str(c) for c in crumbs]
+    drafts = build_nav.drafts_tab(nav) or {}
+    if drafts.get("slug"):
+        for directory, crumbs in list(out.items()):
+            out.setdefault("%s/%s" % (drafts["slug"], directory), crumbs)
+    return out
+
+
+def section_for(rel, sections):
+    """Crumbs of the closest declared group above page `rel`."""
+    directory = os.path.dirname(rel)
+    while directory:
+        if directory in sections:
+            return sections[directory]
+        directory = os.path.dirname(directory)
+    return []
+
+
+def heading_keywords(body):
+    out = []
+    for line, fenced in split_fences(body):
+        m = None if fenced else HEADING_RE.match(line)
+        if not m or len(m.group(1)) not in (2, 3):
+            continue
+        text = clean_heading_text(re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", m.group(2)))
+        text = re.sub(r"[*`_]+", "", text)
+        text = re.sub(r"^(steps?|how) (to|for)\s+", "", text, flags=re.I).strip(" .:-")
+        if 3 <= len(text) <= 80 and not GENERIC_HEADING_RE.match(text):
+            out.append(text)
+    return out
+
+
+def derived_keywords(title, crumbs, body):
+    """Search terms built from the page itself: its short title, the section
+    path it lives in, its H2/H3 headings, and synonyms of what those name."""
+    found = [short_title(title) or title]
+    found += [c for c in crumbs[1:] if c and c not in NON_KEYWORD_CRUMBS]
+    headings = heading_keywords(body)
+    found += headings
+    haystack = " | ".join([title] + crumbs + headings)
+    for pattern, words in SYNONYMS:
+        if re.search(pattern, haystack):
+            found += words
+    return found
+
+
+def _fm_string(lines, key):
+    for line in lines:
+        m = FM_KEY_RE.match(line)
+        if m and m.group(2) == key:
+            raw = line[m.end():].strip()
+            try:
+                return json.loads(raw) if raw.startswith('"') else raw.strip("'")
+            except ValueError:
+                return raw.strip('"')
+    return ""
+
+
+def seo_frontmatter(head, rel, body, crumbs, base_url):
+    """Rewrite a generated page's frontmatter with its hidden SEO fields."""
+    lines = head.rstrip("\n").split("\n")
+    if len(lines) < 2 or lines[0] != "---" or lines[-1] != "---":
+        return head
+    lines = lines[1:-1]
+
+    kept, source_kw, in_kw, derived_part = [], [], False, False
+    for line in lines:
+        m = FM_KEY_RE.match(line)
+        if m:
+            in_kw = m.group(2) == "keywords"
+            if in_kw or m.group(2) in SEO_KEYS:
+                continue
+        elif in_kw:
+            if line == DERIVED_KEYWORDS_MARK:
+                derived_part = True
+            elif re.match(r"^[ \t]+-[ \t]", line) and not derived_part:
+                raw = re.sub(r"^[ \t]+-[ \t]+", "", line).strip()
+                try:
+                    source_kw.append(json.loads(raw) if raw.startswith('"') else raw)
+                except ValueError:
+                    source_kw.append(raw.strip('"'))
+            continue
+        kept.append(line)
+
+    title = _fm_string(kept, "title") or rel
+    desc = _fm_string(kept, "description")
+    if desc.startswith("{/"):           # an MDX comment taken for prose
+        kept = [l for l in kept if not l.startswith("description:")]
+        desc = ""
+    if not desc:
+        desc = first_sentence(body) or title
+        at = next((i + 1 for i, l in enumerate(kept) if l.startswith(("sidebarTitle:", "title:"))),
+                  len(kept))
+        kept.insert(at, "description: %s" % json.dumps(desc))
+
+    seen = {k.lower() for k in source_kw}
+    derived = []
+    for word in derived_keywords(title, crumbs, body):
+        word = re.sub(r"\s+", " ", word).strip()
+        if word and word.lower() not in seen and len(source_kw) + len(derived) < MAX_KEYWORDS:
+            seen.add(word.lower())
+            derived.append(word)
+    if source_kw or derived:
+        kept.append("keywords:")
+        kept += ["  - %s" % json.dumps(k) for k in source_kw]
+        if derived:
+            kept.append(DERIVED_KEYWORDS_MARK)
+            kept += ["  - %s" % json.dumps(k) for k in derived]
+
+    url = "%s/%s" % (base_url.rstrip("/"), rel[:-4] if rel.endswith(".mdx") else rel)
+    kept += [
+        '"canonical": %s' % json.dumps(url),
+        '"og:title": %s' % json.dumps(title),
+        '"og:description": %s' % json.dumps(desc),
+        '"twitter:title": %s' % json.dumps(title),
+        '"twitter:description": %s' % json.dumps(desc),
+    ]
+    if rel.startswith("drafts/"):
+        kept.append("boost: %s" % BOOST_DRAFTS)
+    elif "/%s/" % VIDEOS_DIR in "/%s" % rel:
+        kept.append("boost: %s" % BOOST_VIDEOS)
+    if crumbs:
+        kept.append("section: %s" % json.dumps(crumbs[0]))
+    if len(crumbs) > 1:
+        kept.append("product: %s" % json.dumps(crumbs[1]))
+    if len(crumbs) > 2:
+        kept.append("subsection: %s" % json.dumps(" > ".join(crumbs[2:])))
+    return "---\n%s\n---\n" % "\n".join(kept)
+
+
+# --------------------------------------------------------------------------
 # Lint: what is still wrong with a finished page
 # --------------------------------------------------------------------------
 #  Run over every page --migrate wrote, after the polish, so it reports what a
@@ -2543,6 +2811,9 @@ def lint_page(text):
     for line in prose.splitlines():
         # "4. ![..](..)" is a step that is only a screenshot, not glued text
         bare = re.sub(r"^\s*(?:\d+[.)]|[-*+])\s+(?=!\[)", "", line)
+        # a table cell is one line: its images can only sit inline
+        if line.lstrip().startswith("|"):
+            continue
         if GLUED_IMAGE_RE.search(bare) and "oloid-icon" not in line:
             add("image glued to text", line.strip()[:160])
     # &lt; &gt; &#123; are deliberate MDX escapes; these are leftovers
@@ -2604,16 +2875,18 @@ def collect_issues(root, records, img_stats, dry_pages=None):
 def new_polish_stats():
     return {"pages": 0, "changed": 0, "icons": 0, "alts": 0, "split": 0,
             "links_fixed": 0, "links_unresolved": 0, "links_collection": 0,
-            "unresolved_ids": set()}
+            "unresolved_ids": set(), "seo": 0}
 
 
-def polish_tree(root, build_nav, dry_run=False, stats=None):
-    """Apply the polish to every page. Images and sidebar titles are only
-    touched on generated pages; links are fixed everywhere, hand-written
-    Getting Started guides included."""
+def polish_tree(root, build_nav, dry_run=False, stats=None, base_url=None):
+    """Apply the polish to every page. Images, sidebar titles and the SEO
+    frontmatter are only touched on generated pages; links are fixed
+    everywhere, hand-written Getting Started guides included."""
     stats = stats or new_polish_stats()
+    base_url = base_url or DOCS_BASE_URL
     nav = build_nav.load_nav(root)
     nav_dirs = {"/".join(parts) for _g, parts, _c in build_nav.iter_groups(nav)}
+    sections = page_sections(nav, build_nav)
     index = article_index(root, build_nav, nav_dirs)
     for rel, path in iter_mdx(root, build_nav):
         with open(path, encoding="utf-8") as fh:
@@ -2627,6 +2900,10 @@ def polish_tree(root, build_nav, dry_run=False, stats=None):
         body = rewrite_article_links(body, index, stats)
         if text.endswith("\n") and not body.endswith("\n"):
             body += "\n"                    # the line-wise passes drop it
+        if GENERATED_MARKER in text:
+            seo = seo_frontmatter(head, rel, body, section_for(rel, sections), base_url)
+            stats["seo"] += seo != head
+            head = seo
         new = head + body
         if new != text:
             stats["changed"] += 1
@@ -2640,6 +2917,7 @@ def print_polish(stats):
     print("Polish       : %d of %d pages changed" % (stats["changed"], stats["pages"]))
     print("               %d alt texts written, %d icons sized inline, "
           "%d glued screenshots split out" % (stats["alts"], stats["icons"], stats["split"]))
+    print("SEO          : %d pages' keywords / meta tags updated" % stats["seo"])
     print("Links        : %d oloid.help links now point at Mintlify pages"
           % stats["links_fixed"])
     if stats["links_unresolved"] or stats["links_collection"]:
@@ -3097,7 +3375,7 @@ def migrate(args, root):
             pruned = prune_stale(root, [w["path"] for w in written], nav_dirs, build_nav)
 
     sys.stderr.write("[4/4] polishing pages and links ...\n")
-    polish = polish_tree(root, build_nav, dry_run=args.dry_run)
+    polish = polish_tree(root, build_nav, dry_run=args.dry_run, base_url=args.docs_url)
 
     sys.stderr.write("      checking every page for leftover problems ...\n")
     collect_issues(root, records, img_stats, dry_pages)
@@ -3224,7 +3502,8 @@ def main():
     if args.polish:
         import build_nav
         root = os.path.abspath(args.root)
-        stats = polish_tree(root, build_nav, dry_run=args.dry_run)
+        stats = polish_tree(root, build_nav, dry_run=args.dry_run,
+                            base_url=getattr(args, "docs_url", None))
         style_status = write_style_css(root, args.dry_run)
         print("")
         print_polish(stats)
