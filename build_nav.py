@@ -92,8 +92,8 @@ def iter_groups(nav):
 
     The file nests tab -> [menu ->] group [-> group ...], and any level may
     carry a slug. `slug_parts` are the directory segments with empty slugs
-    dropped, so the hidden Home tab (slug "") resolves to the repository root
-    rather than a directory literally called "". `crumbs` are the display
+    dropped, so a tab with slug "" resolves to the repository root rather than
+    a directory literally called "". `crumbs` are the display
     labels, for readable log lines.
     """
     for tab in nav.get("tabs") or []:
@@ -115,7 +115,7 @@ def drafts_tab(nav):
 def mirrored_tabs(nav):
     """The tabs whose drafts the Drafts tab shows: every visible tab but itself.
 
-    Hidden tabs (Home, Excluded) are left out on purpose - their drafts stay
+    Hidden tabs are left out on purpose - their drafts stay
     in their own directories, as hidden as the rest of them.
     """
     return [t for t in nav.get("tabs") or []
@@ -145,8 +145,8 @@ VIDEOS_SLUG = "videos"
 def video_directory(nav, directory):
     """Where a video-only article whose home is `directory` is written instead.
 
-    The nearest Videos group at or above it: "help/platforms/windows/
-    windows-login/v2" -> "help/platforms/windows/videos", because Windows is
+    The nearest Videos group at or above it: "platforms/windows/
+    windows-login/v2" -> "platforms/windows/videos", because Windows is
     the closest level that declares one. Unchanged when no ancestor has one,
     when the article is already in a Videos group, or when its group sets
     `keep_videos`.
@@ -270,8 +270,8 @@ def group_dir(grp, slug_parts, prefix=""):
 def pages_for(grp, slug_parts, root, prefix=""):
     """Page paths for one group, in sidebar order.
 
-    An explicit `pages` list wins - that is how the Home tab pins index and
-    quickstart. Otherwise the group's own directory is listed, one level only:
+    An explicit `pages` list wins, to pin an order. Otherwise the group's own
+    directory is listed, one level only:
     a nested directory belongs to a different group and would otherwise be
     claimed twice.
     """
@@ -656,7 +656,8 @@ def main():
     print("placeholders             : %d %s, %d retired"
           % (len(placed), "to write" if args.dry_run else "written", len(retired)))
 
-    stranded = orphans(root, listed + report["hidden_pages"])
+    # index.mdx is in no tab, but it is the page at / and must stay
+    stranded = orphans(root, listed + report["hidden_pages"] + [INDEX_FILE[:-4]])
     if stranded:
         print("\n%d page(s) on disk that no group claims:" % len(stranded))
         for page in stranded[:15]:

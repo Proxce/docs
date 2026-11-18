@@ -2600,7 +2600,7 @@ def manifest_record(art, title, product, collection, full_path):
         "oloid_help_url": art.get("url"),
         "mintlify_url": None,
         "mintlify_path": None,
-        "navigation": None,       # "Help Articles > Platforms & Solutions > Windows > ..."
+        "navigation": None,       # "Platforms & Solutions > Windows > Windows Login > ..."
         "file": None,             # the .mdx, relative to the repo root
         # where it came from in Intercom
         "intercom_collection": html.unescape("%s :: %s" % (product, collection)),

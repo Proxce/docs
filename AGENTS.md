@@ -80,11 +80,11 @@ Rules the run applies:
   (`drafts/excluded/<collection>/`, one group each), never placed by a title
   rule, and tagged "excluded" in the report and the manifest. To bring one
   into the main navigation, move it from the Excluded menu and
-  `excluded_collections` into a Help Articles group.
+  `excluded_collections` into a group in one of the main tabs.
 - **The manifest.** Every run writes `intercom_manifest.json` (mint-ignored):
   one record per article Intercom returned, with `oloid_help_url` (old),
   `mintlify_url` (new, on `--docs-url`, default the mintlify.app domain),
-  `navigation` ("Help Articles > Platforms & Solutions > Windows > ..."),
+  `navigation` ("Platforms & Solutions > Windows > Windows Login > ..."),
   `file`, `status`, `placed_by` and the Intercom collection, plus a list of
   sections with their article ids. Each record has a `category` - `added`
   (main navigation), `excluded`, `unassigned` (no collection in Intercom) or
@@ -154,11 +154,17 @@ truth: the tab / menu / group tree, plus the Intercom collections
 
 The tree has these tabs:
 
-- **Help Articles** (`help/`): Platforms & Solutions, Integrations, OLOID
-  Platform, Help & Reference, and **More Resources** - the home for everything
-  the new tree has no place for yet (Workflow, SSO & MFA, API guides, release
-  notes, unqualified Passwordless Authenticator collections).
+- **Platforms & Solutions** (`platforms/`)
+- **Integrations** (`integrations/`)
+- **OLOID Platform** (`platform/`)
+- **Help & Reference** (`reference/`)
+- **More Resources** (`more/`) - the home for everything the new tree has no
+  place for yet (Workflow, SSO & MFA, API guides, release notes, unqualified
+  Passwordless Authenticator collections).
 - **Drafts**, mirrored automatically (below).
+
+There is no Home tab. `/` still serves `index.mdx` (see below), which sits in
+no tab.
 
 A **Getting Started** tab of hand-written setup guides is planned but not
 built: the tree, the page shape and a finished reference page are in
@@ -179,12 +185,12 @@ python build_nav.py             # write docs.json, index.mdx and placeholders
   `overview.mdx` placeholder so it still shows; it is removed once other pages
   land beside it. Videos groups never get one - they appear once they hold
   videos.
-- `index.mdx` is a generated card index of every tab, with article counts. The
-  `Home` tab is `hidden: true`: it keeps `/` routing to `index.mdx` without
-  showing a tab. Edit the header text in `LANDING_HEADER` in `build_nav.py`.
+- `index.mdx` is a generated card index of every tab, with article counts. It
+  is the page at `/` and belongs to no tab. Edit the header text in
+  `LANDING_HEADER` in `build_nav.py`.
 - The **Drafts** tab carries `"mirror_drafts": true`. `build_nav.py` fills it
-  automatically with one menu per visible tab: that tab's menus become groups
-  and its groups nest inside, reading from `drafts/<tab>/<menu>/<group>/`.
+  automatically with one menu per visible tab, holding that tab's groups,
+  reading from `drafts/<tab>/<group>/`.
   Groups with no drafts are left out. Only its extra menus (Unassigned,
   Excluded) are declared by hand. `drafts/` must stay out of `.mintignore` - the starter kit
   ignored it, which hid every draft page from the build.
