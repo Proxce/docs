@@ -3048,5 +3048,15 @@
       "destination": "/drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app",
       "permanent": true
     }
-  ]
+  ],
+  "api": {
+    "mdx": {
+      "auth": {
+        "method": "bearer"
+      }
+    },
+    "playground": {
+      "display": "interactive"
+    }
+  }
 }

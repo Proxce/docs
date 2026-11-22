@@ -1107,6 +1107,21 @@ def main():
         with io.open(nav_path, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(json.dumps(nav, indent=2, ensure_ascii=False) + "\n")
 
+    # docs.json: the playground only shows a token field on MDX `api:` pages
+    # when the site-level API auth is set - `authMethod` in frontmatter alone
+    # renders no input, so every protected call went out without a token.
+    docs_path = os.path.join(root, "docs.json")
+    with io.open(docs_path, encoding="utf-8") as fh:
+        docs = json.load(fh)
+    want = {"mdx": {"auth": {"method": "bearer"}}, "playground": {"display": "interactive"}}
+    api_cfg = docs.get("api") or {}
+    merged = dict(api_cfg, mdx=dict(api_cfg.get("mdx") or {}, **want["mdx"]),
+                  playground=dict(want["playground"], **(api_cfg.get("playground") or {})))
+    if merged != api_cfg and not args.dry_run:
+        docs["api"] = merged
+        with io.open(docs_path, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(json.dumps(docs, indent=2, ensure_ascii=False) + "\n")
+
     print("\n%d pages %s, %d stale removed; endpoints: %s"
           % (len(written), "would be written" if args.dry_run else "written", len(stale),
              ", ".join("%s %d" % kv for kv in stats.items())))
