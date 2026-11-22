@@ -513,6 +513,12 @@ def write_index(nav, tabs, root):
                 sections.append((item.get("item"), item.get("groups") or []))
         else:
             sections.append((None, tab.get("groups") or []))
+        # index.mdx is public: list only public groups, so sections behind the
+        # login (Advanced / Scoped APIs) are not advertised to signed-out visitors.
+        sections = [(h, [g for g in gs if g.get(PUBLIC_KEY)]) for h, gs in sections]
+        sections = [(h, gs) for h, gs in sections if gs]
+        if not sections:
+            continue
         out += ["## %s" % tab["tab"], ""]
         for heading, groups in sections:
             if heading:
