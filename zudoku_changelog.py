@@ -94,7 +94,8 @@ ARTICLE_RE = re.compile(r"https?://(?:www\.)?oloid\.help/en/articles/(\d+)[^)\s]
 
 def read(path):
     with io.open(path, encoding="utf-8") as fh:
-        return fh.read().replace("\r\n", "\n")
+        text = fh.read().replace("\r\n", "\n")
+    return re.sub("[​‌‍﻿]", "", text)    # zero-width characters
 
 
 def split_intro(text):
@@ -308,6 +309,11 @@ def render_release(rel, product, links, stats):
         kind = block[0]
         if kind == "section":
             body += ['<p className="cl-section">%s</p>' % fix_text(block[1], links, stats), ""]
+        elif kind == "change" and block[1].rstrip().endswith(":"):
+            # "Key updates include:" is a lead-in, not a change of its own
+            body += ["**%s**" % fix_text(block[1], links, stats), ""]
+            if block[3]:
+                body += [fix_text(block[3], links, stats), ""]
         elif kind == "change":
             _k, title, b, text, level = block
             kinds.add(b)

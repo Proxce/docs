@@ -26,6 +26,20 @@ SKIP_DIRS = {"drafts", "excluded", "ask-oloid-worker", "node_modules", ".git",
              "intercom_export", "intercom_workspaces", "output", "images", "logo"}
 SKIP_FILES = {"index.mdx"}
 
+# Pages behind the docs login must never reach the public assistant: the
+# Advanced and Scoped API reference, and any page whose frontmatter restricts
+# it to user groups (`groups: [...]`).
+PRIVATE_PREFIXES = ("/api-reference/advanced/", "/api-reference/scoped/")
+
+
+def is_restricted(path):
+    with open(path, encoding="utf-8") as f:
+        head = f.read(4096)
+    if not head.startswith("---"):
+        return False
+    front = head.split("---", 2)[1] if head.count("---") >= 2 else ""
+    return re.search(r"(?m)^groups\s*:", front) is not None
+
 CHUNK_CHARS = 1500  # target size of one chunk sent to Claude
 
 STOPWORDS = sorted("""
@@ -113,6 +127,8 @@ def iter_pages():
                 continue
             path = os.path.join(dirpath, name)
             url = "/" + os.path.relpath(path, ROOT)[:-4].replace(os.sep, "/")
+            if url.startswith(PRIVATE_PREFIXES) or is_restricted(path):
+                continue
             yield path, url
 
 

@@ -9,3 +9,6 @@
 #
 # If you later swap urllib for requests, add it here:
 # requests>=2.31.0
+
+# zudoku_api.py reads the Zudoku OpenAPI specs (YAML)
+pyyaml>=6

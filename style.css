@@ -433,3 +433,42 @@ td > .cl-badge:first-child,
 [class*="update"] table { font-size: var(--oloid-small, 13.5px); }
 [class*="update"] table td:last-child,
 [class*="update"] table th:last-child { width: 1%; white-space: nowrap; }
+
+/* --- API reference (api-reference/, written by zudoku_api.py) -----------
+   HTTP method pills in the resource tables, coloured like Mintlify's own
+   sidebar badges so the table and the nav read as one system.
+   ----------------------------------------------------------------------- */
+.api-method {
+  display: inline-block;
+  min-width: 3.6em;
+  padding: .1em .45em;
+  border-radius: 6px;
+  font: 600 11px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  text-align: center;
+  letter-spacing: .02em;
+}
+.api-get    { background: #e6f6ec; color: #11703c; }
+.api-post   { background: #e8f0fe; color: #1a4fb4; }
+.api-put    { background: #fdf3e1; color: #8a5300; }
+.api-patch  { background: #f2effb; color: #5b3fa8; }
+.api-delete { background: #fdecec; color: #b42318; }
+.dark .api-get    { background: rgba(34,197,94,.16);  color: #86efac; }
+.dark .api-post   { background: rgba(59,130,246,.18); color: #93c5fd; }
+.dark .api-put    { background: rgba(245,158,11,.16); color: #fcd34d; }
+.dark .api-patch  { background: rgba(139,92,246,.18); color: #c4b5fd; }
+.dark .api-delete { background: rgba(239,68,68,.16);  color: #fca5a5; }
+td:first-child > .api-method { margin: 0; }
+
+/* API pages put the request/response examples in the right rail, sized
+   xl:w-[28rem]. The 1/6 rail above is narrower than that and the panel ran
+   off the screen, so a rail holding examples gets its full width back. */
+@media (min-width: 1280px) {
+  #content-side-layout:has(.code-group),
+  #content-container:has([data-api-example]) #content-side-layout {
+    width: 28rem;
+    max-width: 28rem;
+    flex-shrink: 0;
+    padding-right: 1.25rem;
+  }
+  #content-side-layout .code-group { max-width: 100%; }
+}
