@@ -240,6 +240,29 @@ python build_nav.py             # write docs.json, index.mdx and placeholders
   `navigation.json`.
 
 
+## Access: public pages and the login
+
+Authentication is on for this site (set up in the Mintlify dashboard), so a
+page needs a login unless it is public. `"public": true` on a tab, menu or
+group in `navigation.json` is inherited by every group beneath it and written
+onto each docs.json group by `build_nav.py`. Every content tab and the
+Changelog carry it; Drafts > Unassigned and Drafts > Excluded do not, and their
+pages narrow access further with `groups: [oloid, test]` in frontmatter.
+Never add `public` to docs.json by hand - the next `build_nav.py` run drops it.
+
+## Changelog
+
+`python zudoku_changelog.py` writes `changelog/` from the Zudoku project
+(`--zudoku`, default `O:/zudoku-1`, reading `pages/changelog/<product>/*.mdx`).
+One page per product, one `<Update>` per release, newest first, Okta-style: a
+summary table per release, a badge per change (New / Improved / Updated /
+Fixed, inferred from the wording), and `oloid.help/en/articles/<id>` links
+pointed at the migrated page when one is published. `changelog/overview.mdx`
+is the landing page. The pages are generated - edit Zudoku and re-run. The
+tab's pages are pinned in `navigation.json`; badge styles live in
+`STYLE_CSS` (`.cl-*`). Skipped on purpose: `upcoming/`, `releasenotes.mdx`
+(placeholder) and `webkeylog.mdx` (superseded by `webkey/`).
+
 ## Ask Oloid assistant
 
 `ask-oloid.js` / `ask-oloid.css` are the topbar button and chat sidebar. They

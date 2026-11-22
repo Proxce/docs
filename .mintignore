@@ -24,3 +24,6 @@ intercom_manifest.json
 
 # internal plans for future docs work; not docs pages
 plans/
+
+# browser-test screenshots
+.playwright-mcp/

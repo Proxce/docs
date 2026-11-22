@@ -33,7 +33,8 @@
                       "platforms/windows/windows-login/v1/windows-login-v1-0-how-to-deploy-windows-login-v1-0-using-microsoft",
                       "platforms/windows/windows-login/v1/windows-login-v1-0-network-url-whitelisting-requirements-for-preview"
                     ],
-                    "icon": "1"
+                    "icon": "1",
+                    "public": true
                   },
                   {
                     "group": "Windows Login V2",
@@ -70,7 +71,8 @@
                       "platforms/windows/windows-login/v2/windows-login-v2-0-network-url-whitelisting-requirements-for-prod-us",
                       "platforms/windows/windows-login/v2/windows-login-v2-0-overview"
                     ],
-                    "icon": "2"
+                    "icon": "2",
+                    "public": true
                   },
                   "platforms/windows/windows-login/devicelock-app-hardware-and-software-requirements",
                   "platforms/windows/windows-login/devicelock-app-how-to-create-and-configure-devicelock-application-in",
@@ -249,7 +251,8 @@
                         "pages": [
                           "platforms/windows/industry-workflows/healthcare/epcs/overview"
                         ],
-                        "icon": "prescription"
+                        "icon": "prescription",
+                        "public": true
                       },
                       "platforms/windows/industry-workflows/healthcare/setting-up-and-using-windows-login-healthcare",
                       "platforms/windows/industry-workflows/healthcare/windows-login-healthcare-epic-ehr-integration-with-oloid-windows-login",
@@ -272,7 +275,8 @@
                       "platforms/windows/industry-workflows/healthcare/windows-login-healthcare-how-to-use-reauthenticate-current-user",
                       "platforms/windows/industry-workflows/healthcare/windows-login-healthcare-how-to-use-the-reauthenticate-current-user"
                     ],
-                    "icon": "hospital"
+                    "icon": "hospital",
+                    "public": true
                   }
                 ],
                 "icon": "industry",
@@ -410,7 +414,8 @@
                       "name": "apple",
                       "library": "fontawesome",
                       "style": "brands"
-                    }
+                    },
+                    "public": true
                   }
                 ],
                 "icon": "vault",
@@ -481,7 +486,8 @@
                       "platforms/ios/time-clock/oloid-verify/setting-up-ipad-for-oloid-verify",
                       "platforms/ios/time-clock/oloid-verify/what-is-oloid-verify"
                     ],
-                    "icon": "tablet-screen-button"
+                    "icon": "tablet-screen-button",
+                    "public": true
                   },
                   {
                     "group": "OLOID Connect",
@@ -564,7 +570,8 @@
                       "platforms/ios/time-clock/oloid-connect/oloid-connect-set-up-ipad-in-guided-access-mode-or-kiosk-mode",
                       "platforms/ios/time-clock/oloid-connect/what-is-oloid-connect"
                     ],
-                    "icon": "mobile-screen-button"
+                    "icon": "mobile-screen-button",
+                    "public": true
                   },
                   "platforms/ios/time-clock/faqs-oloid-verify-connect-application",
                   "platforms/ios/time-clock/hardboot-for-ipad-pro-11",
@@ -732,7 +739,8 @@
                       "name": "android",
                       "library": "fontawesome",
                       "style": "brands"
-                    }
+                    },
+                    "public": true
                   }
                 ],
                 "icon": "vault",
@@ -942,7 +950,8 @@
                       "name": "chrome",
                       "library": "fontawesome",
                       "style": "brands"
-                    }
+                    },
+                    "public": true
                   }
                 ],
                 "icon": "vault",
@@ -1674,6 +1683,41 @@
         "icon": "life-ring"
       },
       {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Release notes",
+            "pages": [
+              "changelog/overview"
+            ],
+            "icon": "megaphone",
+            "public": true
+          },
+          {
+            "group": "Web portals",
+            "pages": [
+              "changelog/admin-portal",
+              "changelog/user-portal"
+            ],
+            "icon": "browser",
+            "public": true
+          },
+          {
+            "group": "Apps",
+            "pages": [
+              "changelog/windows",
+              "changelog/android",
+              "changelog/ios",
+              "changelog/webkey",
+              "changelog/oloid-vault"
+            ],
+            "icon": "mobile-screen",
+            "public": true
+          }
+        ],
+        "icon": "megaphone"
+      },
+      {
         "tab": "More Resources",
         "menu": [
           {
@@ -1870,7 +1914,8 @@
                           "drafts/platforms/windows/windows-login/v1/oloid-windows-login-windows-passwordless-v1-0-vs-v2-0-feature",
                           "drafts/platforms/windows/windows-login/v1/windows-login-1-0-network-url-whitelisting-requirements"
                         ],
-                        "icon": "1"
+                        "icon": "1",
+                        "public": true
                       },
                       {
                         "group": "Windows Login V2",
@@ -1883,7 +1928,8 @@
                           "drafts/platforms/windows/windows-login/v2/windows-login-v2-0-how-to-enable-check-emotions-for-presence-detection",
                           "drafts/platforms/windows/windows-login/v2/windows-login-v2-0-how-to-enable-passwordless-session-token-for-an"
                         ],
-                        "icon": "2"
+                        "icon": "2",
+                        "public": true
                       },
                       "drafts/platforms/windows/windows-login/getting-started-with-windows-device-login",
                       "drafts/platforms/windows/windows-login/how-to-allow-any-individual-with-domain-credentials-in-windows-login",
@@ -1921,7 +1967,8 @@
                       "drafts/platforms/windows/windows-login/windows-login-how-to-enroll-face-using-user-login",
                       "drafts/platforms/windows/windows-login/windows-login-screen-block-on-check-emotions"
                     ],
-                    "icon": "right-to-bracket"
+                    "icon": "right-to-bracket",
+                    "public": true
                   },
                   {
                     "group": "Supervisor App",
@@ -1934,7 +1981,8 @@
                       "drafts/platforms/windows/supervisor-app/supervisor-app-assign-passkey",
                       "drafts/platforms/windows/supervisor-app/supervisor-app-how-to-add-face-for-user"
                     ],
-                    "icon": "user-tie"
+                    "icon": "user-tie",
+                    "public": true
                   },
                   {
                     "group": "Industry Workflows",
@@ -1946,10 +1994,12 @@
                           "drafts/platforms/windows/industry-workflows/healthcare/windows-login-healthcare-how-to-sign-out-using-badge-epic-hyperspace",
                           "drafts/platforms/windows/industry-workflows/healthcare/windows-login-healthcare-what-is-oloid-s-epic-ehr"
                         ],
-                        "icon": "hospital"
+                        "icon": "hospital",
+                        "public": true
                       }
                     ],
-                    "icon": "industry"
+                    "icon": "industry",
+                    "public": true
                   },
                   {
                     "group": "Videos",
@@ -1957,7 +2007,8 @@
                       "drafts/platforms/windows/videos/how-to-download-and-install-windows-login-supervisor-app-video",
                       "drafts/platforms/windows/videos/how-to-view-and-edit-shared-credential-details-in-supervisor-app"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": true
                   }
                 ],
                 "icon": {
@@ -1981,7 +2032,8 @@
                       "drafts/platforms/ios/connect-passwordless/platform-configuration-for-oloid-connect-passwordless-app",
                       "drafts/platforms/ios/connect-passwordless/setting-up-and-using-oloid-connect-app-for-passwordless-draft"
                     ],
-                    "icon": "mobile-screen"
+                    "icon": "mobile-screen",
+                    "public": true
                   },
                   {
                     "group": "OLOID Vault",
@@ -1996,10 +2048,12 @@
                           "name": "apple",
                           "library": "fontawesome",
                           "style": "brands"
-                        }
+                        },
+                        "public": true
                       }
                     ],
-                    "icon": "vault"
+                    "icon": "vault",
+                    "public": true
                   },
                   {
                     "group": "OLOID CloudKey",
@@ -2007,7 +2061,8 @@
                       "drafts/platforms/ios/cloudkey/how-to-view-cloudkey-using-oloid-user-portal",
                       "drafts/platforms/ios/cloudkey/using-the-oloid-cloudkey-app-activity-tab"
                     ],
-                    "icon": "cloud"
+                    "icon": "cloud",
+                    "public": true
                   },
                   {
                     "group": "Time Clock",
@@ -2024,7 +2079,8 @@
                           "drafts/platforms/ios/time-clock/oloid-verify/setting-up-and-using-oloid-verify",
                           "drafts/platforms/ios/time-clock/oloid-verify/using-the-oloid-verify-app"
                         ],
-                        "icon": "tablet-screen-button"
+                        "icon": "tablet-screen-button",
+                        "public": true
                       },
                       {
                         "group": "OLOID Connect",
@@ -2059,7 +2115,8 @@
                           "drafts/platforms/ios/time-clock/oloid-connect/steps-to-setup-login-to-okta-using-oloid-connect",
                           "drafts/platforms/ios/time-clock/oloid-connect/supervisor-portal-how-to-configure-endpoint-for-oloid-connect"
                         ],
-                        "icon": "mobile-screen-button"
+                        "icon": "mobile-screen-button",
+                        "public": true
                       },
                       "drafts/platforms/ios/time-clock/getting-started-with-oloid-verify-connect",
                       "drafts/platforms/ios/time-clock/hardware-requirement-for-oloid-connect-installation-to-be-deleted",
@@ -2080,7 +2137,8 @@
                       "drafts/platforms/ios/time-clock/set-up-ipad-in-kiosk-mode-archived",
                       "drafts/platforms/ios/time-clock/using-the-oloid-verify-connect-app"
                     ],
-                    "icon": "clock"
+                    "icon": "clock",
+                    "public": true
                   },
                   {
                     "group": "Videos",
@@ -2088,7 +2146,8 @@
                       "drafts/platforms/ios/videos/how-to-enroll-for-face-through-oloid-connect-passwordless-app-video",
                       "drafts/platforms/ios/videos/how-to-log-in-to-workforce-hrms-system-using-single-factor"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": true
                   }
                 ],
                 "icon": {
@@ -2128,7 +2187,8 @@
                       "drafts/platforms/android/devicelock/what-is-oloid-device-lock",
                       "drafts/platforms/android/devicelock/what-is-oloid-devicelock-time-clock-android"
                     ],
-                    "icon": "lock"
+                    "icon": "lock",
+                    "public": true
                   },
                   {
                     "group": "OLOID Vault",
@@ -2142,10 +2202,12 @@
                           "name": "android",
                           "library": "fontawesome",
                           "style": "brands"
-                        }
+                        },
+                        "public": true
                       }
                     ],
-                    "icon": "vault"
+                    "icon": "vault",
+                    "public": true
                   },
                   {
                     "group": "OLOID CloudKey",
@@ -2153,7 +2215,8 @@
                       "drafts/platforms/ios/cloudkey/how-to-view-cloudkey-using-oloid-user-portal",
                       "drafts/platforms/ios/cloudkey/using-the-oloid-cloudkey-app-activity-tab"
                     ],
-                    "icon": "cloud"
+                    "icon": "cloud",
+                    "public": true
                   }
                 ],
                 "icon": {
@@ -2184,7 +2247,8 @@
                       "drafts/platforms/web/webkey/webkey-network-url-whitelisting-requirements",
                       "drafts/platforms/web/webkey/webkey-p4-troubleshooting-guide"
                     ],
-                    "icon": "key"
+                    "icon": "key",
+                    "public": true
                   },
                   {
                     "group": "OLOID Vault",
@@ -2214,10 +2278,12 @@
                           "name": "chrome",
                           "library": "fontawesome",
                           "style": "brands"
-                        }
+                        },
+                        "public": true
                       }
                     ],
-                    "icon": "vault"
+                    "icon": "vault",
+                    "public": true
                   },
                   {
                     "group": "Videos",
@@ -2226,7 +2292,8 @@
                       "drafts/platforms/web/videos/how-to-download-endpoint-config-file-for-chrome-vault-video-tutorial",
                       "drafts/platforms/web/videos/how-to-manually-create-endpoint-for-chrome-vault-video-tutorial"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": true
                   }
                 ],
                 "icon": "globe",
@@ -2312,7 +2379,8 @@
                       "drafts/platform/tenant-admin-portal/videos/how-to-configure-advanced-user-sync-for-adp-vantage-hcm-inbound-in",
                       "drafts/platform/tenant-admin-portal/videos/how-to-send-an-invite-to-user-to-download-the-mobile-app-video"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": true
                   }
                 ],
                 "icon": "shield-halved",
@@ -2339,7 +2407,8 @@
                     "pages": [
                       "drafts/platform/supervisor-portal/videos/how-to-extend-qr-code-expiry-date-of-users-in-a-connection-in-the"
                     ],
-                    "icon": "circle-play"
+                    "icon": "circle-play",
+                    "public": true
                   }
                 ],
                 "icon": "display",
@@ -2410,16 +2479,16 @@
           },
           {
             "item": "Internal docs",
-            "icon": "lock",
             "groups": [
               {
                 "group": "Internal docs",
-                "public": true,
                 "pages": [
                   "drafts/internal-docs"
-                ]
+                ],
+                "public": true
               }
-            ]
+            ],
+            "icon": "lock"
           },
           {
             "item": "Unassigned",

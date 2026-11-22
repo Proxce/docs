@@ -440,6 +440,78 @@ STYLE_CSS = STYLE_MARKER + """
   #assistant-entry,
   #topbar-search { max-width: none !important; }
 }
+
+/* --- release notes (changelog/, written by zudoku_changelog.py) ----------
+   Okta-style: a pill badge on every change, a small uppercase label for the
+   product area inside a release, and a compact summary table at the top of
+   each <Update>. Badge colours are tinted backgrounds with a darker text of
+   the same hue, so they pass contrast in both themes.
+   ----------------------------------------------------------------------- */
+:root {
+  --cl-new-bg: #e6f6f1;      --cl-new-fg: #0b6b53;
+  --cl-improved-bg: #e8f0fe; --cl-improved-fg: #1a4fb4;
+  --cl-updated-bg: #f2effb;  --cl-updated-fg: #5b3fa8;
+  --cl-fixed-bg: #fdf1e6;    --cl-fixed-fg: #9a4a07;
+}
+.dark {
+  --cl-new-bg: rgba(16, 185, 129, .16);  --cl-new-fg: #6ee7b7;
+  --cl-improved-bg: rgba(59, 130, 246, .18); --cl-improved-fg: #93c5fd;
+  --cl-updated-bg: rgba(139, 92, 246, .18);  --cl-updated-fg: #c4b5fd;
+  --cl-fixed-bg: rgba(245, 158, 11, .16);    --cl-fixed-fg: #fcd34d;
+}
+
+.cl-badge {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: .35em;
+  padding: .1em .55em;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+li > .cl-badge:first-child,
+td > .cl-badge:first-child,
+.cl-legend > .cl-badge { margin-left: 0; }
+.cl-new      { background: var(--cl-new-bg);      color: var(--cl-new-fg); }
+.cl-improved { background: var(--cl-improved-bg); color: var(--cl-improved-fg); }
+.cl-updated  { background: var(--cl-updated-bg);  color: var(--cl-updated-fg); }
+.cl-fixed    { background: var(--cl-fixed-bg);    color: var(--cl-fixed-fg); }
+
+.cl-intro {
+  border-left: 3px solid rgb(var(--primary, 13 147 115));
+  padding: .1rem 0 .1rem 1rem;
+  color: inherit;
+  opacity: .9;
+}
+.cl-meta, .cl-legend {
+  font-size: var(--oloid-small, 13.5px);
+  opacity: .75;
+}
+.cl-legend .cl-badge { margin-right: .25em; }
+
+.cl-section {
+  margin: 1.75rem 0 .25rem;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .65;
+}
+/* the anchor the summary table links to; clear the sticky topbar */
+.cl-anchor { display: block; scroll-margin-top: 7rem; }
+
+.cl-list { list-style: none; padding-left: 0; }
+.cl-list li { padding-left: 0; margin: .45rem 0; }
+.cl-list li::before { display: none; }
+
+/* summary tables: compact, first column takes the room */
+.update-container table,
+[class*="update"] table { font-size: var(--oloid-small, 13.5px); }
+[class*="update"] table td:last-child,
+[class*="update"] table th:last-child { width: 1%; white-space: nowrap; }
 """
 
 # ---------------------------------------------------------------------------

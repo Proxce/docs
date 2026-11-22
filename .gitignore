@@ -15,3 +15,6 @@ __pycache__/
 # migration artefacts
 intercom_export/
 intercom_workspaces/
+
+# browser-test screenshots
+.playwright-mcp/

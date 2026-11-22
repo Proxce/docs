@@ -44,6 +44,13 @@ MIRROR_KEY = "mirror_drafts"
 # placement are unchanged: this only reshapes docs.json.
 GROUP_MENU_KEY = "group_menu"
 
+# Authentication is on for this site (Mintlify dashboard), so a page needs a
+# login unless it is public. `"public": true` on a tab, menu or group in
+# navigation.json is inherited by every group beneath it and written onto each
+# docs.json group. Leave it off to keep a section behind the login; pages can
+# narrow access further with `groups:` in their frontmatter.
+PUBLIC_KEY = "public"
+
 
 # ---------------------------------------------------------------------------
 #  Reading navigation.json
@@ -305,19 +312,24 @@ def build_tabs(nav, root, report):
     by itself once its collection is migrated. Hidden tabs are dropped too:
     docs.json has no tab-level `hidden`, and their pages still route.
     """
-    def collect_groups(node, slug_parts, crumbs, prefix=""):
+    def collect_groups(node, slug_parts, crumbs, prefix="", public=False):
         """Groups of `node`, nested groups included.
 
         Inside a group, its sub-sections come first, then its own pages, and
         its Videos group last, so "Windows Login" opens on V1 / V2 rather
         than on a long list of general articles.
+
+        `public` is inherited: a tab, menu or group carrying `"public": true`
+        in navigation.json makes every group beneath it public in docs.json.
+        The site has authentication on, so a group without it needs a login.
         """
         out = []
         for grp in node.get("groups") or []:
             parts = slug_parts + ([grp["slug"]] if grp.get("slug") else [])
             pages = pages_for(grp, parts, root, prefix)
             trail = crumbs + [grp.get("group")]
-            children = collect_groups(grp, parts, trail, prefix)
+            is_public = bool(public or grp.get(PUBLIC_KEY))
+            children = collect_groups(grp, parts, trail, prefix, is_public)
             if not pages and not children:
                 if not prefix:          # a group with no drafts is the norm
                     report["empty"].append(" > ".join(str(c) for c in trail))
@@ -328,6 +340,10 @@ def build_tabs(nav, root, report):
             entry = {"group": grp.get("group"), "pages": others + pages + videos}
             if grp.get("icon"):
                 entry["icon"] = grp["icon"]
+            if grp.get("tag"):
+                entry["tag"] = grp["tag"]
+            if is_public:
+                entry[PUBLIC_KEY] = True
             out.append(entry)
             report["pages"] += len(pages)
         return out
@@ -347,16 +363,23 @@ def build_tabs(nav, root, report):
         and its Videos group.
         """
         groups, loose = [], []
+
+        def wrap(pages):
+            own = {"group": grp["group"], "pages": pages}
+            if grp.get(PUBLIC_KEY):
+                own[PUBLIC_KEY] = True
+            return own
+
         for page in grp["pages"]:
             if isinstance(page, dict):
                 if loose:
-                    groups.append({"group": grp["group"], "pages": loose})
+                    groups.append(wrap(loose))
                     loose = []
                 groups.append(page)
             else:
                 loose.append(page)
         if loose:
-            groups.append({"group": grp["group"], "pages": loose})
+            groups.append(wrap(loose))
         entry = {"item": grp["group"], "groups": groups}
         if grp.get("icon"):
             entry["icon"] = grp["icon"]
@@ -379,7 +402,8 @@ def build_tabs(nav, root, report):
                 for item in src["menu"]:
                     item_slugs = src_slugs + ([item["slug"]] if item.get("slug") else [])
                     nested = collect_groups(item, item_slugs,
-                                            crumbs + [item.get("item")], prefix)
+                                            crumbs + [item.get("item")], prefix,
+                                            src.get(PUBLIC_KEY) or item.get(PUBLIC_KEY))
                     if not nested:
                         continue
                     entry = {"group": item.get("item"), "pages": nested}
@@ -387,7 +411,8 @@ def build_tabs(nav, root, report):
                         entry["icon"] = item["icon"]
                     groups.append(entry)
             else:
-                groups = collect_groups(src, src_slugs, crumbs, prefix)
+                groups = collect_groups(src, src_slugs, crumbs, prefix,
+                                        src.get(PUBLIC_KEY))
             if not groups:
                 continue
             entry = {"item": src.get("tab"), "groups": groups}
@@ -413,7 +438,8 @@ def build_tabs(nav, root, report):
             menus = mirror_menus(tab) if tab.get(MIRROR_KEY) else []
             for item in tab.get("menu") or []:
                 item_slugs = tab_slugs + ([item["slug"]] if item.get("slug") else [])
-                groups = collect_groups(item, item_slugs, [name, item.get("item")])
+                groups = collect_groups(item, item_slugs, [name, item.get("item")],
+                                        public=tab.get(PUBLIC_KEY) or item.get(PUBLIC_KEY))
                 if not groups:
                     continue
                 entry = {"item": item.get("item"), "groups": groups}
@@ -425,7 +451,7 @@ def build_tabs(nav, root, report):
                 continue
             built = {"tab": name, "menu": menus}
         else:
-            groups = collect_groups(tab, tab_slugs, [name])
+            groups = collect_groups(tab, tab_slugs, [name], public=tab.get(PUBLIC_KEY))
             if not groups:
                 report["skipped_tabs"].append(name)
                 continue

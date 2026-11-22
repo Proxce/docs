@@ -49,6 +49,7 @@
       "tab": "Platforms & Solutions",
       "icon": "layer-group",
       "slug": "platforms",
+      "public": true,
       "group_menu": true,
       "groups": [
         {
@@ -484,6 +485,7 @@
       "tab": "Integrations",
       "icon": "plug",
       "slug": "integrations",
+      "public": true,
       "group_menu": true,
       "groups": [
         {
@@ -552,6 +554,7 @@
       "tab": "OLOID Platform",
       "icon": "building",
       "slug": "platform",
+      "public": true,
       "group_menu": true,
       "groups": [
         {
@@ -671,6 +674,7 @@
       "tab": "Help & Reference",
       "icon": "life-ring",
       "slug": "reference",
+      "public": true,
       "group_menu": true,
       "groups": [
         {
@@ -712,9 +716,45 @@
       ]
     },
     {
+      "tab": "Changelog",
+      "icon": "megaphone",
+      "slug": "changelog",
+      "public": true,
+      "$comment": "Release notes, written by zudoku_changelog.py from the Zudoku project. Pages are pinned here so the order is product order, not alphabetical. Re-run the script to refresh them; never edit changelog/*.mdx.",
+      "groups": [
+        {
+          "group": "Release notes",
+          "icon": "megaphone",
+          "pages": [
+            "changelog/overview"
+          ]
+        },
+        {
+          "group": "Web portals",
+          "icon": "browser",
+          "pages": [
+            "changelog/admin-portal",
+            "changelog/user-portal"
+          ]
+        },
+        {
+          "group": "Apps",
+          "icon": "mobile-screen",
+          "pages": [
+            "changelog/windows",
+            "changelog/android",
+            "changelog/ios",
+            "changelog/webkey",
+            "changelog/oloid-vault"
+          ]
+        }
+      ]
+    },
+    {
       "tab": "More Resources",
       "icon": "folder-open",
       "slug": "more",
+      "public": true,
       "group_menu": true,
       "review": "Everything Intercom holds that the new tree has no place for yet.",
       "groups": [
@@ -804,6 +844,20 @@
       "$comment": "Intercom drafts. build_nav.py mirrors every visible tab in here automatically (one menu per tab, reading pages from drafts/<tab>/<group>/). Only the menus below are declared by hand.",
       "menu": [
         {
+          "item": "Internal docs",
+          "icon": "lock",
+          "$comment": "Landing page for the signed-in Drafts collections (written in the Mintlify editor). Public itself; Unassigned and Excluded stay behind the login.",
+          "groups": [
+            {
+              "group": "Internal docs",
+              "public": true,
+              "pages": [
+                "drafts/internal-docs"
+              ]
+            }
+          ]
+        },
+        {
           "item": "Unassigned",
           "slug": "unassigned",
           "icon": "inbox",
@@ -814,13 +868,17 @@
               "slug": "intercom",
               "collections": [
                 "_Unassigned :: _Unassigned"
-              ]
+              ],
+              "icon": "lock",
+              "tag": "Internal"
             },
             {
               "group": "Collection not in navigation",
               "slug": "unmapped",
               "catch_unmapped": true,
-              "collections": []
+              "collections": [],
+              "icon": "lock",
+              "tag": "Internal"
             }
           ]
         },
@@ -853,7 +911,9 @@
               "slug": "what-is-oloid",
               "collections": [
                 "What is Oloid? :: What is Oloid?"
-              ]
+              ],
+              "icon": "lock",
+              "tag": "Internal"
             },
             {
               "group": "The Oloid Glossary",
