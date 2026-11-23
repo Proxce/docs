@@ -31,15 +31,15 @@
 .ask-oloid-button {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  height: 2rem;
-  padding: 0 0.85rem;
-  margin-left: 0.5rem;
+  gap: 0.35rem;
+  height: 1.75rem;            /* matches the compact search / Ask AI controls */
+  padding: 0 0.65rem;
+  margin-left: 0.4rem;
   border: 0;
   border-radius: 999px;
   background: var(--ao-primary);
   color: #fff;
-  font: 600 13px/1 var(--ao-font);
+  font: 600 12px/1 var(--ao-font);
   white-space: nowrap;
   cursor: pointer;
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
@@ -48,7 +48,7 @@
 .ask-oloid-button:hover { background: var(--ao-primary-hover); box-shadow: 0 2px 8px var(--ao-primary-shadow); }
 .ask-oloid-button:active { transform: scale(0.97); }
 .ask-oloid-button:focus-visible { outline: 2px solid var(--ao-primary); outline-offset: 2px; }
-.ask-oloid-button svg { width: 15px; height: 15px; }
+.ask-oloid-button svg { width: 13px; height: 13px; }
 
 /* fallback: floating bubble when no topbar slot is found */
 .ask-oloid-button--floating {

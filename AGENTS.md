@@ -377,8 +377,10 @@ has a sidebar:
 
 `docs.json` cannot change any of this: `styling` carries only `eyebrows` and
 `codeblocks`, and `fonts` only takes family/weight - there is no size or
-density key. The topbar search/assistant width is one of them
-(`--oloid-search-width`). All sizes are CSS variables at the top of the `STYLE_CSS`
+density key. The compact topbar controls are among them
+(`--oloid-search-width` 180px, `--oloid-assistant-width` 120px,
+`--oloid-topbar-control-h` 32px; the Ask Oloid button's size is in
+`ask-oloid.css`). All sizes are CSS variables at the top of the `STYLE_CSS`
 constant in `intercom_to_mintlify.py`, so making it smaller again is one block
 to edit. Do not edit `style.css` directly; the script overwrites it.
 

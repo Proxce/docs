@@ -340,10 +340,13 @@
    nothing cost nothing; the alternative is the bar silently going back to
    full width on the next CLI upgrade.
    ----------------------------------------------------------------------- */
-:root { --oloid-search-width: 260px; }
+:root {
+  --oloid-search-width: 180px;      /* search trigger */
+  --oloid-assistant-width: 120px;   /* "Ask AI" entry */
+  --oloid-topbar-control-h: 32px;   /* both, shorter than Mintlify's 40px */
+}
 
 #search-bar-entry,
-#assistant-entry,
 #topbar-search,
 [id^="search-bar"],
 [class*="search-bar"] {
@@ -351,9 +354,30 @@
   width: 100%;
   margin-left: auto;          /* sit against the right-hand controls */
 }
+#assistant-entry {
+  max-width: var(--oloid-assistant-width) !important;
+  width: auto;
+}
 
 /* the flex parent otherwise re-expands the child it is sizing */
-#topbar :is(#search-bar-entry, #assistant-entry) { flex: 0 1 var(--oloid-search-width); }
+#topbar #search-bar-entry { flex: 0 1 var(--oloid-search-width); }
+#topbar #assistant-entry  { flex: 0 0 auto; }
+
+/* compact: shorter controls, smaller text and icons */
+:is(#search-bar-entry, #assistant-entry, #topbar-search),
+:is(#search-bar-entry, #assistant-entry, #topbar-search) > button,
+:is(#search-bar-entry, #assistant-entry, #topbar-search) button {
+  height: var(--oloid-topbar-control-h) !important;
+  min-height: 0 !important;
+  font-size: 13px !important;
+}
+:is(#search-bar-entry, #assistant-entry, #topbar-search) svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+/* the keyboard hint ("Ctrl K") is the first thing to go in a small box */
+#search-bar-entry kbd,
+#search-bar-entry [class*="kbd"] { display: none !important; }
 
 /* below lg the topbar collapses to an icon row - leave that alone */
 @media (max-width: 1023px) {
