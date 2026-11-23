@@ -315,7 +315,7 @@ def pages_for(grp, slug_parts, root, prefix=""):
 
 HOWTO_LABEL, OTHERS_LABEL = "How to", "Others"
 HOWTO_RE = re.compile(r"(?i)\bhow\s*to\b")
-SPLIT_IDS, VIDEO_IDS = set(), set()
+SPLIT_IDS, VIDEO_IDS, KEEP_IDS = set(), set(), set()
 _TITLES = {}
 
 
@@ -404,6 +404,8 @@ def build_tabs(nav, root, report):
                 entry["tag"] = grp["tag"]
             if is_public:
                 entry[PUBLIC_KEY] = True
+            if grp.get("pages") is not None:
+                KEEP_IDS.add(id(entry))     # hand-ordered: keep its layout
             out.append(entry)
             report["pages"] += len(pages)
         return out
@@ -415,6 +417,14 @@ def build_tabs(nav, root, report):
             by_label.setdefault(g.get("group"), g)
         return [by_label.get(c.get("group"), {}) for c in children]
 
+    def _header(grp, pages):
+        head = {"group": grp["group"], "pages": pages}
+        if grp.get("icon"):
+            head["icon"] = grp["icon"]
+        if grp.get(PUBLIC_KEY):
+            head[PUBLIC_KEY] = True
+        return head
+
     def group_to_menu(grp):
         """A built top-level group -> a menu item.
 
@@ -422,28 +432,27 @@ def build_tabs(nav, root, report):
         in a group of the same name, kept in place between its sub-groups
         and its Videos group.
         """
-        groups, own = [], []
-
-        # Real sub-sections (Windows Login, Supervisor App, ...) stay sidebar
-        # headers. The section's own How to / Others / Videos groups and any
-        # loose pages are collected under one header named after the section,
-        # so they render as collapsible groups instead of three more headers.
-        for page in grp["pages"]:
-            if isinstance(page, dict) and id(page) not in SPLIT_IDS \
-                    and id(page) not in VIDEO_IDS:
-                groups.append(page)
-            else:
-                own.append(page)
-        if len(own) == 1 and isinstance(own[0], dict):
-            # only a Videos (or only a How to) group: it is the header itself
-            single = dict(own[0])
-            single.pop("expanded", None)
-            groups.append(single)
-        elif own:
-            wrapper = {"group": grp["group"], "pages": own}
-            if grp.get(PUBLIC_KEY):
-                wrapper[PUBLIC_KEY] = True
-            groups.append(wrapper)
+        groups = []
+        if id(grp) in KEEP_IDS:
+            # Hand-ordered sections (API Reference families, Changelog): each
+            # sub-group stays a sidebar header, loose pages get one of their own.
+            loose = []
+            for page in grp["pages"]:
+                if isinstance(page, dict):
+                    if loose:
+                        groups.append(_header(grp, loose))
+                        loose = []
+                    groups.append(page)
+                else:
+                    loose.append(page)
+            if loose:
+                groups.append(_header(grp, loose))
+        else:
+            # Sidebar headers cannot collapse, so a section gets exactly one -
+            # its own name - and everything under it (sub-sections such as
+            # Windows Login, then How to / Others / Videos) is a collapsible
+            # group, closed until clicked.
+            groups.append(_header(grp, list(grp["pages"])))
         entry = {"item": grp["group"], "groups": groups}
         if grp.get("icon"):
             entry["icon"] = grp["icon"]

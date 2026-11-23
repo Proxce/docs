@@ -2,9 +2,10 @@
    Ask Oloid: topbar button + chat sidebar (behaviour in ask-oloid.js)
    ========================================================================== */
 :root {
-  --ao-primary: #0D9373;
-  --ao-primary-hover: #0b7d62;
-  --ao-primary-soft: rgb(13 147 115 / 0.10);
+  --ao-primary: #203650;
+  --ao-primary-hover: #101828;
+  --ao-primary-soft: rgb(32 54 80 / 0.08);
+  --ao-primary-shadow: rgb(16 24 40 / 0.30);
   --ao-bg: #ffffff;
   --ao-surface: #f6f7f8;
   --ao-border: rgb(0 0 0 / 0.08);
@@ -15,9 +16,12 @@
 }
 
 :root[class~="dark"] {
-  --ao-primary-soft: rgb(13 147 115 / 0.18);
-  --ao-bg: #0f1115;
-  --ao-surface: #1a1d23;
+  --ao-primary: #2E6BB0;
+  --ao-primary-hover: #3B7DC4;
+  --ao-primary-soft: rgb(87 175 255 / 0.14);
+  --ao-primary-shadow: rgb(0 0 0 / 0.45);
+  --ao-bg: #0B1220;
+  --ao-surface: #131C2E;
   --ao-border: rgb(255 255 255 / 0.10);
   --ao-text: #f3f4f6;
   --ao-muted: #9ca3af;
@@ -41,7 +45,7 @@
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
   transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
-.ask-oloid-button:hover { background: var(--ao-primary-hover); box-shadow: 0 2px 8px rgb(13 147 115 / 0.35); }
+.ask-oloid-button:hover { background: var(--ao-primary-hover); box-shadow: 0 2px 8px var(--ao-primary-shadow); }
 .ask-oloid-button:active { transform: scale(0.97); }
 .ask-oloid-button:focus-visible { outline: 2px solid var(--ao-primary); outline-offset: 2px; }
 .ask-oloid-button svg { width: 15px; height: 15px; }
@@ -56,7 +60,7 @@
   padding: 0 1.1rem;
   margin: 0;
   font-size: 14px;
-  box-shadow: 0 6px 20px rgb(13 147 115 / 0.35);
+  box-shadow: 0 6px 20px var(--ao-primary-shadow);
 }
 .ask-oloid-button--floating svg { width: 18px; height: 18px; }
 .ask-oloid-open .ask-oloid-button--floating { display: none; }

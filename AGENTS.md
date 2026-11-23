@@ -222,10 +222,20 @@ then its own pages, then its Videos group.
 puts pages whose title contains "how to" in a **How to** group and the rest in
 **Others**, at every level, Videos groups included. Every nested group is
 written with `"expanded": false`, so the sidebar opens collapsed and only the
-group holding the current page is open. In a menu, real sub-sections stay
-headers and the section's own How to / Others / Videos sit under one header
-named after the section. Groups with an explicit `pages` list (API
-Reference, Changelog) or `"no_split": true` keep their order unsplit.
+group holding the current page is open. Mintlify sidebar headers cannot
+collapse, so each menu section gets exactly one header (its own name) and
+everything under it - sub-sections like Windows Login, then How to / Others /
+Videos - is a collapsible group. Groups with an explicit `pages` list (API
+Reference, Changelog) or `"no_split": true` keep their order and layout.
+
+## Branding
+
+Set in `docs.json` directly (`build_nav.py` keeps every key but
+`navigation`): `colors` primary `#101828`, dark (buttons) `#203650`, light
+(dark-mode accent) `#57AFFF`; `appearance.default` light; dark background
+`#0B1220`. `logo/light.svg` and `logo/dark.svg` are the droplet mark plus the
+OLOID wordmark (the dark one renders the wordmark white); `favicon.svg` is the
+mark. The Ask Oloid widget colours are in `ask-oloid.css`.
 
 ```
 python build_nav.py --tree      # report only: the tree, page counts, unmapped groups
