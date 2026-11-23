@@ -1095,14 +1095,6 @@
           ]
         },
         {
-          "group": "Release Notes",
-          "slug": "release-notes",
-          "icon": "clock-rotate-left",
-          "collections": [
-            "Release Notes :: Release Notes"
-          ]
-        },
-        {
           "group": "Changelog",
           "icon": "megaphone",
           "pages": [],
@@ -1132,6 +1124,16 @@
                 "changelog/ios",
                 "changelog/webkey",
                 "changelog/oloid-vault"
+              ]
+            },
+            {
+              "group": "More release notes",
+              "slug": "release-notes",
+              "icon": "clock-rotate-left",
+              "placeholder": false,
+              "$comment": "Merged from the old Resources > Release Notes group. Intercom's 'Release Notes' collection lands here (more/release-notes/); the group stays hidden while the collection is empty.",
+              "collections": [
+                "Release Notes :: Release Notes"
               ]
             }
           ]

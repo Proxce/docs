@@ -1748,6 +1748,11 @@ def page_slug(article):
 # MDX file
 # --------------------------------------------------------------------------
 
+VIDEO_SUFFIX_RE = re.compile(
+    r"\s*(?:[-–—:|]\s*|\()\s*video\s+(?:tutorial|portal|guide|walkthrough)s?\s*\)?\s*$",
+    re.I)
+
+
 def short_title(title, limit=None):
     """The sidebar label: the title without its leading "Product - " qualifier.
 
@@ -1760,6 +1765,10 @@ def short_title(title, limit=None):
     `limit` is only used for the alt-text prefix, which may be cut.
     """
     text = re.sub(r"\s+", " ", title).strip()
+    # drop a trailing "- Video Tutorial" first: the page sits in a Videos group,
+    # and left in place the prefix rule below took the real title for a
+    # "Product - " qualifier and labelled 94 videos just "Video Tutorial"
+    text = VIDEO_SUFFIX_RE.sub("", text).strip() or text
     # drop a leading "Product - " qualifier; the menu already carries that context
     if " - " in text:
         head, _, tail = text.partition(" - ")

@@ -2327,70 +2327,82 @@
             "item": "Standard APIs",
             "groups": [
               {
-                "group": "Overview",
+                "group": "Standard APIs",
                 "pages": [
-                  "api-reference/standard/overview"
+                  {
+                    "group": "Overview",
+                    "pages": [
+                      "api-reference/standard/overview"
+                    ],
+                    "icon": "compass",
+                    "public": true,
+                    "expanded": false
+                  },
+                  {
+                    "group": "Authentication",
+                    "pages": [
+                      "api-reference/standard/authentication/overview",
+                      "api-reference/standard/authentication/login",
+                      "api-reference/standard/authentication/google-login"
+                    ],
+                    "icon": "key",
+                    "public": true,
+                    "expanded": false
+                  },
+                  {
+                    "group": "Users",
+                    "pages": [
+                      "api-reference/standard/users/overview",
+                      "api-reference/standard/users/get-users",
+                      "api-reference/standard/users/create-user",
+                      "api-reference/standard/users/get-user",
+                      "api-reference/standard/users/update-user",
+                      "api-reference/standard/users/delete-user",
+                      "api-reference/standard/users/add-face",
+                      "api-reference/standard/users/delete-cognito-user",
+                      "api-reference/standard/users/get-import-status",
+                      "api-reference/standard/users/get-user-details",
+                      "api-reference/standard/users/get-admin-users",
+                      "api-reference/standard/users/delete-oloid-user",
+                      "api-reference/standard/users/find-similar-faces",
+                      "api-reference/standard/users/invite-user",
+                      "api-reference/standard/users/send-login-url-multiple-users",
+                      "api-reference/standard/users/invite-new-user",
+                      "api-reference/standard/users/encrypt-all-users-pin"
+                    ],
+                    "icon": "user",
+                    "public": true,
+                    "expanded": false
+                  },
+                  {
+                    "group": "Groups",
+                    "pages": [
+                      "api-reference/standard/groups/overview",
+                      "api-reference/standard/groups/get-all-groups",
+                      "api-reference/standard/groups/create-new-group",
+                      "api-reference/standard/groups/get-group-details",
+                      "api-reference/standard/groups/delete-group",
+                      "api-reference/standard/groups/add-users-to-group",
+                      "api-reference/standard/groups/remove-users-from-group",
+                      "api-reference/standard/groups/add-endpoints",
+                      "api-reference/standard/groups/remove-endpoints"
+                    ],
+                    "icon": "users",
+                    "public": true,
+                    "expanded": false
+                  },
+                  {
+                    "group": "Reports",
+                    "pages": [
+                      "api-reference/standard/reports/overview",
+                      "api-reference/standard/reports/get-rdsdata"
+                    ],
+                    "icon": "chart-line",
+                    "public": true,
+                    "expanded": false
+                  }
                 ],
-                "icon": "compass",
-                "public": true
-              },
-              {
-                "group": "Authentication",
-                "pages": [
-                  "api-reference/standard/authentication/overview",
-                  "api-reference/standard/authentication/login",
-                  "api-reference/standard/authentication/google-login"
-                ],
-                "icon": "key",
-                "public": true
-              },
-              {
-                "group": "Users",
-                "pages": [
-                  "api-reference/standard/users/overview",
-                  "api-reference/standard/users/get-users",
-                  "api-reference/standard/users/create-user",
-                  "api-reference/standard/users/get-user",
-                  "api-reference/standard/users/update-user",
-                  "api-reference/standard/users/delete-user",
-                  "api-reference/standard/users/add-face",
-                  "api-reference/standard/users/delete-cognito-user",
-                  "api-reference/standard/users/get-import-status",
-                  "api-reference/standard/users/get-user-details",
-                  "api-reference/standard/users/get-admin-users",
-                  "api-reference/standard/users/delete-oloid-user",
-                  "api-reference/standard/users/find-similar-faces",
-                  "api-reference/standard/users/invite-user",
-                  "api-reference/standard/users/send-login-url-multiple-users",
-                  "api-reference/standard/users/invite-new-user",
-                  "api-reference/standard/users/encrypt-all-users-pin"
-                ],
-                "icon": "user",
-                "public": true
-              },
-              {
-                "group": "Groups",
-                "pages": [
-                  "api-reference/standard/groups/overview",
-                  "api-reference/standard/groups/get-all-groups",
-                  "api-reference/standard/groups/create-new-group",
-                  "api-reference/standard/groups/get-group-details",
-                  "api-reference/standard/groups/delete-group",
-                  "api-reference/standard/groups/add-users-to-group",
-                  "api-reference/standard/groups/remove-users-from-group",
-                  "api-reference/standard/groups/add-endpoints",
-                  "api-reference/standard/groups/remove-endpoints"
-                ],
-                "icon": "users",
-                "public": true
-              },
-              {
-                "group": "Reports",
-                "pages": [
-                  "api-reference/standard/reports/overview",
-                  "api-reference/standard/reports/get-rdsdata"
-                ],
-                "icon": "chart-line",
+                "icon": "globe",
                 "public": true
               }
             ],
@@ -2400,161 +2412,177 @@
             "item": "Advanced APIs",
             "groups": [
               {
-                "group": "Overview",
+                "group": "Advanced APIs",
                 "pages": [
-                  "api-reference/advanced/overview"
+                  {
+                    "group": "Overview",
+                    "pages": [
+                      "api-reference/advanced/overview"
+                    ],
+                    "icon": "compass",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Authentication",
+                    "pages": [
+                      "api-reference/advanced/authentication/overview",
+                      "api-reference/advanced/authentication/login",
+                      "api-reference/advanced/authentication/google-login"
+                    ],
+                    "icon": "key",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Applications",
+                    "pages": [
+                      "api-reference/advanced/applications/overview",
+                      "api-reference/advanced/applications/get-applications",
+                      "api-reference/advanced/applications/create-application",
+                      "api-reference/advanced/applications/get-application-by-application-id",
+                      "api-reference/advanced/applications/update-application",
+                      "api-reference/advanced/applications/delete-application",
+                      "api-reference/advanced/applications/get-application-users"
+                    ],
+                    "icon": "window-maximize",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Connections",
+                    "pages": [
+                      "api-reference/advanced/connections/overview",
+                      "api-reference/advanced/connections/get-connections",
+                      "api-reference/advanced/connections/create-connection",
+                      "api-reference/advanced/connections/get-connection-by-connection-id",
+                      "api-reference/advanced/connections/update-connection",
+                      "api-reference/advanced/connections/delete-connection"
+                    ],
+                    "icon": "plug",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Credentials",
+                    "pages": [
+                      "api-reference/advanced/credentials/overview",
+                      "api-reference/advanced/credentials/get-user-password-by-credential-id",
+                      "api-reference/advanced/credentials/delete-user-password-credential",
+                      "api-reference/advanced/credentials/create-user-password-credential",
+                      "api-reference/advanced/credentials/update-user-password-credential",
+                      "api-reference/advanced/credentials/get-shared-password-by-id",
+                      "api-reference/advanced/credentials/create-shared-password-credential",
+                      "api-reference/advanced/credentials/update-shared-password-credential",
+                      "api-reference/advanced/credentials/verify-user-passwordless-credential",
+                      "api-reference/advanced/credentials/get-shared-passwords",
+                      "api-reference/advanced/credentials/assign-shared-credentials",
+                      "api-reference/advanced/credentials/list-shared-passwords",
+                      "api-reference/advanced/credentials/get-all-passkey-credentials",
+                      "api-reference/advanced/credentials/create-passkey-credential",
+                      "api-reference/advanced/credentials/update-passkey-credential",
+                      "api-reference/advanced/credentials/get-passkey-credential",
+                      "api-reference/advanced/credentials/delete-passkey-credential",
+                      "api-reference/advanced/credentials/fido-public",
+                      "api-reference/advanced/credentials/fido-auth",
+                      "api-reference/advanced/credentials/send-app-invite",
+                      "api-reference/advanced/credentials/verify-face-additional-check",
+                      "api-reference/advanced/credentials/face-login",
+                      "api-reference/advanced/credentials/search-face-login",
+                      "api-reference/advanced/credentials/qr-code-login",
+                      "api-reference/advanced/credentials/id-search-login",
+                      "api-reference/advanced/credentials/get-card-formats",
+                      "api-reference/advanced/credentials/verify-identity",
+                      "api-reference/advanced/credentials/send-multiple-app-invites",
+                      "api-reference/advanced/credentials/get-user-passwords",
+                      "api-reference/advanced/credentials/create-qrcode",
+                      "api-reference/advanced/credentials/get-qrcode-by-olo-id",
+                      "api-reference/advanced/credentials/add-user-face",
+                      "api-reference/advanced/credentials/remove-user-face",
+                      "api-reference/advanced/credentials/access-control-badges",
+                      "api-reference/advanced/credentials/get-user-credential"
+                    ],
+                    "icon": "id-card",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Endpoints",
+                    "pages": [
+                      "api-reference/advanced/endpoints/overview",
+                      "api-reference/advanced/endpoints/get-all-endpoints",
+                      "api-reference/advanced/endpoints/get-endpoint-details-by-id",
+                      "api-reference/advanced/endpoints/update-endpoint-detail",
+                      "api-reference/advanced/endpoints/delete-endpoint",
+                      "api-reference/advanced/endpoints/get-end-user-from-endpoint",
+                      "api-reference/advanced/endpoints/get-uuid",
+                      "api-reference/advanced/endpoints/re-pair-endpoint",
+                      "api-reference/advanced/endpoints/update-intent",
+                      "api-reference/advanced/endpoints/delete-endpoint-groups",
+                      "api-reference/advanced/endpoints/pair-endpoint",
+                      "api-reference/advanced/endpoints/init-health-check",
+                      "api-reference/advanced/endpoints/auto-pair-endpoint",
+                      "api-reference/advanced/endpoints/update-health-for-windows-endpoint",
+                      "api-reference/advanced/endpoints/pair-endpoint-sticker",
+                      "api-reference/advanced/endpoints/create-endpoint-template",
+                      "api-reference/advanced/endpoints/list-endpoint-templates"
+                    ],
+                    "icon": "display",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Settings",
+                    "pages": [
+                      "api-reference/advanced/settings/overview",
+                      "api-reference/advanced/settings/get-all-settings",
+                      "api-reference/advanced/settings/update-settings",
+                      "api-reference/advanced/settings/create-settings",
+                      "api-reference/advanced/settings/get-settings",
+                      "api-reference/advanced/settings/delete-settings"
+                    ],
+                    "icon": "gear",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Tenant settings",
+                    "pages": [
+                      "api-reference/advanced/tenant-settings/overview",
+                      "api-reference/advanced/tenant-settings/create-cognito-user-cred",
+                      "api-reference/advanced/tenant-settings/get-cognito-credentials",
+                      "api-reference/advanced/tenant-settings/get-cognito-user-cred",
+                      "api-reference/advanced/tenant-settings/update-cognito-user-cred",
+                      "api-reference/advanced/tenant-settings/delete-cognito-user-cred"
+                    ],
+                    "icon": "sliders",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Transactions",
+                    "pages": [
+                      "api-reference/advanced/transactions/overview",
+                      "api-reference/advanced/transactions/get-transactions",
+                      "api-reference/advanced/transactions/get-transaction",
+                      "api-reference/advanced/transactions/update-transaction",
+                      "api-reference/advanced/transactions/export-transactions",
+                      "api-reference/advanced/transactions/sync-transactions",
+                      "api-reference/advanced/transactions/create-action-transaction",
+                      "api-reference/advanced/transactions/get-action-transactions",
+                      "api-reference/advanced/transactions/update-endpoint-action",
+                      "api-reference/advanced/transactions/get-user-transactions",
+                      "api-reference/advanced/transactions/get-transactions-bykey",
+                      "api-reference/advanced/transactions/export-kronos-action",
+                      "api-reference/advanced/transactions/get-error-transaction",
+                      "api-reference/advanced/transactions/get-action-view"
+                    ],
+                    "icon": "arrow-right-arrow-left",
+                    "expanded": false
+                  },
+                  {
+                    "group": "User consent",
+                    "pages": [
+                      "api-reference/advanced/user-consent/overview",
+                      "api-reference/advanced/user-consent/get-user-consent"
+                    ],
+                    "icon": "file-signature",
+                    "expanded": false
+                  }
                 ],
-                "icon": "compass"
-              },
-              {
-                "group": "Authentication",
-                "pages": [
-                  "api-reference/advanced/authentication/overview",
-                  "api-reference/advanced/authentication/login",
-                  "api-reference/advanced/authentication/google-login"
-                ],
-                "icon": "key"
-              },
-              {
-                "group": "Applications",
-                "pages": [
-                  "api-reference/advanced/applications/overview",
-                  "api-reference/advanced/applications/get-applications",
-                  "api-reference/advanced/applications/create-application",
-                  "api-reference/advanced/applications/get-application-by-application-id",
-                  "api-reference/advanced/applications/update-application",
-                  "api-reference/advanced/applications/delete-application",
-                  "api-reference/advanced/applications/get-application-users"
-                ],
-                "icon": "window-maximize"
-              },
-              {
-                "group": "Connections",
-                "pages": [
-                  "api-reference/advanced/connections/overview",
-                  "api-reference/advanced/connections/get-connections",
-                  "api-reference/advanced/connections/create-connection",
-                  "api-reference/advanced/connections/get-connection-by-connection-id",
-                  "api-reference/advanced/connections/update-connection",
-                  "api-reference/advanced/connections/delete-connection"
-                ],
-                "icon": "plug"
-              },
-              {
-                "group": "Credentials",
-                "pages": [
-                  "api-reference/advanced/credentials/overview",
-                  "api-reference/advanced/credentials/get-user-password-by-credential-id",
-                  "api-reference/advanced/credentials/delete-user-password-credential",
-                  "api-reference/advanced/credentials/create-user-password-credential",
-                  "api-reference/advanced/credentials/update-user-password-credential",
-                  "api-reference/advanced/credentials/get-shared-password-by-id",
-                  "api-reference/advanced/credentials/create-shared-password-credential",
-                  "api-reference/advanced/credentials/update-shared-password-credential",
-                  "api-reference/advanced/credentials/verify-user-passwordless-credential",
-                  "api-reference/advanced/credentials/get-shared-passwords",
-                  "api-reference/advanced/credentials/assign-shared-credentials",
-                  "api-reference/advanced/credentials/list-shared-passwords",
-                  "api-reference/advanced/credentials/get-all-passkey-credentials",
-                  "api-reference/advanced/credentials/create-passkey-credential",
-                  "api-reference/advanced/credentials/update-passkey-credential",
-                  "api-reference/advanced/credentials/get-passkey-credential",
-                  "api-reference/advanced/credentials/delete-passkey-credential",
-                  "api-reference/advanced/credentials/fido-public",
-                  "api-reference/advanced/credentials/fido-auth",
-                  "api-reference/advanced/credentials/send-app-invite",
-                  "api-reference/advanced/credentials/verify-face-additional-check",
-                  "api-reference/advanced/credentials/face-login",
-                  "api-reference/advanced/credentials/search-face-login",
-                  "api-reference/advanced/credentials/qr-code-login",
-                  "api-reference/advanced/credentials/id-search-login",
-                  "api-reference/advanced/credentials/get-card-formats",
-                  "api-reference/advanced/credentials/verify-identity",
-                  "api-reference/advanced/credentials/send-multiple-app-invites",
-                  "api-reference/advanced/credentials/get-user-passwords",
-                  "api-reference/advanced/credentials/create-qrcode",
-                  "api-reference/advanced/credentials/get-qrcode-by-olo-id",
-                  "api-reference/advanced/credentials/add-user-face",
-                  "api-reference/advanced/credentials/remove-user-face",
-                  "api-reference/advanced/credentials/access-control-badges",
-                  "api-reference/advanced/credentials/get-user-credential"
-                ],
-                "icon": "id-card"
-              },
-              {
-                "group": "Endpoints",
-                "pages": [
-                  "api-reference/advanced/endpoints/overview",
-                  "api-reference/advanced/endpoints/get-all-endpoints",
-                  "api-reference/advanced/endpoints/get-endpoint-details-by-id",
-                  "api-reference/advanced/endpoints/update-endpoint-detail",
-                  "api-reference/advanced/endpoints/delete-endpoint",
-                  "api-reference/advanced/endpoints/get-end-user-from-endpoint",
-                  "api-reference/advanced/endpoints/get-uuid",
-                  "api-reference/advanced/endpoints/re-pair-endpoint",
-                  "api-reference/advanced/endpoints/update-intent",
-                  "api-reference/advanced/endpoints/delete-endpoint-groups",
-                  "api-reference/advanced/endpoints/pair-endpoint",
-                  "api-reference/advanced/endpoints/init-health-check",
-                  "api-reference/advanced/endpoints/auto-pair-endpoint",
-                  "api-reference/advanced/endpoints/update-health-for-windows-endpoint",
-                  "api-reference/advanced/endpoints/pair-endpoint-sticker",
-                  "api-reference/advanced/endpoints/create-endpoint-template",
-                  "api-reference/advanced/endpoints/list-endpoint-templates"
-                ],
-                "icon": "display"
-              },
-              {
-                "group": "Settings",
-                "pages": [
-                  "api-reference/advanced/settings/overview",
-                  "api-reference/advanced/settings/get-all-settings",
-                  "api-reference/advanced/settings/update-settings",
-                  "api-reference/advanced/settings/create-settings",
-                  "api-reference/advanced/settings/get-settings",
-                  "api-reference/advanced/settings/delete-settings"
-                ],
-                "icon": "gear"
-              },
-              {
-                "group": "Tenant settings",
-                "pages": [
-                  "api-reference/advanced/tenant-settings/overview",
-                  "api-reference/advanced/tenant-settings/create-cognito-user-cred",
-                  "api-reference/advanced/tenant-settings/get-cognito-credentials",
-                  "api-reference/advanced/tenant-settings/get-cognito-user-cred",
-                  "api-reference/advanced/tenant-settings/update-cognito-user-cred",
-                  "api-reference/advanced/tenant-settings/delete-cognito-user-cred"
-                ],
-                "icon": "sliders"
-              },
-              {
-                "group": "Transactions",
-                "pages": [
-                  "api-reference/advanced/transactions/overview",
-                  "api-reference/advanced/transactions/get-transactions",
-                  "api-reference/advanced/transactions/get-transaction",
-                  "api-reference/advanced/transactions/update-transaction",
-                  "api-reference/advanced/transactions/export-transactions",
-                  "api-reference/advanced/transactions/sync-transactions",
-                  "api-reference/advanced/transactions/create-action-transaction",
-                  "api-reference/advanced/transactions/get-action-transactions",
-                  "api-reference/advanced/transactions/update-endpoint-action",
-                  "api-reference/advanced/transactions/get-user-transactions",
-                  "api-reference/advanced/transactions/get-transactions-bykey",
-                  "api-reference/advanced/transactions/export-kronos-action",
-                  "api-reference/advanced/transactions/get-error-transaction",
-                  "api-reference/advanced/transactions/get-action-view"
-                ],
-                "icon": "arrow-right-arrow-left"
-              },
-              {
-                "group": "User consent",
-                "pages": [
-                  "api-reference/advanced/user-consent/overview",
-                  "api-reference/advanced/user-consent/get-user-consent"
-                ],
-                "icon": "file-signature"
+                "icon": "lock"
               }
             ],
             "icon": "lock"
@@ -2563,45 +2591,56 @@
             "item": "Scoped APIs",
             "groups": [
               {
-                "group": "Overview",
+                "group": "Scoped APIs",
                 "pages": [
-                  "api-reference/scoped/overview"
+                  {
+                    "group": "Overview",
+                    "pages": [
+                      "api-reference/scoped/overview"
+                    ],
+                    "icon": "compass",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Authentication",
+                    "pages": [
+                      "api-reference/scoped/authentication/overview",
+                      "api-reference/scoped/authentication/login"
+                    ],
+                    "icon": "key",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Transactions",
+                    "pages": [
+                      "api-reference/scoped/transactions/overview",
+                      "api-reference/scoped/transactions/get-transactions",
+                      "api-reference/scoped/transactions/get-transaction"
+                    ],
+                    "icon": "arrow-right-arrow-left",
+                    "expanded": false
+                  },
+                  {
+                    "group": "User consent",
+                    "pages": [
+                      "api-reference/scoped/user-consent/overview",
+                      "api-reference/scoped/user-consent/get-user-consent",
+                      "api-reference/scoped/user-consent/get-user-consent-pdf"
+                    ],
+                    "icon": "file-signature",
+                    "expanded": false
+                  },
+                  {
+                    "group": "Activity logs",
+                    "pages": [
+                      "api-reference/scoped/activity-logs/overview",
+                      "api-reference/scoped/activity-logs/get-activity-logs"
+                    ],
+                    "icon": "list-check",
+                    "expanded": false
+                  }
                 ],
-                "icon": "compass"
-              },
-              {
-                "group": "Authentication",
-                "pages": [
-                  "api-reference/scoped/authentication/overview",
-                  "api-reference/scoped/authentication/login"
-                ],
-                "icon": "key"
-              },
-              {
-                "group": "Transactions",
-                "pages": [
-                  "api-reference/scoped/transactions/overview",
-                  "api-reference/scoped/transactions/get-transactions",
-                  "api-reference/scoped/transactions/get-transaction"
-                ],
-                "icon": "arrow-right-arrow-left"
-              },
-              {
-                "group": "User consent",
-                "pages": [
-                  "api-reference/scoped/user-consent/overview",
-                  "api-reference/scoped/user-consent/get-user-consent",
-                  "api-reference/scoped/user-consent/get-user-consent-pdf"
-                ],
-                "icon": "file-signature"
-              },
-              {
-                "group": "Activity logs",
-                "pages": [
-                  "api-reference/scoped/activity-logs/overview",
-                  "api-reference/scoped/activity-logs/get-activity-logs"
-                ],
-                "icon": "list-check"
+                "icon": "shield-halved"
               }
             ],
             "icon": "shield-halved"
@@ -2832,57 +2871,45 @@
             "icon": "code"
           },
           {
-            "item": "Release Notes",
-            "groups": [
-              {
-                "group": "Release Notes",
-                "pages": [
-                  {
-                    "group": "Others",
-                    "icon": "folder-open",
-                    "expanded": false,
-                    "pages": [
-                      "more/release-notes/overview"
-                    ],
-                    "public": true
-                  }
-                ],
-                "icon": "clock-rotate-left",
-                "public": true
-              }
-            ],
-            "icon": "clock-rotate-left"
-          },
-          {
             "item": "Changelog",
             "groups": [
               {
-                "group": "Release notes",
+                "group": "Changelog",
                 "pages": [
-                  "changelog/overview"
+                  {
+                    "group": "Release notes",
+                    "pages": [
+                      "changelog/overview"
+                    ],
+                    "icon": "megaphone",
+                    "public": true,
+                    "expanded": false
+                  },
+                  {
+                    "group": "Web portals",
+                    "pages": [
+                      "changelog/admin-portal",
+                      "changelog/user-portal"
+                    ],
+                    "icon": "browser",
+                    "public": true,
+                    "expanded": false
+                  },
+                  {
+                    "group": "Apps",
+                    "pages": [
+                      "changelog/windows",
+                      "changelog/android",
+                      "changelog/ios",
+                      "changelog/webkey",
+                      "changelog/oloid-vault"
+                    ],
+                    "icon": "mobile-screen",
+                    "public": true,
+                    "expanded": false
+                  }
                 ],
                 "icon": "megaphone",
-                "public": true
-              },
-              {
-                "group": "Web portals",
-                "pages": [
-                  "changelog/admin-portal",
-                  "changelog/user-portal"
-                ],
-                "icon": "browser",
-                "public": true
-              },
-              {
-                "group": "Apps",
-                "pages": [
-                  "changelog/windows",
-                  "changelog/android",
-                  "changelog/ios",
-                  "changelog/webkey",
-                  "changelog/oloid-vault"
-                ],
-                "icon": "mobile-screen",
                 "public": true
               }
             ],
@@ -2939,6 +2966,11 @@
     {
       "source": "/drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app-content",
       "destination": "/drafts/windows/general-guides/user-guides/how-to-use-oloid-s-device-lock-app",
+      "permanent": true
+    },
+    {
+      "source": "/more/release-notes/overview",
+      "destination": "/changelog/overview",
       "permanent": true
     }
   ],

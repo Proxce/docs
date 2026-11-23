@@ -315,7 +315,7 @@ def pages_for(grp, slug_parts, root, prefix=""):
 
 HOWTO_LABEL, OTHERS_LABEL = "How to", "Others"
 HOWTO_RE = re.compile(r"(?i)\bhow\s*to\b")
-SPLIT_IDS, VIDEO_IDS, KEEP_IDS = set(), set(), set()
+SPLIT_IDS, VIDEO_IDS = set(), set()
 _TITLES = {}
 
 
@@ -404,8 +404,6 @@ def build_tabs(nav, root, report):
                 entry["tag"] = grp["tag"]
             if is_public:
                 entry[PUBLIC_KEY] = True
-            if grp.get("pages") is not None:
-                KEEP_IDS.add(id(entry))     # hand-ordered: keep its layout
             out.append(entry)
             report["pages"] += len(pages)
         return out
@@ -432,27 +430,12 @@ def build_tabs(nav, root, report):
         in a group of the same name, kept in place between its sub-groups
         and its Videos group.
         """
-        groups = []
-        if id(grp) in KEEP_IDS:
-            # Hand-ordered sections (API Reference families, Changelog): each
-            # sub-group stays a sidebar header, loose pages get one of their own.
-            loose = []
-            for page in grp["pages"]:
-                if isinstance(page, dict):
-                    if loose:
-                        groups.append(_header(grp, loose))
-                        loose = []
-                    groups.append(page)
-                else:
-                    loose.append(page)
-            if loose:
-                groups.append(_header(grp, loose))
-        else:
-            # Sidebar headers cannot collapse, so a section gets exactly one -
-            # its own name - and everything under it (sub-sections such as
-            # Windows Login, then How to / Others / Videos) is a collapsible
-            # group, closed until clicked.
-            groups.append(_header(grp, list(grp["pages"])))
+        # Sidebar headers cannot collapse, so every section gets exactly one -
+        # its own name - and everything under it (sub-sections such as
+        # Windows Login or Users, then How to / Others / Videos) is a
+        # collapsible group, closed until clicked. Hand-ordered sections (API
+        # Reference, Changelog) keep their order; they are only not split.
+        groups = [_header(grp, list(grp["pages"]))]
         entry = {"item": grp["group"], "groups": groups}
         if grp.get("icon"):
             entry["icon"] = grp["icon"]

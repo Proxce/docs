@@ -225,8 +225,16 @@ written with `"expanded": false`, so the sidebar opens collapsed and only the
 group holding the current page is open. Mintlify sidebar headers cannot
 collapse, so each menu section gets exactly one header (its own name) and
 everything under it - sub-sections like Windows Login, then How to / Others /
-Videos - is a collapsible group. Groups with an explicit `pages` list (API
-Reference, Changelog) or `"no_split": true` keep their order and layout.
+Videos - is a collapsible group. This holds for every tab, API Reference and
+Changelog included; groups with an explicit `pages` list (those two) or
+`"no_split": true` keep their order and are not split into How to / Others.
+
+Video sidebar labels drop the "- Video Tutorial" suffix (`VIDEO_SUFFIX_RE` in
+`intercom_to_mintlify.py`): the page already sits in a Videos group, and with
+the suffix the "Product - " rule used to label 94 videos just "Video Tutorial".
+Page titles keep the suffix. The Changelog also holds a "More release notes"
+group for Intercom's Release Notes collection (formerly Resources > Release
+Notes); it shows once that collection has articles.
 
 ## Branding
 
