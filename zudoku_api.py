@@ -1101,7 +1101,7 @@ def main():
     if TAB_NAME in names:
         nav["tabs"][names.index(TAB_NAME)] = tab
     else:
-        at = names.index("Changelog") if "Changelog" in names else len(names) - 1
+        at = names.index("Resources") if "Resources" in names else len(names) - 1
         nav["tabs"].insert(at, tab)
     if not args.dry_run:
         with io.open(nav_path, "w", encoding="utf-8", newline="\n") as fh:

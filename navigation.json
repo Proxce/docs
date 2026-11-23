@@ -1019,42 +1019,7 @@
       ]
     },
     {
-      "tab": "Changelog",
-      "icon": "megaphone",
-      "slug": "changelog",
-      "public": true,
-      "$comment": "Release notes, written by zudoku_changelog.py from the Zudoku project. Pages are pinned here so the order is product order, not alphabetical. Re-run the script to refresh them; never edit changelog/*.mdx.",
-      "groups": [
-        {
-          "group": "Release notes",
-          "icon": "megaphone",
-          "pages": [
-            "changelog/overview"
-          ]
-        },
-        {
-          "group": "Web portals",
-          "icon": "browser",
-          "pages": [
-            "changelog/admin-portal",
-            "changelog/user-portal"
-          ]
-        },
-        {
-          "group": "Apps",
-          "icon": "mobile-screen",
-          "pages": [
-            "changelog/windows",
-            "changelog/android",
-            "changelog/ios",
-            "changelog/webkey",
-            "changelog/oloid-vault"
-          ]
-        }
-      ]
-    },
-    {
-      "tab": "More Resources",
+      "tab": "Resources",
       "icon": "folder-open",
       "slug": "more",
       "public": true,
@@ -1135,6 +1100,40 @@
           "icon": "clock-rotate-left",
           "collections": [
             "Release Notes :: Release Notes"
+          ]
+        },
+        {
+          "group": "Changelog",
+          "icon": "megaphone",
+          "pages": [],
+          "$comment": "Release notes written by zudoku_changelog.py. `pages: []` stops build_nav listing more/ here; the pages are pinned in the sub-groups.",
+          "groups": [
+            {
+              "group": "Release notes",
+              "icon": "megaphone",
+              "pages": [
+                "changelog/overview"
+              ]
+            },
+            {
+              "group": "Web portals",
+              "icon": "browser",
+              "pages": [
+                "changelog/admin-portal",
+                "changelog/user-portal"
+              ]
+            },
+            {
+              "group": "Apps",
+              "icon": "mobile-screen",
+              "pages": [
+                "changelog/windows",
+                "changelog/android",
+                "changelog/ios",
+                "changelog/webkey",
+                "changelog/oloid-vault"
+              ]
+            }
           ]
         }
       ]
@@ -1234,7 +1233,8 @@
             }
           ]
         }
-      ]
+      ],
+      "hidden": true
     }
   ]
 }

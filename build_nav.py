@@ -304,6 +304,61 @@ def pages_for(grp, slug_parts, root, prefix=""):
     return pages
 
 
+# ---------------------------------------------------------------------------
+#  How to / Others
+# ---------------------------------------------------------------------------
+#  A group's own pages (the ones in its directory, not in a sub-group) are
+#  split in two collapsed groups: "How to" for pages whose title says
+#  "how to", "Others" for the rest. Groups with an explicit `pages` list
+#  (generated or hand-ordered: API Reference, Changelog) or `"no_split": true`
+#  keep their order untouched. Every nested group is collapsed by default.
+
+HOWTO_LABEL, OTHERS_LABEL = "How to", "Others"
+HOWTO_RE = re.compile(r"(?i)\bhow\s*to\b")
+SPLIT_IDS, VIDEO_IDS = set(), set()
+_TITLES = {}
+
+
+def page_title(root, page):
+    if page not in _TITLES:
+        title = ""
+        try:
+            with open(os.path.join(root, page + ".mdx"), encoding="utf-8") as fh:
+                head = fh.read(2000)
+            m = re.search(r'^title:\s*"?(.*?)"?\s*$', head, re.M)
+            title = m.group(1) if m else ""
+        except OSError:
+            pass
+        _TITLES[page] = title or page.rsplit("/", 1)[-1].replace("-", " ")
+    return _TITLES[page]
+
+
+def split_howto(pages, root, public):
+    howto = [p for p in pages if HOWTO_RE.search(page_title(root, p))]
+    rest = [p for p in pages if p not in howto]
+    out = []
+    for label, icon, items in ((HOWTO_LABEL, "list-check", howto),
+                               (OTHERS_LABEL, "folder-open", rest)):
+        if not items:
+            continue
+        g = {"group": label, "icon": icon, "expanded": False, "pages": items}
+        if public:
+            g[PUBLIC_KEY] = True
+        SPLIT_IDS.add(id(g))
+        out.append(g)
+    return out
+
+
+def collapse_nested(groups, depth=0):
+    """Mark every group below the sidebar headers as collapsed by default."""
+    for g in groups:
+        if not isinstance(g, dict):
+            continue
+        if depth > 0:
+            g.setdefault("expanded", False)
+        collapse_nested([p for p in g.get("pages") or [] if isinstance(p, dict)], depth + 1)
+
+
 def build_tabs(nav, root, report):
     """navigation.json -> the docs.json `tabs` array.
 
@@ -336,8 +391,13 @@ def build_tabs(nav, root, report):
                 continue
             videos = [c for c, g in zip(children, _kept(grp, children))
                       if g.get("slug") == VIDEOS_SLUG]
+            for v in videos:
+                VIDEO_IDS.add(id(v))
             others = [c for c in children if c not in videos]
-            entry = {"group": grp.get("group"), "pages": others + pages + videos}
+            own = pages
+            if grp.get("pages") is None and not grp.get("no_split"):
+                own = split_howto(pages, root, is_public)
+            entry = {"group": grp.get("group"), "pages": others + own + videos}
             if grp.get("icon"):
                 entry["icon"] = grp["icon"]
             if grp.get("tag"):
@@ -362,24 +422,28 @@ def build_tabs(nav, root, report):
         in a group of the same name, kept in place between its sub-groups
         and its Videos group.
         """
-        groups, loose = [], []
+        groups, own = [], []
 
-        def wrap(pages):
-            own = {"group": grp["group"], "pages": pages}
-            if grp.get(PUBLIC_KEY):
-                own[PUBLIC_KEY] = True
-            return own
-
+        # Real sub-sections (Windows Login, Supervisor App, ...) stay sidebar
+        # headers. The section's own How to / Others / Videos groups and any
+        # loose pages are collected under one header named after the section,
+        # so they render as collapsible groups instead of three more headers.
         for page in grp["pages"]:
-            if isinstance(page, dict):
-                if loose:
-                    groups.append(wrap(loose))
-                    loose = []
+            if isinstance(page, dict) and id(page) not in SPLIT_IDS \
+                    and id(page) not in VIDEO_IDS:
                 groups.append(page)
             else:
-                loose.append(page)
-        if loose:
-            groups.append(wrap(loose))
+                own.append(page)
+        if len(own) == 1 and isinstance(own[0], dict):
+            # only a Videos (or only a How to) group: it is the header itself
+            single = dict(own[0])
+            single.pop("expanded", None)
+            groups.append(single)
+        elif own:
+            wrapper = {"group": grp["group"], "pages": own}
+            if grp.get(PUBLIC_KEY):
+                wrapper[PUBLIC_KEY] = True
+            groups.append(wrapper)
         entry = {"item": grp["group"], "groups": groups}
         if grp.get("icon"):
             entry["icon"] = grp["icon"]
@@ -460,6 +524,8 @@ def build_tabs(nav, root, report):
             else:
                 built = {"tab": name, "groups": groups}
 
+        for node in built.get("menu") or [built]:
+            collapse_nested(node.get("groups") or [])
         if tab.get("icon"):
             built["icon"] = tab["icon"]
         tabs.append(built)
