@@ -1,0 +1,1242 @@
+{
+  "$comment": [
+    "Source of truth for the OLOID docs navigation.",
+    "",
+    "Each group carries `collections`: the Intercom collections whose articles",
+    "land there, keyed 'Product :: Collection'. Groups nest (Windows > Windows",
+    "Login > V1), and each nested group is a directory inside its parent's.",
+    "",
+    "`match` places articles by title: `titles` are regexes, tried in this",
+    "file's order before any collection mapping, against articles from",
+    "_Unassigned plus the collections listed in `from` ('*' = any collection).",
+    "The first match wins, so product-specific groups sit above the generic",
+    "portal ones. Every title placement is listed in the --migrate report.",
+    "",
+    "A group with slug 'videos' receives every video-only article from the",
+    "groups beneath its parent (nearest one wins).",
+    "",
+    "`excluded_collections` have no place in the main navigation. They are still",
+    "fetched and written, to Drafts > Excluded, are never placed by a title rule,",
+    "and are tagged 'excluded' in the report and the manifest. A group with",
+    "`\"catch_unmapped\": true` receives articles whose collection no group claims.",
+    "Getting Started guides are planned in plans/getting-started.md.",
+    "",
+    "build_nav.py turns this into docs.json. Edit this file, never docs.json."
+  ],
+  "navbar": {
+    "$comment": "The Support button is hidden for now. Move an entry from `hidden_links` back into `links` to bring it back.",
+    "links": [],
+    "hidden_links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@oloid.help"
+      }
+    ]
+  },
+  "excluded_collections": [
+    "M-Tag :: Getting Started with M-Tag",
+    "M-Tag :: Installing and Configuring M-Tag",
+    "M-Tag :: Using M-Tag",
+    "M-Tag :: M-Tag Admin",
+    "M-Tag :: Troubleshooting M-Tag",
+    "Oloid App :: Oloid App",
+    "What is Oloid? :: What is Oloid?",
+    "The Oloid Glossary :: The Oloid Glossary",
+    "Oloid Platform Starter :: Oloid Platform Starter"
+  ],
+  "tabs": [
+    {
+      "tab": "Platforms & Solutions",
+      "icon": "layer-group",
+      "slug": "platforms",
+      "public": true,
+      "group_menu": true,
+      "groups": [
+        {
+          "group": "Windows",
+          "slug": "windows",
+          "icon": {
+            "name": "windows",
+            "library": "fontawesome",
+            "style": "brands"
+          },
+          "groups": [
+            {
+              "group": "Windows Login",
+              "slug": "windows-login",
+              "icon": "right-to-bracket",
+              "review": "Version-neutral Windows Login collections. Titles naming a version are split into V1 / V2 by the `match` rules on those groups.",
+              "match": {
+                "titles": [
+                  "(?i)^(?!.*(healthcare|epic)).*windows (login|authenticator)"
+                ]
+              },
+              "collections": [
+                "Passwordless Authenticator :: Oloid Windows Passwordless Authenticator - Windows Login",
+                "Passwordless Authenticator :: Platform Configuration",
+                "Passwordless Authenticator :: Admin Guides- Windows Login",
+                "Passwordless Authenticator :: User Guides - Windows Login",
+                "Passwordless Authenticator :: User Guide",
+                "Passwordless Authenticator :: Windows Login - Supporting Documents",
+                "Passwordless Authenticator :: Windows Login- Presence Detection Guides"
+              ],
+              "groups": [
+                {
+                  "group": "Windows Login V1",
+                  "slug": "v1",
+                  "icon": "1",
+                  "match": {
+                    "titles": [
+                      "(?i)^(?!.*healthcare).*\\b(v ?1(\\.0)?|version 1|1\\.0)\\b"
+                    ],
+                    "from": [
+                      "Passwordless Authenticator :: Oloid Windows Passwordless Authenticator - Windows Login",
+                      "Passwordless Authenticator :: Platform Configuration",
+                      "Passwordless Authenticator :: Admin Guides- Windows Login",
+                      "Passwordless Authenticator :: User Guides - Windows Login",
+                      "Passwordless Authenticator :: User Guide",
+                      "Passwordless Authenticator :: Windows Login - Supporting Documents",
+                      "Passwordless Authenticator :: Windows Login- Presence Detection Guides"
+                    ]
+                  },
+                  "collections": [
+                    "Passwordless Authenticator :: Windows Login v1.0",
+                    "Passwordless Authenticator :: Windows Login v1 - Installation and Deployment"
+                  ]
+                },
+                {
+                  "group": "Windows Login V2",
+                  "slug": "v2",
+                  "icon": "2",
+                  "match": {
+                    "titles": [
+                      "(?i)^(?!.*healthcare).*\\b(v ?2(\\.0)?|version 2|2\\.0)\\b"
+                    ],
+                    "from": [
+                      "Passwordless Authenticator :: Oloid Windows Passwordless Authenticator - Windows Login",
+                      "Passwordless Authenticator :: Platform Configuration",
+                      "Passwordless Authenticator :: Admin Guides- Windows Login",
+                      "Passwordless Authenticator :: User Guides - Windows Login",
+                      "Passwordless Authenticator :: User Guide",
+                      "Passwordless Authenticator :: Windows Login - Supporting Documents",
+                      "Passwordless Authenticator :: Windows Login- Presence Detection Guides"
+                    ]
+                  },
+                  "collections": [
+                    "Passwordless Authenticator :: Windows Login v2.0"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Supervisor App",
+              "slug": "supervisor-app",
+              "icon": "user-tie",
+              "match": {
+                "titles": [
+                  "(?i)supervisor app"
+                ]
+              },
+              "collections": [
+                "Supervisor App :: Getting Started with Supervisor App",
+                "Supervisor App :: Installation and Configuration of Supervisor App",
+                "Supervisor App :: Platform Configuration - Supervisor App",
+                "Supervisor App :: User Management- Supervisor App",
+                "Supervisor App :: Credential Management - Supervisor App",
+                "Supervisor App :: Enroll Badge - Supervisor App",
+                "Supervisor App :: Accounts and Settings - Supervisor App",
+                "Supervisor App :: FAQs- Supervisor App"
+              ]
+            },
+            {
+              "group": "Industry Workflows",
+              "slug": "industry-workflows",
+              "icon": "industry",
+              "groups": [
+                {
+                  "group": "Healthcare",
+                  "slug": "healthcare",
+                  "icon": "hospital",
+                  "match": {
+                    "titles": [
+                      "(?i)healthcare"
+                    ]
+                  },
+                  "collections": [
+                    "Windows Login (Healthcare ) :: Windows Login (Healthcare) - Overview and Setup",
+                    "Windows Login (Healthcare ) :: Windows Login (Healthcare) - Tenant Admin Configuration",
+                    "Windows Login (Healthcare ) :: Windows Login (Healthcare)- Reauthentication and User Switching"
+                  ],
+                  "groups": [
+                    {
+                      "group": "EPCS",
+                      "slug": "epcs",
+                      "icon": "prescription",
+                      "match": {
+                        "titles": [
+                          "(?i)\\bEPCS\\b|electronic prescri"
+                        ],
+                        "from": [
+                          "*"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "collections": [
+                "Passwordless Authenticator :: Videos- Windows Login",
+                "Passwordless Authenticator :: Videos - Windows Login 2.0",
+                "Passwordless Authenticator :: Videos- Windows Login (Presence Detection)",
+                "Supervisor App :: Videos-Supervisor App",
+                "Windows Login (Healthcare ) :: Windows Login (Healthcare)-Video Tutorials"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "iOS / iPadOS",
+          "slug": "ios",
+          "icon": {
+            "name": "apple",
+            "library": "fontawesome",
+            "style": "brands"
+          },
+          "groups": [
+            {
+              "group": "OLOID Connect for Passwordless",
+              "slug": "connect-passwordless",
+              "icon": "mobile-screen",
+              "match": {
+                "titles": [
+                  "(?i)passwordless.*\\bconnect\\b|\\bconnect\\b.*passwordless"
+                ]
+              },
+              "collections": [
+                "Passwordless Authenticator :: Oloid iOS Passwordless Authenticator- Oloid Connect",
+                "Passwordless Authenticator :: Admin Guides - Oloid Connect for Passwordless",
+                "Passwordless Authenticator :: User Guides- Oloid Connect for Passwordless"
+              ]
+            },
+            {
+              "group": "OLOID Vault",
+              "slug": "vault",
+              "icon": "vault",
+              "groups": [
+                {
+                  "group": "iOS Vault",
+                  "slug": "ios-vault",
+                  "icon": {
+                    "name": "apple",
+                    "library": "fontawesome",
+                    "style": "brands"
+                  },
+                  "match": {
+                    "titles": [
+                      "(?i)\\biOS Vault\\b|Vault \\(iOS\\)|Vault.*\\biOS\\b"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "group": "OLOID CloudKey",
+              "slug": "cloudkey",
+              "icon": "cloud",
+              "review": "CloudKey has one Intercom collection for both platforms. The pages live here and Android > OLOID CloudKey lists the same files.",
+              "match": {
+                "titles": [
+                  "(?i)cloud ?key"
+                ]
+              },
+              "collections": [
+                "Oloid CloudKey :: Oloid CloudKey - User Guides",
+                "Oloid CloudKey :: Oloid CloudKey- Admin Guides"
+              ]
+            },
+            {
+              "group": "Time Clock",
+              "slug": "time-clock",
+              "icon": "clock",
+              "collections": [
+                "Oloid Verify/Connect :: Getting started on the Oloid Verify/Connect application",
+                "Oloid Verify/Connect :: Oloid Verify/Connect",
+                "Oloid Verify/Connect :: Pre-requisites for getting started with Oloid Verify/Oloid Connect",
+                "Oloid Verify/Connect :: Supporting Documents",
+                "Oloid Verify/Connect :: General FAQs"
+              ],
+              "groups": [
+                {
+                  "group": "OLOID Verify — iPad",
+                  "slug": "oloid-verify",
+                  "icon": "tablet-screen-button",
+                  "match": {
+                    "titles": [
+                      "(?i)\\boloid verify\\b"
+                    ]
+                  },
+                  "collections": [
+                    "Oloid Verify/Connect :: Getting Started with Oloid Verify App",
+                    "Oloid Verify/Connect :: Oloid Verify -  Admin Guides",
+                    "Oloid Verify/Connect :: Oloid Verify - Installation & Configuration",
+                    "Oloid Verify/Connect :: Oloid Verify - Credential Management",
+                    "Oloid Verify/Connect :: Oloid Verify: Platform Configuration",
+                    "Oloid Verify/Connect :: Oloid Verify - User Guides",
+                    "Oloid Verify/Connect :: Oloid Verify - User Management"
+                  ]
+                },
+                {
+                  "group": "OLOID Connect",
+                  "slug": "oloid-connect",
+                  "icon": "mobile-screen-button",
+                  "match": {
+                    "titles": [
+                      "(?i)\\boloid connect\\b|^(?!.*device ?lock).*time ?clock"
+                    ]
+                  },
+                  "collections": [
+                    "Oloid Verify/Connect :: Getting Started with Oloid Connect App",
+                    "Oloid Verify/Connect :: Oloid Connect for iPhone",
+                    "Oloid Verify/Connect :: Oloid Connect iPhone - Installation and Configuration",
+                    "Oloid Verify/Connect :: Oloid Connect- Admin Guides",
+                    "Oloid Verify/Connect :: Oloid Connect: Installation & Configuration",
+                    "Oloid Verify/Connect :: Oloid Connect - Credential Management",
+                    "Oloid Verify/Connect :: Oloid Connect: Platform Configuration"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "collections": [
+                "Oloid Verify/Connect :: Oloid Connect Videos",
+                "Oloid Verify/Connect :: Oloid Verify/Connect Videos",
+                "Passwordless Authenticator :: Oloid Connect for Passwordless Videos"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Android",
+          "slug": "android",
+          "icon": {
+            "name": "android",
+            "library": "fontawesome",
+            "style": "brands"
+          },
+          "groups": [
+            {
+              "group": "Android DeviceLock",
+              "slug": "devicelock",
+              "icon": "lock",
+              "match": {
+                "titles": [
+                  "(?i)device ?lock"
+                ]
+              },
+              "collections": [
+                "Passwordless Authenticator :: Oloid Android Passwordless Authenticator -DeviceLock",
+                "Passwordless Authenticator :: Device Lock - Admin Settings",
+                "Passwordless Authenticator :: Device Lock - Admin Mode",
+                "Passwordless Authenticator :: Oloid Device Lock - Supporting Documents"
+              ]
+            },
+            {
+              "group": "OLOID Vault",
+              "slug": "vault",
+              "icon": "vault",
+              "groups": [
+                {
+                  "group": "Android Vault",
+                  "slug": "android-vault",
+                  "icon": {
+                    "name": "android",
+                    "library": "fontawesome",
+                    "style": "brands"
+                  },
+                  "match": {
+                    "titles": [
+                      "(?i)android vault|vault \\(android\\)|vault.*\\bandroid\\b"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "group": "OLOID CloudKey",
+              "slug": "cloudkey",
+              "icon": "cloud",
+              "pages_from": "platforms/ios/cloudkey"
+            },
+            {
+              "group": "Zebra",
+              "slug": "zebra",
+              "icon": "barcode",
+              "match": {
+                "titles": [
+                  "(?i)\\bzebra\\b"
+                ],
+                "from": [
+                  "*"
+                ]
+              }
+            },
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "collections": [
+                "Passwordless Authenticator :: Videos - Device Lock"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Linux & Thin Clients",
+          "slug": "linux",
+          "icon": {
+            "name": "linux",
+            "library": "fontawesome",
+            "style": "brands"
+          },
+          "review": "No Intercom collection yet; filled only by title matches.",
+          "match": {
+            "titles": [
+              "(?i)\\blinux\\b|\\bigel\\b|\\bthin ?client"
+            ],
+            "from": [
+              "*"
+            ]
+          }
+        },
+        {
+          "group": "Web & Browsers",
+          "slug": "web",
+          "icon": "globe",
+          "groups": [
+            {
+              "group": "WebKey",
+              "slug": "webkey",
+              "icon": "key",
+              "match": {
+                "titles": [
+                  "(?i)web ?key"
+                ]
+              },
+              "collections": [
+                "Passwordless Authenticator :: Getting Started with WebKey",
+                "Passwordless Authenticator :: Oloid Web Passwordless Login -WebKey",
+                "Passwordless Authenticator :: Using WebKey",
+                "Passwordless Authenticator :: Platform Configuration - WebKey",
+                "Passwordless Authenticator :: Webkey- Supporting Documents"
+              ]
+            },
+            {
+              "group": "OLOID Vault",
+              "slug": "vault",
+              "icon": "vault",
+              "groups": [
+                {
+                  "group": "Web Vault (Chrome)",
+                  "slug": "chrome",
+                  "icon": {
+                    "name": "chrome",
+                    "library": "fontawesome",
+                    "style": "brands"
+                  },
+                  "match": {
+                    "titles": [
+                      "(?i)chrome vault|vault \\(chrom|oloid vault|web vault"
+                    ]
+                  },
+                  "collections": [
+                    "Oloid Chrome Vault :: Chrome Vault - Getting Started",
+                    "Oloid Chrome Vault :: Chrome Vault - Installation & Configuration",
+                    "Oloid Chrome Vault :: Chrome Vault - Admin Guides",
+                    "Oloid Chrome Vault :: Chrome Vault - User Guides",
+                    "Oloid Chrome Vault :: Chrome Vault- Platform Configuration",
+                    "Oloid Chrome Vault :: Chrome Vault - Accounts & Settings",
+                    "Oloid Chrome Vault :: Chrome Vault - FAQs"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "collections": [
+                "Passwordless Authenticator :: WebKey Videos",
+                "Oloid Chrome Vault :: Chrome Vault - Videos"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Integrations",
+      "icon": "plug",
+      "slug": "integrations",
+      "public": true,
+      "group_menu": true,
+      "groups": [
+        {
+          "group": "Microsoft Entra ID",
+          "slug": "entra-id",
+          "icon": {
+            "name": "microsoft",
+            "library": "fontawesome",
+            "style": "brands"
+          },
+          "match": {
+            "titles": [
+              "(?i)\\bentra\\b|azure ad|for azure|azure sso"
+            ],
+            "from": [
+              "Oloid Platform - Enterprise Features :: Advanced User Sync",
+              "Oloid Platform - Enterprise Features :: Create and Manage IDP Provider"
+            ]
+          },
+          "collections": [
+            "Oloid Platform - Enterprise Features :: Azure SSO Setup"
+          ]
+        },
+        {
+          "group": "Workspace ONE",
+          "slug": "workspace-one",
+          "icon": "mobile-retro",
+          "match": {
+            "titles": [
+              "(?i)workspace ?one|airwatch"
+            ],
+            "from": [
+              "*"
+            ]
+          }
+        },
+        {
+          "group": "Citrix",
+          "slug": "citrix",
+          "icon": "server",
+          "match": {
+            "titles": [
+              "(?i)\\bcitrix\\b"
+            ],
+            "from": [
+              "*"
+            ]
+          }
+        },
+        {
+          "group": "Epic",
+          "slug": "epic",
+          "icon": "notes-medical",
+          "match": {
+            "titles": [
+              "(?i)\\bepic\\b"
+            ]
+          },
+          "collections": [
+            "Windows Login (Healthcare ) :: Windows Login (Healthcare) - Epic Login Workflows"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "OLOID Platform",
+      "icon": "building",
+      "slug": "platform",
+      "public": true,
+      "group_menu": true,
+      "groups": [
+        {
+          "group": "Tenant Admin Portal",
+          "slug": "tenant-admin-portal",
+          "icon": "shield-halved",
+          "match": {
+            "titles": [
+              "(?i)tenant admin portal|admin portal"
+            ]
+          },
+          "collections": [
+            "Oloid Platform - Enterprise Features :: Getting Started",
+            "Oloid Platform - Enterprise Features :: Oloid Platform - Enterprise Features",
+            "Oloid Verify/Connect :: Getting started on the Oloid Platform",
+            "Oloid Platform - Enterprise Features :: Accounts and Settings",
+            "Oloid Platform - Enterprise Features :: Create and Manage Users",
+            "Oloid Platform - Enterprise Features :: Create and Manage Groups",
+            "Oloid Platform - Enterprise Features :: Advanced User Sync",
+            "Oloid Platform - Enterprise Features :: Create and Manage Shared Credentials",
+            "Oloid Platform - Enterprise Features :: Create and Manage Factor Sequence",
+            "Oloid Platform - Enterprise Features :: Create and Manage Wiegand Access",
+            "Oloid Platform - Enterprise Features :: Create and Manage Endpoints",
+            "Oloid Platform - Enterprise Features :: Create and Manage Locations",
+            "Oloid Platform - Enterprise Features :: Create and Manage Connections",
+            "Oloid Platform - Enterprise Features :: Create and Manage Applications",
+            "Oloid Platform - Enterprise Features :: Create and Manage Consent Documents",
+            "Oloid Platform - Enterprise Features :: Create and Manage Reports",
+            "Oloid Platform - Enterprise Features :: Insights Dashboard",
+            "Oloid Platform - Enterprise Features :: Data Tables",
+            "Oloid Platform - Enterprise Features :: Create and Manage IDP Provider",
+            "Oloid Platform - Enterprise Features :: Security, Encryption & Compliance"
+          ],
+          "groups": [
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "collections": [
+                "Oloid Platform - Enterprise Features :: Create and Manage Users - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Accounts and Settings - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Create and Manage Shared Passwords - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Create and Manage Reports - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Create and Manage Groups - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Create and Manage Consent Documents - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Credential Management - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Create and Manage IDP profile - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Create and Manage Connections - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Create and Manage Applications - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Manage Agents - Video Tutorials",
+                "Oloid Platform - Enterprise Features :: Oloid Platform Videos",
+                "Insights Dashboard - videos :: Insights Dashboard - videos"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Supervisor Portal",
+          "slug": "supervisor-portal",
+          "icon": "display",
+          "match": {
+            "titles": [
+              "(?i)supervisor portal"
+            ]
+          },
+          "collections": [
+            "Supervisor Portal :: Supervisor Portal - Create & Manage Users",
+            "Supervisor Portal :: Supervisor Portal - Create & Manage Shared Credentials",
+            "Supervisor Portal :: Supervisor Portal - Create & Manage Endpoints",
+            "Supervisor Portal :: Supervisor Portal - Accounts and Settings",
+            "Supervisor Portal :: Supervisor Portal - Admin Settings"
+          ],
+          "groups": [
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "collections": [
+                "Supervisor Portal :: Supervisor Portal - Videos"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "User Portal",
+          "slug": "user-portal",
+          "icon": "user",
+          "match": {
+            "titles": [
+              "(?i)user portal"
+            ]
+          },
+          "collections": [
+            "Oloid User Portal :: Oloid User Portal - Accounts and Settings",
+            "Oloid User Portal :: Oloid User Portal -Credential Management",
+            "Oloid User Portal :: Oloid User Portal - Password Management",
+            "Oloid User Portal :: Oloid User Portal - Face Management",
+            "Oloid User Portal :: Oloid User Portal - PIN Management",
+            "Oloid User Portal :: Oloid User Portal - Badge Management",
+            "Oloid User Portal :: Oloid User Portal - NFC Management",
+            "Oloid User Portal :: Oloid User Portal - QR Code Management"
+          ],
+          "groups": [
+            {
+              "group": "Videos",
+              "slug": "videos",
+              "icon": "circle-play",
+              "collections": [
+                "Oloid User Portal :: Oloid User Portal - Videos"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Help & Reference",
+      "icon": "life-ring",
+      "slug": "reference",
+      "public": true,
+      "group_menu": true,
+      "groups": [
+        {
+          "group": "Troubleshooting",
+          "slug": "troubleshooting",
+          "icon": "wrench",
+          "collections": [
+            "Troubleshooting :: Troubleshooting"
+          ]
+        },
+        {
+          "group": "Quick Reference Guides (QRG)",
+          "slug": "qrg",
+          "icon": "bookmark",
+          "collections": [
+            "Quick Reference Guides ( QRG) :: Quick Reference Guides ( QRG)"
+          ]
+        },
+        {
+          "group": "Supporting Documents",
+          "slug": "supporting-documents",
+          "icon": "file-lines",
+          "collections": [
+            "Supporting Documents :: Supporting Documents",
+            "Passwordless Authenticator :: Passwordless Authenticator- Supporting Documents"
+          ]
+        },
+        {
+          "group": "Product Videos",
+          "slug": "product-videos",
+          "icon": "circle-play",
+          "keep_videos": true,
+          "review": "The demo videos page. Product-specific videos live in each section's own Videos group.",
+          "collections": [
+            "Supporting Documents :: Supporting Videos",
+            "Passwordless Authenticator :: Passwordless Authenticator Videos"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "API Reference",
+      "icon": "code",
+      "slug": "api-reference",
+      "group_menu": true,
+      "$comment": "Written by zudoku_api.py from the Zudoku OpenAPI specs - re-run it instead of editing this entry. Standard is public; Advanced and Scoped need a sign-in and the 'api-advanced' group.",
+      "groups": [
+        {
+          "group": "Get started",
+          "icon": "rocket",
+          "public": true,
+          "pages": [
+            "api-reference/get-started/introduction",
+            "api-reference/get-started/authentication",
+            "api-reference/get-started/errors"
+          ]
+        },
+        {
+          "group": "Standard APIs",
+          "icon": "globe",
+          "pages": [],
+          "groups": [
+            {
+              "group": "Overview",
+              "icon": "compass",
+              "pages": [
+                "api-reference/standard/overview"
+              ]
+            },
+            {
+              "group": "Authentication",
+              "icon": "key",
+              "pages": [
+                "api-reference/standard/authentication/overview",
+                "api-reference/standard/authentication/login",
+                "api-reference/standard/authentication/google-login"
+              ]
+            },
+            {
+              "group": "Users",
+              "icon": "user",
+              "pages": [
+                "api-reference/standard/users/overview",
+                "api-reference/standard/users/get-users",
+                "api-reference/standard/users/create-user",
+                "api-reference/standard/users/get-user",
+                "api-reference/standard/users/update-user",
+                "api-reference/standard/users/delete-user",
+                "api-reference/standard/users/add-face",
+                "api-reference/standard/users/delete-cognito-user",
+                "api-reference/standard/users/get-import-status",
+                "api-reference/standard/users/get-user-details",
+                "api-reference/standard/users/get-admin-users",
+                "api-reference/standard/users/delete-oloid-user",
+                "api-reference/standard/users/find-similar-faces",
+                "api-reference/standard/users/invite-user",
+                "api-reference/standard/users/send-login-url-multiple-users",
+                "api-reference/standard/users/invite-new-user",
+                "api-reference/standard/users/encrypt-all-users-pin"
+              ]
+            },
+            {
+              "group": "Groups",
+              "icon": "users",
+              "pages": [
+                "api-reference/standard/groups/overview",
+                "api-reference/standard/groups/get-all-groups",
+                "api-reference/standard/groups/create-new-group",
+                "api-reference/standard/groups/get-group-details",
+                "api-reference/standard/groups/delete-group",
+                "api-reference/standard/groups/add-users-to-group",
+                "api-reference/standard/groups/remove-users-from-group",
+                "api-reference/standard/groups/add-endpoints",
+                "api-reference/standard/groups/remove-endpoints"
+              ]
+            },
+            {
+              "group": "Reports",
+              "icon": "chart-line",
+              "pages": [
+                "api-reference/standard/reports/overview",
+                "api-reference/standard/reports/get-rdsdata"
+              ]
+            }
+          ],
+          "public": true
+        },
+        {
+          "group": "Advanced APIs",
+          "icon": "lock",
+          "pages": [],
+          "groups": [
+            {
+              "group": "Overview",
+              "icon": "compass",
+              "pages": [
+                "api-reference/advanced/overview"
+              ]
+            },
+            {
+              "group": "Authentication",
+              "icon": "key",
+              "pages": [
+                "api-reference/advanced/authentication/overview",
+                "api-reference/advanced/authentication/login",
+                "api-reference/advanced/authentication/google-login"
+              ]
+            },
+            {
+              "group": "Applications",
+              "icon": "window-maximize",
+              "pages": [
+                "api-reference/advanced/applications/overview",
+                "api-reference/advanced/applications/get-applications",
+                "api-reference/advanced/applications/create-application",
+                "api-reference/advanced/applications/get-application-by-application-id",
+                "api-reference/advanced/applications/update-application",
+                "api-reference/advanced/applications/delete-application",
+                "api-reference/advanced/applications/get-application-users"
+              ]
+            },
+            {
+              "group": "Connections",
+              "icon": "plug",
+              "pages": [
+                "api-reference/advanced/connections/overview",
+                "api-reference/advanced/connections/get-connections",
+                "api-reference/advanced/connections/create-connection",
+                "api-reference/advanced/connections/get-connection-by-connection-id",
+                "api-reference/advanced/connections/update-connection",
+                "api-reference/advanced/connections/delete-connection"
+              ]
+            },
+            {
+              "group": "Credentials",
+              "icon": "id-card",
+              "pages": [
+                "api-reference/advanced/credentials/overview",
+                "api-reference/advanced/credentials/get-user-password-by-credential-id",
+                "api-reference/advanced/credentials/delete-user-password-credential",
+                "api-reference/advanced/credentials/create-user-password-credential",
+                "api-reference/advanced/credentials/update-user-password-credential",
+                "api-reference/advanced/credentials/get-shared-password-by-id",
+                "api-reference/advanced/credentials/create-shared-password-credential",
+                "api-reference/advanced/credentials/update-shared-password-credential",
+                "api-reference/advanced/credentials/verify-user-passwordless-credential",
+                "api-reference/advanced/credentials/get-shared-passwords",
+                "api-reference/advanced/credentials/assign-shared-credentials",
+                "api-reference/advanced/credentials/list-shared-passwords",
+                "api-reference/advanced/credentials/get-all-passkey-credentials",
+                "api-reference/advanced/credentials/create-passkey-credential",
+                "api-reference/advanced/credentials/update-passkey-credential",
+                "api-reference/advanced/credentials/get-passkey-credential",
+                "api-reference/advanced/credentials/delete-passkey-credential",
+                "api-reference/advanced/credentials/fido-public",
+                "api-reference/advanced/credentials/fido-auth",
+                "api-reference/advanced/credentials/send-app-invite",
+                "api-reference/advanced/credentials/verify-face-additional-check",
+                "api-reference/advanced/credentials/face-login",
+                "api-reference/advanced/credentials/search-face-login",
+                "api-reference/advanced/credentials/qr-code-login",
+                "api-reference/advanced/credentials/id-search-login",
+                "api-reference/advanced/credentials/get-card-formats",
+                "api-reference/advanced/credentials/verify-identity",
+                "api-reference/advanced/credentials/send-multiple-app-invites",
+                "api-reference/advanced/credentials/get-user-passwords",
+                "api-reference/advanced/credentials/create-qrcode",
+                "api-reference/advanced/credentials/get-qrcode-by-olo-id",
+                "api-reference/advanced/credentials/add-user-face",
+                "api-reference/advanced/credentials/remove-user-face",
+                "api-reference/advanced/credentials/access-control-badges",
+                "api-reference/advanced/credentials/get-user-credential"
+              ]
+            },
+            {
+              "group": "Endpoints",
+              "icon": "display",
+              "pages": [
+                "api-reference/advanced/endpoints/overview",
+                "api-reference/advanced/endpoints/get-all-endpoints",
+                "api-reference/advanced/endpoints/get-endpoint-details-by-id",
+                "api-reference/advanced/endpoints/update-endpoint-detail",
+                "api-reference/advanced/endpoints/delete-endpoint",
+                "api-reference/advanced/endpoints/get-end-user-from-endpoint",
+                "api-reference/advanced/endpoints/get-uuid",
+                "api-reference/advanced/endpoints/re-pair-endpoint",
+                "api-reference/advanced/endpoints/update-intent",
+                "api-reference/advanced/endpoints/delete-endpoint-groups",
+                "api-reference/advanced/endpoints/pair-endpoint",
+                "api-reference/advanced/endpoints/init-health-check",
+                "api-reference/advanced/endpoints/auto-pair-endpoint",
+                "api-reference/advanced/endpoints/update-health-for-windows-endpoint",
+                "api-reference/advanced/endpoints/pair-endpoint-sticker",
+                "api-reference/advanced/endpoints/create-endpoint-template",
+                "api-reference/advanced/endpoints/list-endpoint-templates"
+              ]
+            },
+            {
+              "group": "Settings",
+              "icon": "gear",
+              "pages": [
+                "api-reference/advanced/settings/overview",
+                "api-reference/advanced/settings/get-all-settings",
+                "api-reference/advanced/settings/update-settings",
+                "api-reference/advanced/settings/create-settings",
+                "api-reference/advanced/settings/get-settings",
+                "api-reference/advanced/settings/delete-settings"
+              ]
+            },
+            {
+              "group": "Tenant settings",
+              "icon": "sliders",
+              "pages": [
+                "api-reference/advanced/tenant-settings/overview",
+                "api-reference/advanced/tenant-settings/create-cognito-user-cred",
+                "api-reference/advanced/tenant-settings/get-cognito-credentials",
+                "api-reference/advanced/tenant-settings/get-cognito-user-cred",
+                "api-reference/advanced/tenant-settings/update-cognito-user-cred",
+                "api-reference/advanced/tenant-settings/delete-cognito-user-cred"
+              ]
+            },
+            {
+              "group": "Transactions",
+              "icon": "arrow-right-arrow-left",
+              "pages": [
+                "api-reference/advanced/transactions/overview",
+                "api-reference/advanced/transactions/get-transactions",
+                "api-reference/advanced/transactions/get-transaction",
+                "api-reference/advanced/transactions/update-transaction",
+                "api-reference/advanced/transactions/export-transactions",
+                "api-reference/advanced/transactions/sync-transactions",
+                "api-reference/advanced/transactions/create-action-transaction",
+                "api-reference/advanced/transactions/get-action-transactions",
+                "api-reference/advanced/transactions/update-endpoint-action",
+                "api-reference/advanced/transactions/get-user-transactions",
+                "api-reference/advanced/transactions/get-transactions-bykey",
+                "api-reference/advanced/transactions/export-kronos-action",
+                "api-reference/advanced/transactions/get-error-transaction",
+                "api-reference/advanced/transactions/get-action-view"
+              ]
+            },
+            {
+              "group": "User consent",
+              "icon": "file-signature",
+              "pages": [
+                "api-reference/advanced/user-consent/overview",
+                "api-reference/advanced/user-consent/get-user-consent"
+              ]
+            }
+          ],
+          "$comment": "Not public: pages need a sign-in and the 'api-advanced' group (frontmatter `groups`)."
+        },
+        {
+          "group": "Scoped APIs",
+          "icon": "shield-halved",
+          "pages": [],
+          "groups": [
+            {
+              "group": "Overview",
+              "icon": "compass",
+              "pages": [
+                "api-reference/scoped/overview"
+              ]
+            },
+            {
+              "group": "Authentication",
+              "icon": "key",
+              "pages": [
+                "api-reference/scoped/authentication/overview",
+                "api-reference/scoped/authentication/login"
+              ]
+            },
+            {
+              "group": "Transactions",
+              "icon": "arrow-right-arrow-left",
+              "pages": [
+                "api-reference/scoped/transactions/overview",
+                "api-reference/scoped/transactions/get-transactions",
+                "api-reference/scoped/transactions/get-transaction"
+              ]
+            },
+            {
+              "group": "User consent",
+              "icon": "file-signature",
+              "pages": [
+                "api-reference/scoped/user-consent/overview",
+                "api-reference/scoped/user-consent/get-user-consent",
+                "api-reference/scoped/user-consent/get-user-consent-pdf"
+              ]
+            },
+            {
+              "group": "Activity logs",
+              "icon": "list-check",
+              "pages": [
+                "api-reference/scoped/activity-logs/overview",
+                "api-reference/scoped/activity-logs/get-activity-logs"
+              ]
+            }
+          ],
+          "$comment": "Not public: pages need a sign-in and the 'api-advanced' group (frontmatter `groups`)."
+        }
+      ]
+    },
+    {
+      "tab": "Resources",
+      "icon": "folder-open",
+      "slug": "more",
+      "public": true,
+      "group_menu": true,
+      "review": "Everything Intercom holds that the new tree has no place for yet.",
+      "groups": [
+        {
+          "group": "Oloid Workflow",
+          "slug": "workflow",
+          "icon": "diagram-project",
+          "match": {
+            "titles": [
+              "(?i)\\bworkflow\\b"
+            ]
+          },
+          "collections": [
+            "Oloid Workflow :: Overview",
+            "Oloid Workflow :: Oloid Workflow",
+            "Oloid Workflow :: Getting Started",
+            "Oloid Workflow (TBD) :: 1. Getting Started",
+            "Oloid Workflow (TBD) :: 2. Deployment",
+            "Oloid Workflow :: Accounts",
+            "Oloid Workflow (TBD) :: 3. Workflow Accounts",
+            "Oloid Workflow :: Pre-built Flow Templates",
+            "Oloid Workflow (TBD) :: 4. Nodes",
+            "Oloid Workflow (TBD) :: 5. Flows",
+            "Oloid Workflow :: How-to guides",
+            "Oloid Workflow :: CloudKey",
+            "Oloid Workflow :: On-Prem Application Health",
+            "Oloid Workflow (TBD) :: 6. Monitoring",
+            "Oloid Workflow :: Security",
+            "Oloid Workflow :: Data Protection",
+            "Oloid Workflow :: Set up 3rd party Applications"
+          ]
+        },
+        {
+          "group": "Single Sign-On & MFA",
+          "slug": "sso-and-mfa",
+          "icon": "right-to-bracket",
+          "collections": [
+            "Oloid Platform - Enterprise Features :: Okta SSO Setup",
+            "Oloid Platform - Enterprise Features :: PingOne SSO Setup",
+            "Oloid Platform - Enterprise Features :: Duo SSO Setup",
+            "Oloid Platform - Enterprise Features :: Auth0 SSO Setup",
+            "Oloid Platform - Enterprise Features :: Workday SSO Setup",
+            "Oloid Platform - Enterprise Features :: Google SSO Setup",
+            "Oloid Platform - Enterprise Features :: System for Cross-Domain Identity Management (SCIM) - Configuration Guide",
+            "Oloid Platform - Enterprise Features :: OKTA MFA - Configuration Guides",
+            "Oloid Platform - Enterprise Features :: OKTA MFA - User Guide",
+            "Oloid Platform - Enterprise Features :: PingOne MFA - Configuration Guides",
+            "Oloid Platform - Enterprise Features :: PingOne MFA - User Guide",
+            "Passwordless Authenticator :: Connecting to SSO systems"
+          ]
+        },
+        {
+          "group": "Passwordless Authenticator",
+          "slug": "passwordless-authenticator",
+          "icon": "fingerprint",
+          "review": "Intercom collections not tied to one platform.",
+          "collections": [
+            "Passwordless Authenticator :: Passwordless Authenticator",
+            "Passwordless Authenticator :: Passwordless Authenticator - Miscellaneous Docs",
+            "Passwordless Authenticator :: Credential Management",
+            "Passwordless Authenticator :: Reporting"
+          ]
+        },
+        {
+          "group": "API Guides",
+          "slug": "api-guides",
+          "icon": "code",
+          "collections": [
+            "Oloid Platform - Enterprise Features :: API Guides"
+          ]
+        },
+        {
+          "group": "Changelog",
+          "icon": "megaphone",
+          "pages": [],
+          "$comment": "Release notes written by zudoku_changelog.py. `pages: []` stops build_nav listing more/ here; the pages are pinned in the sub-groups.",
+          "groups": [
+            {
+              "group": "Release notes",
+              "icon": "megaphone",
+              "pages": [
+                "changelog/overview"
+              ]
+            },
+            {
+              "group": "Web portals",
+              "icon": "browser",
+              "pages": [
+                "changelog/admin-portal",
+                "changelog/user-portal"
+              ]
+            },
+            {
+              "group": "Apps",
+              "icon": "mobile-screen",
+              "pages": [
+                "changelog/windows",
+                "changelog/android",
+                "changelog/ios",
+                "changelog/webkey",
+                "changelog/oloid-vault"
+              ]
+            },
+            {
+              "group": "More release notes",
+              "slug": "release-notes",
+              "icon": "clock-rotate-left",
+              "placeholder": false,
+              "$comment": "Merged from the old Resources > Release Notes group. Intercom's 'Release Notes' collection lands here (more/release-notes/); the group stays hidden while the collection is empty.",
+              "collections": [
+                "Release Notes :: Release Notes"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Drafts",
+      "icon": "pen-ruler",
+      "slug": "drafts",
+      "mirror_drafts": true,
+      "$comment": "Intercom drafts. build_nav.py mirrors every visible tab in here automatically (one menu per tab, reading pages from drafts/<tab>/<group>/). Only the menus below are declared by hand.",
+      "menu": [
+        {
+          "item": "Internal docs",
+          "icon": "lock",
+          "$comment": "Landing page for the signed-in Drafts collections (written in the Mintlify editor). Public itself; Unassigned and Excluded stay behind the login.",
+          "groups": [
+            {
+              "group": "Internal docs",
+              "public": true,
+              "pages": [
+                "drafts/internal-docs"
+              ]
+            }
+          ]
+        },
+        {
+          "item": "Unassigned",
+          "slug": "unassigned",
+          "icon": "inbox",
+          "review": "Intercom articles with no parent: no collection and no title rule placed them, or a collection no group claims. Published or not. Triage before launch.",
+          "groups": [
+            {
+              "group": "Unassigned in Intercom",
+              "slug": "intercom",
+              "collections": [
+                "_Unassigned :: _Unassigned"
+              ],
+              "icon": "lock",
+              "tag": "Internal"
+            },
+            {
+              "group": "Collection not in navigation",
+              "slug": "unmapped",
+              "catch_unmapped": true,
+              "collections": [],
+              "icon": "lock",
+              "tag": "Internal"
+            }
+          ]
+        },
+        {
+          "item": "Excluded",
+          "slug": "excluded",
+          "icon": "box-archive",
+          "review": "excluded_collections: kept out of the main navigation, written here so nothing is lost.",
+          "groups": [
+            {
+              "group": "M-Tag",
+              "slug": "m-tag",
+              "collections": [
+                "M-Tag :: Getting Started with M-Tag",
+                "M-Tag :: Installing and Configuring M-Tag",
+                "M-Tag :: Using M-Tag",
+                "M-Tag :: M-Tag Admin",
+                "M-Tag :: Troubleshooting M-Tag"
+              ]
+            },
+            {
+              "group": "Oloid App",
+              "slug": "oloid-app",
+              "collections": [
+                "Oloid App :: Oloid App"
+              ]
+            },
+            {
+              "group": "What is Oloid?",
+              "slug": "what-is-oloid",
+              "collections": [
+                "What is Oloid? :: What is Oloid?"
+              ],
+              "icon": "lock",
+              "tag": "Internal"
+            },
+            {
+              "group": "The Oloid Glossary",
+              "slug": "glossary",
+              "collections": [
+                "The Oloid Glossary :: The Oloid Glossary"
+              ]
+            },
+            {
+              "group": "Oloid Platform Starter",
+              "slug": "platform-starter",
+              "collections": [
+                "Oloid Platform Starter :: Oloid Platform Starter"
+              ]
+            }
+          ]
+        }
+      ],
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+---
+title: "Internal docs"
+description: "Restricted OLOID drafts for signed-in team members in the oloid and test groups."
+icon: "lock"
+public: true
+---
+
+Some draft collections on this site are internal. You need to sign in with an account in an approved group to open them. Everything else on the site stays public.
+
+<Visibility for="signed-out">
+  <Note>
+    **Sign in to view internal docs.** Select **Log in** in the navigation bar, then sign in with your OLOID account. After you sign in, the internal collections appear in the sidebar and on this page.
+  </Note>
+
+  ## What's behind the login
+
+  | Collection | What it contains |
+  | :-- | :-- |
+  | **Unassigned in Intercom** | Intercom articles that are not yet assigned to a docs section. |
+  | **Collection not in navigation** | Articles from Intercom collections that are not mapped to the site navigation yet. |
+  | **Excluded** | Articles held back from the published docs. |
+</Visibility>
+
+<Visibility for={{ groups:["oloid","test"] }}>
+  <Check>
+    You're signed in and have access to the internal docs.
+  </Check>
+
+  <Columns cols={3}>
+    <Card title="Unassigned in Intercom" icon="inbox" href="/drafts/unassigned/intercom/adoption-metrics">
+      Intercom articles that are not yet assigned to a docs section.
+    </Card>
+
+    <Card title="Collection not in navigation" icon="folder-open" href="/drafts/unassigned/unmapped/flows-tba">
+      Articles from collections that are not mapped to the navigation yet.
+    </Card>
+
+    <Card title="Excluded" icon="box-archive" href="/drafts/excluded/what-is-oloid/what-is-oloid-tba">
+      Articles held back from the published docs.
+    </Card>
+  </Columns>
+</Visibility>
+
+<Visibility for={{ groups:{includes:["*"],excludes:["oloid","test"]} }}>
+  <Warning>
+    **Your account doesn't have access yet.** You're signed in, but your account isn't in the `oloid` or `test` group. Ask your OLOID admin to add you to one of these groups, then sign out and sign in again.
+  </Warning>
+</Visibility>
+
+## Access rules
+
+- **Public docs**: Platforms & Solutions, Integrations, OLOID Platform, Help & Reference, More Resources, and the other Drafts collections. No login needed.
+- **Internal docs**: Unassigned and Excluded drafts. Requires sign-in and membership in the `oloid` or `test` group.
+- If you open an internal link without access, the page shows as not found.

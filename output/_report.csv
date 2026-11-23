@@ -1,0 +1,48 @@
+﻿metric,value
+generated_at,2026-09-16T11:43:48.255428+00:00
+split_by,product
+api_total_count,1735
+articles_fetched,1735
+not_fetched,0
+api_total_pages,12
+pages_fetched,12
+duplicates_skipped,0
+failed_pages,0
+collections_fetched,203
+groups,21
+
+breakdown,count
+NEW,0
+UPDATED,1
+UNCHANGED,1734
+REMOVED,0
+
+article_state,count
+draft,391
+published,1344
+
+product,articles
+M-Tag,17
+Oloid App,9
+Oloid Chrome Vault,67
+Oloid CloudKey,10
+Oloid Platform - Enterprise Features,391
+Oloid Platform Starter,1
+Oloid User Portal,31
+Oloid Verify/Connect,184
+Oloid Workflow,44
+Oloid Workflow (TBD),15
+Passwordless Authenticator,369
+Quick Reference Guides ( QRG),4
+Release Notes,1
+Supervisor App,69
+Supervisor Portal,63
+Supporting Documents,6
+The Oloid Glossary,1
+Troubleshooting,2
+What is Oloid?,1
+Windows Login (Healthcare ),29
+_Unassigned,421
+
+change,product,article_id,title,url
+UPDATED,_Unassigned,16897074,Oloid Vault - How to Deploy Oloid Vault using Group Policy (GPO) Machine Scope,https://oloid.help/en/articles/16897074-oloid-vault-how-to-deploy-oloid-vault-using-group-policy-gpo-machine-scope
