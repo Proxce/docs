@@ -321,6 +321,26 @@ tab from the Zudoku OpenAPI specs (`--zudoku`, default `O:/zudoku-1`, reading
 - Servers are the spec's own (preview / dev). The Ask Oloid index skips
   `api-reference/advanced|scoped` and any page with `groups:` in frontmatter.
 
+## Topbar icons
+
+`topbar-icons.js` + `topbar-icons.css` replace Mintlify's wide search field
+and Ask AI control on desktop (>= 1024px) with two round 36px icon buttons,
+first in `.topbar-right-container`: Search (magnifier) and Ask Assistant (the
+Oloid drop). Each forwards its click to Mintlify's own control, so the
+built-in search and assistant open and Ctrl/Cmd+K, Ctrl/Cmd+I keep working.
+Tooltips show on hover and keyboard focus.
+
+- **Fail safe.** Mintlify's controls are hidden only after a replacement is
+  mounted (`html.oloid-has-search` / `.oloid-has-assistant`), and moved
+  off-screen rather than removed. No script, no hiding. The Ask Assistant
+  icon appears only when the site has the assistant.
+- **Timing.** The script waits for `load` + idle before touching the topbar
+  (earlier insertion broke React hydration, error #418), re-mounts on DOM
+  changes and re-checks for ~2s after crossing 1024px.
+- **Local preview.** `mint dev` inlines custom scripts but runs them late and
+  not always; it also has no assistant and no Log Out. Verify the assistant
+  icon on a deployed preview.
+
 ## Ask Oloid assistant
 
 `ask-oloid.js` / `ask-oloid.css` are the topbar button and chat sidebar. They
@@ -377,10 +397,7 @@ has a sidebar:
 
 `docs.json` cannot change any of this: `styling` carries only `eyebrows` and
 `codeblocks`, and `fonts` only takes family/weight - there is no size or
-density key. The compact topbar controls are among them
-(`--oloid-search-width` 180px, `--oloid-assistant-width` 120px,
-`--oloid-topbar-control-h` 32px; the Ask Oloid button's size is in
-`ask-oloid.css`). All sizes are CSS variables at the top of the `STYLE_CSS`
+density key. All sizes are CSS variables at the top of the `STYLE_CSS`
 constant in `intercom_to_mintlify.py`, so making it smaller again is one block
 to edit. Do not edit `style.css` directly; the script overwrites it.
 

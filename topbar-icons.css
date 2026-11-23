@@ -1,0 +1,126 @@
+/* ==========================================================================
+   Topbar icons (behaviour in topbar-icons.js)
+
+   Round, icon-only Search and Ask Assistant buttons, sized and coloured like
+   Mintlify's theme toggle (36px circle, 3% fill, 10% on hover) plus a light
+   border. Desktop only: below 1024px nothing here applies and the mobile
+   topbar is untouched.
+
+   Mintlify's own search / assistant controls are hidden ONLY when the script
+   has mounted a replacement (html.oloid-has-search / .oloid-has-assistant).
+   They are moved off-screen rather than removed, so the script can still
+   forward clicks to them and their keyboard shortcuts keep working.
+   ========================================================================== */
+:root {
+  --oloid-icon-size: 36px;
+  --oloid-icon-fill: rgb(16 24 40 / 0.03);
+  --oloid-icon-fill-hover: rgb(16 24 40 / 0.10);
+  --oloid-icon-border: rgb(16 24 40 / 0.10);
+  --oloid-icon-color: rgb(16 24 40 / 0.62);
+  --oloid-icon-color-hover: rgb(16 24 40 / 0.85);
+  --oloid-tip-bg: #101828;
+  --oloid-tip-fg: #ffffff;
+}
+:root.dark,
+:root[class~="dark"] {
+  --oloid-icon-fill: rgb(255 255 255 / 0.03);
+  --oloid-icon-fill-hover: rgb(255 255 255 / 0.10);
+  --oloid-icon-border: rgb(255 255 255 / 0.12);
+  --oloid-icon-color: rgb(255 255 255 / 0.62);
+  --oloid-icon-color-hover: rgb(255 255 255 / 0.90);
+  --oloid-tip-bg: #f3f6fb;
+  --oloid-tip-fg: #101828;
+}
+
+#oloid-topbar-icons { display: none; }
+
+@media (min-width: 1024px) {
+  #oloid-topbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: none;
+  }
+
+  .oloid-icon-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--oloid-icon-size);
+    height: var(--oloid-icon-size);
+    padding: 0;
+    border: 1px solid var(--oloid-icon-border);
+    border-radius: 9999px;
+    background: var(--oloid-icon-fill);
+    color: var(--oloid-icon-color);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .oloid-icon-btn:hover {
+    background: var(--oloid-icon-fill-hover);
+    color: var(--oloid-icon-color-hover);
+  }
+  .oloid-icon-btn:focus-visible {
+    outline: 2px solid #57AFFF;
+    outline-offset: 2px;
+  }
+  .oloid-icon-btn svg { flex: none; display: block; }
+
+  /* tooltip: below the button, right-aligned so it never leaves the screen;
+     shown on hover and on keyboard focus */
+  .oloid-icon-btn::after {
+    content: attr(data-tip) "  \00B7  " attr(data-keys);
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 60;
+    width: max-content;
+    max-width: 380px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: var(--oloid-tip-bg);
+    color: var(--oloid-tip-fg);
+    font: 500 12.5px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-align: left;
+    white-space: normal;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.18);
+    opacity: 0;
+    transform: translateY(-2px);
+    pointer-events: none;
+    transition: opacity 0.12s ease, transform 0.12s ease;
+  }
+  .oloid-icon-btn:hover::after,
+  .oloid-icon-btn:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mintlify's own controls, hidden only once replaced. Moved off-screen
+     instead of display:none so forwarded clicks and shortcuts still work. */
+  html.oloid-has-search #search-bar-entry,
+  html.oloid-has-search [data-layout-item="search-entry"],
+  html.oloid-has-search [data-search-item="trigger"],
+  html.oloid-has-assistant #assistant-entry,
+  html.oloid-has-assistant [data-layout-item="assistant-entry"] {
+    position: absolute !important;
+    width: 1px !important;
+    max-width: 1px !important;      /* Mintlify's w-fit! at >=1500px wins on width */
+    min-width: 0 !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  /* the hidden controls' wrappers should not keep their flex space */
+  html.oloid-has-search .topbar-right-container > div:has(> #search-bar-entry),
+  html.oloid-has-assistant .topbar-right-container > div:has(> #assistant-entry) {
+    flex: 0 0 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+  }
+}
