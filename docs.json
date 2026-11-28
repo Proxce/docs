@@ -2931,7 +2931,8 @@
       "view",
       "download-pdf",
       "claude",
-      "chatgpt"
+      "chatgpt",
+      "assistant"
     ]
   },
   "styling": {
